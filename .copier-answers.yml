@@ -1,0 +1,13 @@
+# Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
+_commit: 2025.05.02-35-ge7a5fb1
+_src_path: gh:scientific-python/cookie
+backend: hatch
+email: john.james.ai.studio@gmail.com
+full_name: John James
+license: MIT
+org: john-james-ai
+project_name: Mini Transformer
+project_short_description: A great package.Mini Transformer demonstrates core transformer
+    components
+url: https://github.com/john-james-ai/mini-transformer
+vcs: true

@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+    ],
+    "settings": {
+        "psi-header.variables": [
+        ["projectCreationYear", "2025"],
+        ["url", "https://github.com/john-james-ai/mini-transformer"],
+        ["projectname", "Mini-Transformer"],
+        ["version", "0.1.0"],
+        ["pythonversion","3.13.5"]
+    ],
+    }
+}

@@ -8,7 +8,7 @@ name = "Mini Transformer"
 authors = [
   { name = "John James", email = "john.james.ai.studio@gmail.com" },
 ]
-description = "A great package.Mini Transformer demonstrates core transformer components"
+description = "Mini Transformer demonstrates core transformer components"
 readme = "README.md"
 license = "MIT"
 license-files = ["LICENSE"]
