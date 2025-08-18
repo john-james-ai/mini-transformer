@@ -6,7 +6,7 @@ from typing import Any
 project = "Mini Transformer"
 copyright = "2025, John James"
 author = "John James"
-version = release = importlib.metadata.version("mini transformer")
+version = release = importlib.metadata.version("mini_transformer")
 
 extensions = [
     "myst_parser",

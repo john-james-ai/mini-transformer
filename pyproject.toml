@@ -58,7 +58,7 @@ docs = [
 
 [tool.hatch]
 version.source = "vcs"
-build.hooks.vcs.version-file = "src/mini transformer/_version.py"
+build.hooks.vcs.version-file = "mini_transformer/_version.py"
 
 [tool.hatch.envs.default]
 # duplicate for now since hatch doesn't support groups yet
@@ -80,14 +80,14 @@ testpaths = [
 
 
 [tool.coverage]
-run.source = ["mini transformer"]
+run.source = ["mini_transformer"]
 report.exclude_also = [
   '\.\.\.',
   'if typing.TYPE_CHECKING:',
 ]
 
 [tool.mypy]
-files = ["src", "tests"]
+files = ["mini_transformer", "tests"]
 python_version = "3.9"
 warn_unused_configs = true
 strict = true
@@ -97,7 +97,7 @@ disallow_untyped_defs = false
 disallow_incomplete_defs = false
 
 [[tool.mypy.overrides]]
-module = "mini transformer.*"
+module = "mini_transformer.*"
 disallow_untyped_defs = true
 disallow_incomplete_defs = true
 
@@ -134,7 +134,7 @@ ignore = [
 ]
 isort.required-imports = ["from __future__ import annotations"]
 # Uncomment if using a _compat.typing backport
-# typing-modules = ["mini transformer._compat.typing"]
+# typing-modules = ["mini_transformer._compat.typing"]
 
 [tool.ruff.lint.per-file-ignores]
 "tests/**" = ["T20"]

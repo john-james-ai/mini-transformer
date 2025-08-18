@@ -1,3 +1,21 @@
+#!/usr/bin/env python3
+# -*- coding:utf-8 -*-
+# ================================================================================================ #
+# Project    : Mini-Transformer                                                                    #
+# Version    : 0.1.0                                                                               #
+# Python     : 3.13.5                                                                              #
+# Filename   : /noxfile.py                                                                         #
+# ------------------------------------------------------------------------------------------------ #
+# Author     : John James                                                                          #
+# Email      : john.james.ai.studio@gmail.com                                                      #
+# URL        : https://github.com/john-james-ai/mini-transformer                                   #
+# ------------------------------------------------------------------------------------------------ #
+# Created    : Sunday August 17th 2025 10:12:41 pm                                                 #
+# Modified   : Monday August 18th 2025 09:17:13 am                                                 #
+# ------------------------------------------------------------------------------------------------ #
+# License    : MIT License                                                                         #
+# Copyright  : (c) 2025 John James                                                                 #
+# ================================================================================================ #
 from __future__ import annotations
 
 import argparse
@@ -32,7 +50,7 @@ def pylint(session: nox.Session) -> None:
     # This needs to be installed into the package environment, and is slower
     # than a pre-commit check
     session.install("-e.", "pylint>=3.2")
-    session.run("pylint", "mini transformer", *session.posargs)
+    session.run("pylint", "mini_transformer", *session.posargs)
 
 
 @nox.session
@@ -91,7 +109,7 @@ def build_api_docs(session: nox.Session) -> None:
         "--module-first",
         "--no-toc",
         "--force",
-        "src/mini transformer",
+        "mini_transformer",
     )
 
 

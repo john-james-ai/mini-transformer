@@ -1,3 +1,39 @@
+#!/usr/bin/env python3
+# -*- coding:utf-8 -*-
+# ================================================================================================ #
+# Project    : Mini-Transformer                                                                    #
+# Version    : 0.1.0                                                                               #
+# Python     : 3.13.5                                                                              #
+# Filename   : /.pre-commit-config.yaml                                                            #
+# ------------------------------------------------------------------------------------------------ #
+# Author     : John James                                                                          #
+# Email      : john.james.ai.studio@gmail.com                                                      #
+# URL        : https://github.com/john-james-ai/mini-transformer                                   #
+# ------------------------------------------------------------------------------------------------ #
+# Created    : Sunday August 17th 2025 10:12:41 pm                                                 #
+# Modified   : Monday August 18th 2025 09:17:27 am                                                 #
+# ------------------------------------------------------------------------------------------------ #
+# License    : MIT License                                                                         #
+# Copyright  : (c) 2025 John James                                                                 #
+# ================================================================================================ #
+#!/usr/bin/env python3
+# -*- coding:utf-8 -*-
+# ================================================================================================ #
+# Project    : Mini-Transformer                                                                    #
+# Version    : 0.1.0                                                                               #
+# Python     : 3.13.5                                                                              #
+# Filename   : /.pre-commit-config.yaml                                                            #
+# ------------------------------------------------------------------------------------------------ #
+# Author     : John James                                                                          #
+# Email      : john.james.ai.studio@gmail.com                                                      #
+# URL        : https://github.com/john-james-ai/mini-transformer                                   #
+# ------------------------------------------------------------------------------------------------ #
+# Created    : Sunday August 17th 2025 10:12:41 pm                                                 #
+# Modified   : Monday August 18th 2025 09:15:54 am                                                 #
+# ------------------------------------------------------------------------------------------------ #
+# License    : MIT License                                                                         #
+# Copyright  : (c) 2025 John James                                                                 #
+# ================================================================================================ #
 ci:
   autoupdate_commit_msg: "chore: update pre-commit hooks"
   autofix_commit_msg: "style: pre-commit fixes"
@@ -52,7 +88,7 @@ repos:
     rev: "v1.17.1"
     hooks:
       - id: mypy
-        files: src|tests
+        files: mini_transformer|tests
         args: []
         additional_dependencies:
           - pytest

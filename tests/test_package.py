@@ -2,8 +2,8 @@ from __future__ import annotations
 
 import importlib.metadata
 
-import mini transformer as m
+import mini_transformer as m
 
 
 def test_version():
-    assert importlib.metadata.version("mini transformer") == m.__version__
+    assert importlib.metadata.version("mini_transformer") == m.__version__
