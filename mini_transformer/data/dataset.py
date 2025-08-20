@@ -11,7 +11,7 @@
 # URL        : https://github.com/john-james-ai/mini-transformer                                   #
 # ------------------------------------------------------------------------------------------------ #
 # Created    : Tuesday August 19th 2025 08:17:31 am                                                #
-# Modified   : Tuesday August 19th 2025 04:15:03 pm                                                #
+# Modified   : Wednesday August 20th 2025 03:34:58 am                                              #
 # ------------------------------------------------------------------------------------------------ #
 # License    : MIT License                                                                         #
 # Copyright  : (c) 2025 John James                                                                 #
@@ -120,3 +120,8 @@ class Dataset(Iterator):
             this method and return ``None``.
         """
         return self._data[idx]
+
+
+# ------------------------------------------------------------------------------------------------ #
+class TranslationDataset(Dataset):
+    """"""
