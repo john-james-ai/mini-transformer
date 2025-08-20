@@ -11,7 +11,7 @@
 # URL        : https://github.com/john-james-ai/mini-transformer                                   #
 # ------------------------------------------------------------------------------------------------ #
 # Created    : Sunday August 17th 2025 10:12:42 pm                                                 #
-# Modified   : Monday August 18th 2025 11:07:33 pm                                                 #
+# Modified   : Monday August 18th 2025 11:59:57 pm                                                 #
 # ------------------------------------------------------------------------------------------------ #
 # License    : MIT License                                                                         #
 # Copyright  : (c) 2025 John James                                                                 #

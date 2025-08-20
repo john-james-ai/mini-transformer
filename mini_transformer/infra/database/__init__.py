@@ -10,8 +10,8 @@
 # Email      : john.james.ai.studio@gmail.com                                                      #
 # URL        : https://github.com/john-james-ai/mini-transformer                                   #
 # ------------------------------------------------------------------------------------------------ #
-# Created    : Sunday August 17th 2025 10:12:42 pm                                                 #
-# Modified   : Monday August 18th 2025 11:07:33 pm                                                 #
+# Created    : Tuesday August 19th 2025 09:52:36 pm                                                #
+# Modified   : Tuesday August 19th 2025 09:52:40 pm                                                #
 # ------------------------------------------------------------------------------------------------ #
 # License    : MIT License                                                                         #
 # Copyright  : (c) 2025 John James                                                                 #

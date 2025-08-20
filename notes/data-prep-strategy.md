@@ -1,120 +1,121 @@
-# Data Prep Strategy: Numpy vs Pytorch
+# Data Prep Strategy
 
-## ✅ Good to outsource
+**1) Sampler (stream → manifest)**
 
-**Tokenization** (text → IDs)
+* Does **reservoir sampling** over the HF streaming iterator.
+* Applies **pre-filters** (e.g., language keys present, non-empty, char-length caps).
+* Emits a **manifest** (e.g., JSONL) with immutable fields per row:
 
-* It’s I/O and string processing, not differentiable.
-* Using Hugging Face `tokenizers` / SentencePiece is fine. You’ll feed **integer ID arrays** into your NumPy model.
+  * `uid` (stable content hash), `src_text`, `tgt_text`, `split` (train/val/test),
+  * dataset **revision** / commit id, `seed`, `k`, and any filters used.
+* You can re-run to refresh the sample *or* load from disk.
 
-## 🚫 Don’t outsource if you want to train in NumPy
+**2) Preprocessor / Tokenizer (manifest → token ids)**
 
-**Embedding layer** (IDs → vectors) and **positional encoding** (add order)
+* Takes manifest rows and applies deterministic normalization + **SentencePiece** encode.
+* Optionally writes a **tokenized cache** (npz/arrow) so you don’t tokenize every epoch.
+* Records tokenizer **artifact hash** (SPM model path + checksum + settings).
 
-* If you compute embeddings in PyTorch and the rest in NumPy, you **cannot backprop into the Torch embedding** from NumPy. It will be **frozen**.
-* For learning, you want the gradients to update the **embedding matrix** (and everything downstream). That’s trivial in NumPy for a toy model.
-* Positional encodings are just math; implement in NumPy in minutes.
+**3) Dataset (read-only view)**
 
-# Two viable setups
+* Indexable, returns a single example’s **token ids** (and lengths).
+* No padding here—keep examples atomic; it makes caching and testing easier.
+* Can be parameterized to read from **local cache** or re-run sampler+preprocess.
 
-## Option A — Recommended for learning
+**4) Collate / DataLoader**
 
-* **Tokenizer**: HF/SentencePiece (Python API) → returns `np.int32` IDs.
-* **Everything else**: NumPy (Embedding params, PosEnc, QKV, attention, FFN, logits, loss, your own backprop/updates).
+* **Dynamic padding** to the batch max length (or fixed `T` if you prefer).
+* Builds `(tokens, targets, attention_mask)`; for LM, targets = tokens shifted by 1.
+* Shuffling, epoch semantics, `drop_last`, **seeded reproducibility**.
+* Optional length-based **bucketing** (sort-within-buckets) to reduce pad waste.
 
-Pros: end-to-end gradients in one framework; you truly “grok training.”
+# Why not put sampling + tokenization inside `Dataset`?
 
-## Option B — If you insist on mixing
+* **Immutability & reproducibility**: a separate Sampler produces a *frozen* manifest you can version and re-use across experiments.
+* **Caching**: tokenization is the slow step; decoupling lets you cache encoded results and swap tokenizers without touching the sampler.
+* **Testing**: each stage gets its own invariants (see below), easier to isolate bugs.
 
-* **Tokenizer**: HF/SentencePiece.
-* **Embeddings/PE**: PyTorch (forward only), **frozen**. Export each batch to NumPy with `.detach().cpu().numpy()` and continue the model in NumPy.
+# Persistence & reproducibility (what to save)
 
-Cons: you lose learning signal for embeddings; extra copies across frameworks; easy to make dtype/shape mistakes. Only useful if you *explicitly* want fixed embeddings.
+* `manifest.jsonl` (120 rows) + a tiny `MANIFEST.meta.json`:
 
-# What you actually need to implement in NumPy (it’s not that bad)
+  * dataset name, **splits included**, **revision hash**, **seed**, **k**, filter thresholds,
+  * reservoir algorithm (“classic”/ES-weighted), timestamp.
+* `token_cache/` with encoded arrays and an `ENCODE.meta.json`:
 
-## 1) Embedding layer (trainable)
+  * SPM model **checksum**, `vocab_size`, `char_coverage`, `byte_fallback`, normalization flags.
+* Keep a single **experiment id** tying manifest + encode config together.
 
-```python
-# params
-E = 0.02 * np.random.randn(V, d).astype(np.float32)  # vocab, d_model
+# Practical knobs (defaults that work well)
 
-# forward: ids -> vectors
-def embed(ids):  # ids: (B, T) int
-    return E[ids]  # (B, T, d)
-```
+* **Sampling**: `k=120`, `seed=42`, stream `train+validation`, simple char-length cap (e.g., 2–256 chars per side) before tokenization.
+* **Tokenization**: SPM Unigram, `vocab=2k–8k`, `byte_fallback=true`. Tokenize **after** sampling.
+* **Padding**: dynamic in collate; for your NumPy training, you can also choose a fixed `T` (64–128) and truncate longer examples once at cache time to simplify masks.
+* **Batching** (CPU): `B=8–16` is a sweet spot. With 96 train rows, even full-batch is fine.
 
-Backprop: accumulate gradients for the rows you indexed (simple scatter-add).
+# Edge cases & failure modes to guard
 
-## 2) Positional encoding (sinusoidal)
+* **Duplicates**: optional exact-duplicate filter by **normalized text hash** before sampling (or dedup the reservoir before splitting).
+* **Empty/degenerate pairs**: drop rows with empty sides or only punctuation.
+* **Unicode drift**: fix normalization (NFKC) consistently in both hashing and tokenization.
+* **Resampling by accident**: ensure `Dataset` never re-triggers the sampler if a cached manifest is present—make “materialize” an explicit step.
+* **Leakage**: split **once** (train/val/test labels in the manifest) and never reshuffle splits downstream.
 
-```python
-def sinusoid_pe(T, d):
-    pos = np.arange(T)[:, None]
-    i = np.arange(d)[None, :]
-    theta = pos / (10000 ** ( (2*(i//2)) / d ))
-    pe = np.zeros((T, d), dtype=np.float32)
-    pe[:, 0::2] = np.sin(theta[:, 0::2])
-    pe[:, 1::2] = np.cos(theta[:, 1::2])
-    return pe  # (T, d)
+# Minimal interface sketch (no code, just contracts)
 
-# use:
-PE_src = sinusoid_pe(S_max, d)  # broadcast to (B, T, d)
-PE_tgt = sinusoid_pe(T_max, d)
-```
+* **Sampler**: `materialize(k, seed, splits, filters) -> manifest_path`
+* **Preprocessor**: `encode(manifest_path, spm_model, out_dir) -> cache_dir`
+* **Dataset**: `__len__`, `__getitem__(i) -> {ids, length}` (reads cache)
+* **DataLoader**: iterator yielding `{tokens: (B,T), targets: (B,T), attn_mask: (B,T,T or B,1,T)}`
 
-## 3) Masked self-attention & cross-attention
+# Sanity tests (fast and worth it)
 
-* Keep consistent shapes: `(B, T, d)` → project to `(B, h, T, d_h)`.
-* Use a **causal mask** for decoder self-attn and a **pad mask** for both streams.
-* Add mask as `-1e9` before softmax.
+* Reservoir property on synthetic stream (frequency check across many runs).
+* Determinism: same `seed+revision` ⇒ identical `uid` set.
+* Tokenization parity: re-encode a handful of rows and verify exact match to cache.
+* Collate: shapes/dtypes, mask correctness, and loss decreases on a one-batch overfit.
 
-## 4) Loss & training loop
+If you follow this split, you keep your PyTorch-like ergonomics, but each layer remains small, testable, and swappable. You’ll also avoid the “mystery resample” and “tokenizer drift” traps that eat time later.
 
-* Cross-entropy on logits vs target IDs (ignore pad).
-* Optimizer: start with SGD or Adam you write yourself (single file).
-* Manual backprop: do-able for a 1–2 layer toy. If that’s too heavy, start with a **bigram LM** to warm up, then add attention.
+## The Non-OverEngineered Version
+totally fair. let’s keep it *mini* and ruthlessly simple.
 
-# Interface contract: mixing tokenizers with your NumPy model
+# the bare-minimum plan (no over-engineering)
 
-**Tokenizer side (HF tokenizers / SentencePiece)**
+1. **sample once (streaming + reservoir)**
 
-```python
-# Example with HF tokenizers
-ids_src = tokenizer_src.encode_batch(list_of_src_strings)
-ids_tgt = tokenizer_tgt.encode_batch(list_of_tgt_strings)
-# pad to (B, S_max) and (B, T_max), build masks and shifted Y_in / labels Y_out
-X_ids = np.array(padded_src_ids, dtype=np.int32)     # (B, S_max)
-Y_in  = np.array(padded_tgt_ids_shifted, np.int32)   # (B, T_max)
-Y_out = np.array(padded_tgt_labels, np.int32)        # (B, T_max)
-M_src = (X_ids != pad_id).astype(np.float32)         # (B, S_max)
-M_tgt = (Y_out != pad_id).astype(np.float32)         # (B, T_max)
-```
+   * Iterate `load_dataset("wmt14","fr-en", streaming=True, split="train")`.
+   * Keep a 120-item reservoir.
+   * After the pass: shuffle once → split to 96/12/12.
+   * (Optional) dump to a tiny `manifest.jsonl` so you never resample.
 
-**NumPy model expects**:
+2. **tokenize after you’ve got the 120**
 
-* `X_ids, Y_in, Y_out, M_src, M_tgt`
-* It does: `X = embed(X_ids) + PE_src[:S_max]; Y0 = embed(Y_in) + PE_tgt[:T_max]`
-* Then decoder: masked self-attn → cross-attn with encoder → FFN → logits → CE loss.
+   * Use one tokenizer (e.g., SentencePiece).
+   * Encode to ids, then **truncate/pad to a fixed T** (pick 64 or 128).
+   * Build targets by shifting by 1. Done.
 
-# Practical advice to avoid pain
+3. **dataset / loader (keep it dumb)**
 
-* **Keep everything on CPU float32**. Mixed dtypes or float64 will bite you in softmax and Adam.
-* **Freeze vocab early**. Tokenizer must match your embedding matrix `V`. Export `pad_id`, `bos_id`, `eos_id`.
-* **Batch by similar lengths** (bucketing) to reduce padding and speed up.
-* **Start tiny**: `d=32`, `h=2`, `L=1`, vocab < 200, seq len ≤ 8, batch 8–16. Prove training drops loss and reaches >95% accuracy on your tiny set; then add depth/width.
-* **Unit test blocks**: write small shape/gradient checks for: embeddings, softmax+mask, attention weights sum to \~1 where unmasked, CE ignores pads.
+   * **Dataset**: just holds 3 numpy arrays: `tokens`, `targets`, `attn_mask` (or build mask on the fly).
+   * **Loader**: a tiny iterator that slices those arrays into batches.
+   * For 96 training rows, **full-batch** is fine; if you want, use `B=8–16`.
 
-# A minimal plan (weekend-scale)
+4. **training loop**
 
-1. **Data**: make 20–50 parallel pairs (or use a tiny Tatoeba sample), tokenize with HF tokenizers → NumPy IDs.
-2. **Model**: implement Embedding, Sinusoid PE, 1-layer encoder, 1-layer decoder, attention + FFN.
-3. **Train**: write CE loss + simple SGD/Adam; train until it outputs the correct English for the few training pairs (i.e., “memorize” → confirms your gradients).
-4. **Infer**: greedy decode; verify it produces the right strings.
+   * No epochs gymnastics—just loop a few hundred steps, reshuffling between passes if you like.
+   * Skip dropout. AdamW `lr≈1e-3`. Overfit a single batch once to sanity-check.
 
-If you want, I can give you:
+# what to persist (so you don’t redo work)
 
-* a **tiny tokenizer stub** (pure-Python “split on space” with a toy vocab) to eliminate external deps, or
-* a **NumPy training skeleton** (functions and parameter dicts), into which you drop the tokenized arrays.
+* If you care about reuse: save only **the 120 examples** (text), **your seed**, and **tokenizer path**. Everything else can be rebuilt in seconds.
 
-Tell me which you prefer and I’ll spit out a ready-to-run scaffold.
+# tiny invariants worth checking (and nothing more)
+
+* Exactly 96/12/12 counts.
+* No empty strings.
+* Max length ≤ T after tokenization.
+* Causal mask blocks future tokens (spot-check one batch).
+* One-batch overfit → loss → \~0.
+
+that’s it. if you want, i can sketch *signatures* for the sampler and the super-light dataset/loader (no code dump), but you’ve got the right instincts—keep it boring and tiny.
