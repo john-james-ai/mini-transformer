@@ -4,54 +4,39 @@
 # Project    : Mini-Transformer                                                                    #
 # Version    : 0.1.0                                                                               #
 # Python     : 3.13.5                                                                              #
-# Filename   : /config.yaml                                                                        #
+# Filename   : /dtypes.py                                                                          #
 # ------------------------------------------------------------------------------------------------ #
 # Author     : John James                                                                          #
 # Email      : john.james.ai.studio@gmail.com                                                      #
 # URL        : https://github.com/john-james-ai/mini-transformer                                   #
 # ------------------------------------------------------------------------------------------------ #
-# Created    : Tuesday August 19th 2025 08:00:33 pm                                                #
-# Modified   : Friday August 22nd 2025 06:41:00 am                                                 #
+# Created    : Thursday August 21st 2025 08:18:33 pm                                               #
+# Modified   : Thursday August 21st 2025 08:18:38 pm                                               #
 # ------------------------------------------------------------------------------------------------ #
 # License    : MIT License                                                                         #
 # Copyright  : (c) 2025 John James                                                                 #
 # ================================================================================================ #
-logging:
-  disable_existing_loggers: false
-  formatters:
-    console:
-      datefmt: '%m/%d/%Y %I:%M:%S %p'
-      format: '[%(asctime)s] [%(levelname)s] [%(name)s] [%(funcName)s] : %(message)s'
-    file:
-      datefmt: '%m/%d/%Y %I:%M:%S %p'
-      format: '[%(asctime)s] [%(levelname)s] [%(name)s] [%(module)s] [%(funcName)s]
-        : %(message)s'
-  handlers:
-    console:
-      class: logging.StreamHandler
-      formatter: console
-      level: INFO
-      stream: ext://sys.stderr
-    file:
-      backupCount: 0
-      class: logging.handlers.TimedRotatingFileHandler
-      filename: logs/mini-transformer.log
-      formatter: file
-      interval: 1
-      level: DEBUG
-      when: midnight
-  root:
-    handlers:
-    - console
-    - file
-    level: INFO
-  version: 1
-# ------------------------------------------------------------------------------------------------ #
-utils:
-  printer:
-    line_width: 80
-# ------------------------------------------------------------------------------------------------ #
-repo:
-  location: tests/data/datasets/
+from datetime import date, datetime
 
+import numpy as np
 
+# ------------------------------------------------------------------------------------------------ #
+IMMUTABLE_TYPES: tuple = (
+    str,
+    int,
+    float,
+    bool,
+    np.int16,
+    np.int32,
+    np.int64,
+    np.int8,
+    np.uint8,
+    np.uint16,
+    np.float16,
+    np.float32,
+    np.float64,
+    np.float128,
+    np.bool_,
+    datetime,
+    date,
+)

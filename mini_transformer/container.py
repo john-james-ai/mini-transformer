@@ -4,14 +4,14 @@
 # Project    : Mini-Transformer                                                                    #
 # Version    : 0.1.0                                                                               #
 # Python     : 3.13.5                                                                              #
-# Filename   : /container,oy                                                                       #
+# Filename   : /container.py                                                                       #
 # ------------------------------------------------------------------------------------------------ #
 # Author     : John James                                                                          #
 # Email      : john.james.ai.studio@gmail.com                                                      #
 # URL        : https://github.com/john-james-ai/mini-transformer                                   #
 # ------------------------------------------------------------------------------------------------ #
 # Created    : Tuesday August 19th 2025 07:59:27 pm                                                #
-# Modified   : Wednesday August 20th 2025 12:24:05 am                                              #
+# Modified   : Friday August 22nd 2025 06:33:37 am                                                 #
 # ------------------------------------------------------------------------------------------------ #
 # License    : MIT License                                                                         #
 # Copyright  : (c) 2025 John James                                                                 #
@@ -24,6 +24,7 @@ import logging.config  # pragma: no cover
 import redis
 from dependency_injector import containers, providers
 
+from mini_transformer.data.repo import DatasetRepo
 from mini_transformer.infra.database.fal import FileAccessLayer
 from mini_transformer.infra.database.oal import ObjectAccessLayer
 
@@ -56,21 +57,11 @@ class DatasetRepoContainer(containers.DeclarativeContainer):
         decode_responses=config.redis.decode_responses,
     )
 
-    oal = providers.Singleton(ObjectAccessLayer, connection_pool=pool)
+    oal = providers.Singleton(ObjectAccessLayer, location=config.location)
 
-    fal = providers.Singleton(FileAccessLayer, data_root=config.data_root)
+    fal = providers.Singleton(FileAccessLayer, location=config.location)
 
-    db = providers.DependenciesContainer()
-
-    metrics_extract_repo = providers.Singleton(ExtractMetricsRepo, database=db.mysql)
-
-    metrics_extract = providers.Singleton(
-        ExtractMonitorDecorator, repo=metrics_extract_repo
-    )
-
-    error_repo = providers.Singleton(ErrorLogRepo, database=db.mysql)
-
-    error = providers.Callable(log_error, repo=error_repo)
+    repo = providers.Singleton(DatasetRepo, fal=fal, oal=oal)
 
 
 # ------------------------------------------------------------------------------------------------ #
@@ -78,12 +69,8 @@ class DatasetRepoContainer(containers.DeclarativeContainer):
 # ------------------------------------------------------------------------------------------------ #
 class MiniTransformerContainer(containers.DeclarativeContainer):
 
-    config = providers.Configuration(yaml_files=["config.yml"])
+    config = providers.Configuration(yaml_files=["config.yaml"])
 
     logs = providers.Container(LoggingContainer, config=config)
 
     repo = providers.Container(DatasetRepoContainer, config=config.repo)
-
-    db = providers.Container(DatabaseContainer)
-
-    monitor = providers.Container(MonitorContainer, db)

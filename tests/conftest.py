@@ -4,54 +4,40 @@
 # Project    : Mini-Transformer                                                                    #
 # Version    : 0.1.0                                                                               #
 # Python     : 3.13.5                                                                              #
-# Filename   : /config.yaml                                                                        #
+# Filename   : /conftest.py                                                                        #
 # ------------------------------------------------------------------------------------------------ #
 # Author     : John James                                                                          #
 # Email      : john.james.ai.studio@gmail.com                                                      #
 # URL        : https://github.com/john-james-ai/mini-transformer                                   #
 # ------------------------------------------------------------------------------------------------ #
-# Created    : Tuesday August 19th 2025 08:00:33 pm                                                #
-# Modified   : Friday August 22nd 2025 06:41:00 am                                                 #
+# Created    : Friday August 22nd 2025 05:23:36 am                                                 #
+# Modified   : Friday August 22nd 2025 05:57:32 am                                                 #
 # ------------------------------------------------------------------------------------------------ #
 # License    : MIT License                                                                         #
 # Copyright  : (c) 2025 John James                                                                 #
 # ================================================================================================ #
-logging:
-  disable_existing_loggers: false
-  formatters:
-    console:
-      datefmt: '%m/%d/%Y %I:%M:%S %p'
-      format: '[%(asctime)s] [%(levelname)s] [%(name)s] [%(funcName)s] : %(message)s'
-    file:
-      datefmt: '%m/%d/%Y %I:%M:%S %p'
-      format: '[%(asctime)s] [%(levelname)s] [%(name)s] [%(module)s] [%(funcName)s]
-        : %(message)s'
-  handlers:
-    console:
-      class: logging.StreamHandler
-      formatter: console
-      level: INFO
-      stream: ext://sys.stderr
-    file:
-      backupCount: 0
-      class: logging.handlers.TimedRotatingFileHandler
-      filename: logs/mini-transformer.log
-      formatter: file
-      interval: 1
-      level: DEBUG
-      when: midnight
-  root:
-    handlers:
-    - console
-    - file
-    level: INFO
-  version: 1
-# ------------------------------------------------------------------------------------------------ #
-utils:
-  printer:
-    line_width: 80
-# ------------------------------------------------------------------------------------------------ #
-repo:
-  location: tests/data/datasets/
+import pytest
+
+from mini_transformer.container import MiniTransformerContainer
+from mini_transformer.data.builder import TranslationDatasetBuilder
+from mini_transformer.data.config import DatasetConfig
 
 
+# ------------------------------------------------------------------------------------------------ #
+#                              DEPENDENCY INJECTION                                                #
+# ------------------------------------------------------------------------------------------------ #
+@pytest.fixture(scope="module", autouse=True)
+def container():
+    container = MiniTransformerContainer()
+    container.init_resources()
+    return container
+
+
+# ------------------------------------------------------------------------------------------------ #
+#                                        DATASET                                                   #
+# ------------------------------------------------------------------------------------------------ #
+@pytest.fixture(scope="module", autouse=False)
+def dataset():
+    config = DatasetConfig(split="test", dataset_size=16, oversample=3)
+    builder = TranslationDatasetBuilder(config=config)
+    return builder.build()

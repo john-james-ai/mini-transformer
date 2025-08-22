@@ -11,13 +11,12 @@
 # URL        : https://github.com/john-james-ai/mini-transformer                                   #
 # ------------------------------------------------------------------------------------------------ #
 # Created    : Tuesday August 19th 2025 06:50:12 am                                                #
-# Modified   : Wednesday August 20th 2025 03:05:28 am                                              #
+# Modified   : Friday August 22nd 2025 06:09:27 am                                                 #
 # ------------------------------------------------------------------------------------------------ #
 # License    : MIT License                                                                         #
 # Copyright  : (c) 2025 John James                                                                 #
 # ================================================================================================ #
 from dataclasses import dataclass, field
-from pathlib import Path
 
 from mini_transformer.utils.mixins import FingerprintMixin
 
@@ -31,7 +30,7 @@ class DatasetConfig(FingerprintMixin):
     and simple length/ratio filters. Fields marked with ``metadata={"stable": True}``
     participate in the stable fingerprint computed by
     :meth:`FingerprintMixin.fingerprint`, which is then used to derive a
-    deterministic output filename.
+    deterministic output name.
 
     Attributes:
         dataset (str): Hugging Face dataset name (e.g., ``"wmt14"``).
@@ -64,7 +63,7 @@ class DatasetConfig(FingerprintMixin):
         seed (int): RNG seed used for sampling/shuffling.
 
     Properties:
-        dataset_filename (Path): Deterministic filename derived from stable
+        dataset_name (Path): Deterministic name derived from stable
             fields and the fingerprint (JSONL, one record per line).
         src_max_words (int): Word-count cap for source strings computed from
             ``tokens_max`` and BOS/EOS flags (fudge-factor based).
@@ -74,7 +73,7 @@ class DatasetConfig(FingerprintMixin):
     Example:
         >>> cfg = DatasetConfig(dataset="wmt14", lang="fr-en", split="train",
         ...                     dataset_size=160, seed=42)
-        >>> cfg.dataset_filename.name  # doctest: +SKIP
+        >>> cfg.dataset_name.name  # doctest: +SKIP
         'wmt14_fr-en_train_k160_seed42_ab12cd34.jsonl'
     """
 
@@ -97,20 +96,17 @@ class DatasetConfig(FingerprintMixin):
     seed: int = field(default=42, metadata={"stable": True})
 
     @property
-    def dataset_filename(self) -> Path:
-        """Build the deterministic dataset filename.
+    def dataset_name(self) -> str:
+        """Build the deterministic dataset name.
 
-        Returns:
-            Path: A filename of the form
-            ``{dataset}_{lang}_{split}_k{dataset_size}_seed{seed}_{fingerprint}.jsonl``.
+        Returns: str of the form
+            ``{dataset}_{lang}_{split}_k{dataset_size}_seed{seed}_{fingerprint}``.
 
         Notes:
             The fingerprint is computed from fields marked as ``stable`` by
             :meth:`FingerprintMixin.fingerprint`.
         """
-        return Path(
-            f"{self.dataset}_{self.lang}_{self.split}_k{self.dataset_size}_seed{self.seed}_{self.fingerprint}.jsonl"
-        )
+        return f"{self.dataset}_{self.lang}_{self.split}_k{self.dataset_size}_seed{self.seed}_{self.fingerprint}"
 
     @property
     def src_max_words(self) -> int:

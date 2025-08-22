@@ -11,7 +11,7 @@
 # URL        : https://github.com/john-james-ai/mini-transformer                                   #
 # ------------------------------------------------------------------------------------------------ #
 # Created    : Monday August 18th 2025 11:59:17 pm                                                 #
-# Modified   : Tuesday August 19th 2025 11:06:51 pm                                                #
+# Modified   : Friday August 22nd 2025 06:23:59 am                                                 #
 # ------------------------------------------------------------------------------------------------ #
 # License    : MIT License                                                                         #
 # Copyright  : (c) 2025 John James                                                                 #
@@ -33,46 +33,35 @@ logger = logging.getLogger(__name__)
 
 # ------------------------------------------------------------------------------------------------ #
 class FileAccessLayer(DAL):
-    """File-backed Data Access Layer using JSON Lines (*.jsonl*) files.
+    """File-backed data access layer that reads/writes JSON Lines (JSONL).
 
-    This implementation treats each logical object name as a single ``.jsonl`` file
-    stored under ``data_root``. Writes are **create-only** (exclusive open) to
-    preserve immutability; reads are strict (no preprocessing); deletes are
-    idempotent (returning ``True`` if removed, ``False`` if the file did not exist).
+    Each stored object is represented as a list of dictionaries and is persisted
+    to a single file where each line is one JSON object. Paths are provided via
+    the `name` parameter and are interpreted as filesystem paths.
 
-    Paths:
-      - The resolved path is ``<data_root>/<name>.jsonl``.
-      - Parent directories are created as needed on ``create()``.
-
-    Error semantics:
-      - ``create()`` raises ``FileExistsError`` if the target file already exists.
-      - ``read()`` raises ``FileNotFoundError`` if the target file does not exist.
-      - ``delete()`` returns ``False`` if the file is missing (and logs the miss).
-      - Other I/O errors (permissions, disk issues) propagate.
-
-    Note:
-      Per Google style, the class docstring documents constructor behavior; a
-      separate ``__init__`` docstring is intentionally omitted.
+    Notes:
+        * Files are written with UTF-8 encoding and Unix newlines (`\\n`).
+        * Creation uses exclusive mode (`"x"`) to avoid overwriting existing files.
+        * JSON is written with `ensure_ascii=False` to preserve non-ASCII characters.
     """
 
-    def __init__(self, data_root: str) -> None:
-        self._data_root = data_root
+    def __init__(self, location: str) -> None:
+        super().__init__()
+        self._location = location
 
     def create(self, name: str, data: List[Dict[str, str]]) -> None:
-        """Create a new JSONL object (create-only; no overwrite).
+        """Create a new JSONL file at `name` from a list of row dicts.
 
-        Each item in ``data`` is serialized with ``json.dumps`` and written as a
-        single line to ``<data_root>/<name>.jsonl``. Parent directories are created
-        as needed. If the file already exists, this method raises.
+        Writes one JSON object per line. Parent directories are created if needed.
+        Creation is exclusive; if the file already exists, a `FileExistsError` is raised.
 
         Args:
-          name: Logical object name (filename stem without extension). May include
-            subdirectories (e.g., ``"datasets/en_fr/tokens_v1"``).
-          data: A list of row dictionaries to write, one JSON object per line.
+            name: Filesystem path where the JSONL file will be created.
+            data: List of row dictionaries to serialize (one per line).
 
         Raises:
-          FileExistsError: If ``<name>.jsonl`` already exists.
-          OSError: For other filesystem errors (e.g., permission denied).
+            FileExistsError: If a file already exists at `name`.
+            OSError: For other I/O errors encountered during write.
         """
         filepath = self._get_filepath(name=name)
         filepath.parent.mkdir(parents=True, exist_ok=True)
@@ -86,21 +75,18 @@ class FileAccessLayer(DAL):
             raise FileExistsError(msg)
 
     def read(self, name: str) -> List[Dict[str, str]]:
-        """Read a JSONL object into memory.
-
-        The file is read line-by-line and each line is parsed with ``json.loads``.
-        No trimming or preprocessing is performed.
+        """Read a JSONL file from `name` into a list of row dicts.
 
         Args:
-          name: Logical object name (filename stem without extension).
+            name: Filesystem path of the JSONL file to read.
 
         Returns:
-          The list of row dictionaries parsed from the JSONL file.
+            A list of dictionaries, one per JSON line.
 
         Raises:
-          FileNotFoundError: If ``<name>.jsonl`` does not exist.
-          json.JSONDecodeError: If a line is not valid JSON.
-          OSError: For other filesystem errors.
+            FileNotFoundError: If no file exists at `name`.
+            ValueError: If a line cannot be parsed as valid JSON.
+            OSError: For other I/O errors encountered during read.
         """
         filepath = self._get_filepath(name=name)
         try:
@@ -112,16 +98,18 @@ class FileAccessLayer(DAL):
             raise FileNotFoundError(msg)
 
     def delete(self, name: str) -> bool:
-        """Delete the JSONL file for ``name`` if it exists.
+        """Delete the file at `name`.
+
+        This operation is idempotent.
 
         Args:
-          name: Logical object name (filename stem without extension).
+            name: Filesystem path of the JSONL file to delete.
 
         Returns:
-          True if the file was removed; False if the file did not exist.
+            True if the file existed and was deleted, False if it did not exist.
 
         Raises:
-          OSError: For filesystem errors other than file-not-found.
+            OSError: For other I/O errors encountered during deletion.
         """
         filepath = self._get_filepath(name=name)
         try:
@@ -132,27 +120,17 @@ class FileAccessLayer(DAL):
             return False
 
     def exists(self, name: str) -> bool:
-        """Check whether ``<name>.jsonl`` exists.
+        """Return whether a file exists at `name`.
 
         Args:
-          name: Logical object name (filename stem without extension).
+            name: Filesystem path to check.
 
         Returns:
-          True if the file exists; otherwise False.
+            True if a file exists at `name`; False otherwise.
         """
         filepath = self._get_filepath(name=name)
         return os.path.exists(filepath)
 
     def _get_filepath(self, name: str) -> Path:
-        """Resolve the filesystem path for ``name``.
-
-        Appends the ``.jsonl`` extension and joins it with ``data_root``.
-
-        Args:
-          name: Logical object name (filename stem without extension).
-
-        Returns:
-          A ``pathlib.Path`` to ``<data_root>/<name>.jsonl``.
-        """
         filename = f"{name}.jsonl"
-        return Path(os.path.join(self._data_root, filename))
+        return Path(os.path.join(self._location, filename))

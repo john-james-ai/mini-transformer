@@ -1,0 +1,258 @@
+[08/21/2025 11:07:50 PM] [DEBUG] [root] [__main__] [<module>] : root debug -> should go to console and file
+[08/21/2025 11:07:50 PM] [INFO] [mini_transformer] [__main__] [<module>] : pkg info -> should go to console and file
+[08/21/2025 11:17:02 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_new_conn] : Starting new HTTPS connection (1): huggingface.co:443
+[08/21/2025 11:17:03 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "HEAD /datasets/wmt14/resolve/main/README.md HTTP/1.1" 307 0
+[08/21/2025 11:17:03 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "HEAD /datasets/wmt/wmt14/resolve/main/README.md HTTP/1.1" 307 0
+[08/21/2025 11:17:03 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "HEAD /api/resolve-cache/datasets/wmt/wmt14/b199e406369ec1b7634206d3ded5ba45de2fe696/README.md HTTP/1.1" 200 0
+[08/21/2025 11:17:03 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "HEAD /datasets/wmt14/resolve/b199e406369ec1b7634206d3ded5ba45de2fe696/wmt14.py HTTP/1.1" 307 0
+[08/21/2025 11:17:03 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "HEAD /datasets/wmt/wmt14/resolve/b199e406369ec1b7634206d3ded5ba45de2fe696/wmt14.py HTTP/1.1" 404 0
+[08/21/2025 11:17:03 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_new_conn] : Starting new HTTPS connection (1): s3.amazonaws.com:443
+[08/21/2025 11:17:03 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://s3.amazonaws.com:443 "HEAD /datasets.huggingface.co/datasets/datasets/wmt14/wmt14.py HTTP/1.1" 200 0
+[08/21/2025 11:17:03 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt14/revision/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 307 108
+[08/21/2025 11:17:03 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt/wmt14/revision/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 200 7089
+[08/21/2025 11:17:04 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "HEAD /datasets/wmt14/resolve/b199e406369ec1b7634206d3ded5ba45de2fe696/.huggingface.yaml HTTP/1.1" 307 0
+[08/21/2025 11:17:04 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "HEAD /datasets/wmt/wmt14/resolve/b199e406369ec1b7634206d3ded5ba45de2fe696/.huggingface.yaml HTTP/1.1" 404 0
+[08/21/2025 11:17:04 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_new_conn] : Starting new HTTPS connection (1): datasets-server.huggingface.co:443
+[08/21/2025 11:17:04 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://datasets-server.huggingface.co:443 "GET /info?dataset=wmt14 HTTP/1.1" 404 None
+[08/21/2025 11:17:04 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt14/revision/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 307 108
+[08/21/2025 11:17:04 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt/wmt14/revision/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 200 7089
+[08/21/2025 11:17:04 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt14/tree/b199e406369ec1b7634206d3ded5ba45de2fe696?recursive=False&expand=False HTTP/1.1" 307 133
+[08/21/2025 11:17:04 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt/wmt14/tree/b199e406369ec1b7634206d3ded5ba45de2fe696?recursive=False&expand=False HTTP/1.1" 200 669
+[08/21/2025 11:17:04 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "POST /api/datasets/wmt14/paths-info/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 307 110
+[08/21/2025 11:17:04 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "POST /api/datasets/wmt/wmt14/paths-info/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 200 236
+[08/21/2025 11:17:04 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt14/tree/b199e406369ec1b7634206d3ded5ba45de2fe696/cs-en?recursive=False&expand=False HTTP/1.1" 307 139
+[08/21/2025 11:17:04 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt/wmt14/tree/b199e406369ec1b7634206d3ded5ba45de2fe696/cs-en?recursive=False&expand=False HTTP/1.1" 200 950
+[08/21/2025 11:17:04 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_new_conn] : Starting new HTTPS connection (1): huggingface.co:443
+[08/21/2025 11:17:04 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt14/revision/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 307 108
+[08/21/2025 11:17:05 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt/wmt14/revision/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 200 7089
+[08/21/2025 11:17:05 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "POST /api/datasets/wmt14/paths-info/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 307 110
+[08/21/2025 11:17:05 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "POST /api/datasets/wmt/wmt14/paths-info/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 200 236
+[08/21/2025 11:17:05 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "POST /api/datasets/wmt14/paths-info/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 307 110
+[08/21/2025 11:17:07 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "POST /api/datasets/wmt/wmt14/paths-info/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 200 236
+[08/21/2025 11:17:07 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "HEAD /datasets/wmt14/resolve/b199e406369ec1b7634206d3ded5ba45de2fe696/dataset_infos.json HTTP/1.1" 307 0
+[08/21/2025 11:17:07 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "HEAD /datasets/wmt/wmt14/resolve/b199e406369ec1b7634206d3ded5ba45de2fe696/dataset_infos.json HTTP/1.1" 404 0
+[08/21/2025 11:17:07 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "POST /api/datasets/wmt14/paths-info/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 307 110
+[08/21/2025 11:17:07 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "POST /api/datasets/wmt/wmt14/paths-info/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 200 237
+[08/21/2025 11:17:07 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt14/tree/b199e406369ec1b7634206d3ded5ba45de2fe696/fr-en?recursive=False&expand=False HTTP/1.1" 307 139
+[08/21/2025 11:17:07 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt/wmt14/tree/b199e406369ec1b7634206d3ded5ba45de2fe696/fr-en?recursive=False&expand=False HTTP/1.1" 200 10201
+[08/21/2025 11:17:07 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_new_conn] : Starting new HTTPS connection (1): huggingface.co:443
+[08/21/2025 11:17:07 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_new_conn] : Starting new HTTPS connection (1): huggingface.co:443
+[08/21/2025 11:17:07 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_new_conn] : Starting new HTTPS connection (1): huggingface.co:443
+[08/21/2025 11:17:07 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_new_conn] : Starting new HTTPS connection (1): huggingface.co:443
+[08/21/2025 11:17:07 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_new_conn] : Starting new HTTPS connection (1): huggingface.co:443
+[08/21/2025 11:17:07 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_new_conn] : Starting new HTTPS connection (1): huggingface.co:443
+[08/21/2025 11:17:07 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_new_conn] : Starting new HTTPS connection (1): huggingface.co:443
+[08/21/2025 11:17:07 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_new_conn] : Starting new HTTPS connection (1): huggingface.co:443
+[08/21/2025 11:17:07 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_new_conn] : Starting new HTTPS connection (1): huggingface.co:443
+[08/21/2025 11:17:07 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_new_conn] : Starting new HTTPS connection (1): huggingface.co:443
+[08/21/2025 11:17:07 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_new_conn] : Starting new HTTPS connection (1): huggingface.co:443
+[08/21/2025 11:17:07 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_new_conn] : Starting new HTTPS connection (1): huggingface.co:443
+[08/21/2025 11:17:07 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_new_conn] : Starting new HTTPS connection (1): huggingface.co:443
+[08/21/2025 11:17:07 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_new_conn] : Starting new HTTPS connection (1): huggingface.co:443
+[08/21/2025 11:17:07 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt14/revision/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 307 108
+[08/21/2025 11:17:07 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt14/revision/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 307 108
+[08/21/2025 11:17:07 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt14/revision/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 307 108
+[08/21/2025 11:17:07 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt14/revision/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 307 108
+[08/21/2025 11:17:07 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt14/revision/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 307 108
+[08/21/2025 11:17:07 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt14/revision/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 307 108
+[08/21/2025 11:17:07 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt14/revision/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 307 108
+[08/21/2025 11:17:07 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt14/revision/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 307 108
+[08/21/2025 11:17:07 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt14/revision/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 307 108
+[08/21/2025 11:17:07 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt14/revision/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 307 108
+[08/21/2025 11:17:07 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt14/revision/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 307 108
+[08/21/2025 11:17:07 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt14/revision/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 307 108
+[08/21/2025 11:17:07 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt14/revision/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 307 108
+[08/21/2025 11:17:07 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt/wmt14/revision/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 200 7089
+[08/21/2025 11:17:07 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt14/revision/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 307 108
+[08/21/2025 11:17:07 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt/wmt14/revision/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 200 7089
+[08/21/2025 11:17:07 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt/wmt14/revision/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 200 7089
+[08/21/2025 11:17:07 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt/wmt14/revision/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 200 7089
+[08/21/2025 11:17:07 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt/wmt14/revision/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 200 7089
+[08/21/2025 11:17:07 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt/wmt14/revision/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 200 7089
+[08/21/2025 11:17:07 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt/wmt14/revision/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 200 7089
+[08/21/2025 11:17:07 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt/wmt14/revision/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 200 7089
+[08/21/2025 11:17:07 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt/wmt14/revision/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 200 7089
+[08/21/2025 11:17:07 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt/wmt14/revision/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 200 7089
+[08/21/2025 11:17:07 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt/wmt14/revision/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 200 7089
+[08/21/2025 11:17:07 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt/wmt14/revision/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 200 7089
+[08/21/2025 11:17:07 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt/wmt14/revision/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 200 7089
+[08/21/2025 11:17:07 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt/wmt14/revision/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 200 7089
+[08/21/2025 11:17:07 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "POST /api/datasets/wmt14/paths-info/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 307 110
+[08/21/2025 11:17:07 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "POST /api/datasets/wmt/wmt14/paths-info/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 200 237
+[08/21/2025 11:17:08 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "POST /api/datasets/wmt14/paths-info/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 307 110
+[08/21/2025 11:17:08 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "POST /api/datasets/wmt/wmt14/paths-info/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 200 237
+[08/21/2025 11:17:08 PM] [DEBUG] [filelock] [_api] [acquire] : Attempting to acquire lock 136151611639520 on /home/john/.cache/huggingface/datasets/_home_john_.cache_huggingface_datasets_wmt14_fr-en_0.0.0_b199e406369ec1b7634206d3ded5ba45de2fe696.lock
+[08/21/2025 11:17:08 PM] [DEBUG] [filelock] [_api] [acquire] : Lock 136151611639520 acquired on /home/john/.cache/huggingface/datasets/_home_john_.cache_huggingface_datasets_wmt14_fr-en_0.0.0_b199e406369ec1b7634206d3ded5ba45de2fe696.lock
+[08/21/2025 11:17:08 PM] [DEBUG] [filelock] [_api] [release] : Attempting to release lock 136151611639520 on /home/john/.cache/huggingface/datasets/_home_john_.cache_huggingface_datasets_wmt14_fr-en_0.0.0_b199e406369ec1b7634206d3ded5ba45de2fe696.lock
+[08/21/2025 11:17:08 PM] [DEBUG] [filelock] [_api] [release] : Lock 136151611639520 released on /home/john/.cache/huggingface/datasets/_home_john_.cache_huggingface_datasets_wmt14_fr-en_0.0.0_b199e406369ec1b7634206d3ded5ba45de2fe696.lock
+[08/21/2025 11:17:08 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /datasets/wmt14/resolve/b199e406369ec1b7634206d3ded5ba45de2fe696/fr-en/validation-00000-of-00001.parquet HTTP/1.1" 307 143
+[08/21/2025 11:17:08 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /datasets/wmt/wmt14/resolve/b199e406369ec1b7634206d3ded5ba45de2fe696/fr-en/validation-00000-of-00001.parquet HTTP/1.1" 302 1349
+[08/21/2025 11:17:08 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_new_conn] : Starting new HTTPS connection (1): cas-bridge.xethub.hf.co:443
+[08/21/2025 11:17:08 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://cas-bridge.xethub.hf.co:443 "GET /xet-bridge-us/621ffdd236468d709f182016/80fbda30b553a03c89671b420e1e573e56a26d48f4a25fa0c3ea9ef5ade17660?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=cas%2F20250822%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250822T031708Z&X-Amz-Expires=3600&X-Amz-Signature=aeb332de3b85f499667d41c70a49d2583233be25b1e70c56ec1d19f7a7230285&X-Amz-SignedHeaders=host&X-Xet-Cas-Uid=public&response-content-disposition=inline%3B+filename*%3DUTF-8%27%27validation-00000-of-00001.parquet%3B+filename%3D%22validation-00000-of-00001.parquet%22%3B&x-id=GetObject&Expires=1755836228&Policy=eyJTdGF0ZW1lbnQiOlt7IkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc1NTgzNjIyOH19LCJSZXNvdXJjZSI6Imh0dHBzOi8vY2FzLWJyaWRnZS54ZXRodWIuaGYuY28veGV0LWJyaWRnZS11cy82MjFmZmRkMjM2NDY4ZDcwOWYxODIwMTYvODBmYmRhMzBiNTUzYTAzYzg5NjcxYjQyMGUxZTU3M2U1NmEyNmQ0OGY0YTI1ZmEwYzNlYTllZjVhZGUxNzY2MCoifV19&Signature=jwZMnm1x4yaBMWU8gTJlH0VQAJr2wNkqf14DsxdFFCB3OEAnRSBUZrTP88on-nyxfbSVLpnRcr5bQLdK~2iJxCcdtwdOwpJpPXJ5SW5mtjPtZlwHAMSBGjcO7gQdKLHC5ZoaEmc4jCc50aYf51sq8xEkQORxA4B~TFsiQleUBFbPPaGyONHb27dn4oJbfBoMkw0AdJ2oxK6iyz4350DYDV4EGZZzOOz2f4wYLG6qQKKKKevaeEtOCm9OQIffN04kTdkFb1CHv7BHLb2F91gLyPCv-RUUQxmTepoxs5S-~JPYJzlU-q8DdUWXsivmiYEVCtDKuu5z8TlTnftKlgdT0A__&Key-Pair-Id=K2L8F4GPSG1IFC HTTP/1.1" 206 65536
+[08/21/2025 11:17:08 PM] [DEBUG] [fsspec] [spec] [read] : <File-like object HfFileSystem, datasets/wmt14@b199e406369ec1b7634206d3ded5ba45de2fe696/fr-en/validation-00000-of-00001.parquet> read: 409005 - 474541  , readahead: 0 hits, 1 misses, 65536 total requested bytes
+[08/21/2025 11:17:08 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /datasets/wmt14/resolve/b199e406369ec1b7634206d3ded5ba45de2fe696/fr-en/validation-00000-of-00001.parquet HTTP/1.1" 307 143
+[08/21/2025 11:17:08 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /datasets/wmt/wmt14/resolve/b199e406369ec1b7634206d3ded5ba45de2fe696/fr-en/validation-00000-of-00001.parquet HTTP/1.1" 302 1363
+[08/21/2025 11:17:08 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_new_conn] : Starting new HTTPS connection (1): cas-bridge.xethub.hf.co:443
+[08/21/2025 11:17:08 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://cas-bridge.xethub.hf.co:443 "GET /xet-bridge-us/621ffdd236468d709f182016/80fbda30b553a03c89671b420e1e573e56a26d48f4a25fa0c3ea9ef5ade17660?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=cas%2F20250822%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250822T031006Z&X-Amz-Expires=3600&X-Amz-Signature=fd034de6f14735b7d01858962a4f9f76be7baa846213c9647e74a8768f6277c3&X-Amz-SignedHeaders=host&X-Xet-Cas-Uid=public&response-content-disposition=inline%3B+filename*%3DUTF-8%27%27validation-00000-of-00001.parquet%3B+filename%3D%22validation-00000-of-00001.parquet%22%3B&x-id=GetObject&Expires=1755835806&Policy=eyJTdGF0ZW1lbnQiOlt7IkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc1NTgzNTgwNn19LCJSZXNvdXJjZSI6Imh0dHBzOi8vY2FzLWJyaWRnZS54ZXRodWIuaGYuY28veGV0LWJyaWRnZS11cy82MjFmZmRkMjM2NDY4ZDcwOWYxODIwMTYvODBmYmRhMzBiNTUzYTAzYzg5NjcxYjQyMGUxZTU3M2U1NmEyNmQ0OGY0YTI1ZmEwYzNlYTllZjVhZGUxNzY2MCoifV19&Signature=nvBTJxtRqDf45rhZYUvAMHX~~myWzD44gM3GELF7GGI379wcyvzi0lT7J85yF2ZP-bimvzoi~ULWYfkSt8-JmpWTbHK4dT4pNJ~sNEEcmRk~jRNdSX8dcG13bvjdbP--UXd0Td973XZIz-s6psLNtziP7lkciPZYBdiKvRZO2z342U3~DasRf-RppA9i7vn5p~SHHW6lE~uRNDiiM6wM4aDriqTFlaISUualNzv3hDGmKY0qJLwgvYxT4KZvO4D27uWrpq2mkVilqLy7Ecs2bAA85owEF7ZvopqpATn4nIr9JrMThb~WfsN1AtifZCnodqLOp9rCORgP~WHLpYX2QA__&Key-Pair-Id=K2L8F4GPSG1IFC HTTP/1.1" 206 474537
+[08/21/2025 11:17:09 PM] [DEBUG] [fsspec] [spec] [read] : <File-like object HfFileSystem, datasets/wmt14@b199e406369ec1b7634206d3ded5ba45de2fe696/fr-en/validation-00000-of-00001.parquet> read: 4 - 471312  , readahead: 0 hits, 2 misses, 540073 total requested bytes
+[08/21/2025 11:17:09 PM] [DEBUG] [mini_transformer.data.builder] [builder] [log_summary] : 
+
+                             DatasetBuilderObserver                             
+                              started_at | 2025-08-21 23:17:02.792843
+                                ended_at | 2025-08-21 23:17:09.113299
+                                duration | 6.32
+                                 dataset | wmt14
+                                   split | validation
+                                    lang | fr-en
+                                    seed | 42
+                            dataset_size | 16
+                              oversample | 5
+                                    seen | 92
+                                filtered | 12
+                              candidates | 80
+                                selected | 16
+                          filtered_empty | 0
+                          filtered_ratio | 0
+                      filtered_src_short | 12
+                       filtered_src_long | 0
+                      filtered_tgt_short | 0
+                       filtered_tgt_long | 0
+                              throughput | 14.557
+
+
+[08/21/2025 11:22:29 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_new_conn] : Starting new HTTPS connection (1): huggingface.co:443
+[08/21/2025 11:22:30 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "HEAD /datasets/wmt14/resolve/main/README.md HTTP/1.1" 307 0
+[08/21/2025 11:22:30 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "HEAD /datasets/wmt/wmt14/resolve/main/README.md HTTP/1.1" 307 0
+[08/21/2025 11:22:30 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "HEAD /api/resolve-cache/datasets/wmt/wmt14/b199e406369ec1b7634206d3ded5ba45de2fe696/README.md HTTP/1.1" 200 0
+[08/21/2025 11:22:30 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "HEAD /datasets/wmt14/resolve/b199e406369ec1b7634206d3ded5ba45de2fe696/wmt14.py HTTP/1.1" 307 0
+[08/21/2025 11:22:30 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "HEAD /datasets/wmt/wmt14/resolve/b199e406369ec1b7634206d3ded5ba45de2fe696/wmt14.py HTTP/1.1" 404 0
+[08/21/2025 11:22:30 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_new_conn] : Starting new HTTPS connection (1): s3.amazonaws.com:443
+[08/21/2025 11:22:30 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://s3.amazonaws.com:443 "HEAD /datasets.huggingface.co/datasets/datasets/wmt14/wmt14.py HTTP/1.1" 200 0
+[08/21/2025 11:22:30 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt14/revision/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 307 108
+[08/21/2025 11:22:30 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt/wmt14/revision/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 200 7089
+[08/21/2025 11:22:31 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "HEAD /datasets/wmt14/resolve/b199e406369ec1b7634206d3ded5ba45de2fe696/.huggingface.yaml HTTP/1.1" 307 0
+[08/21/2025 11:22:31 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "HEAD /datasets/wmt/wmt14/resolve/b199e406369ec1b7634206d3ded5ba45de2fe696/.huggingface.yaml HTTP/1.1" 404 0
+[08/21/2025 11:22:31 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_new_conn] : Starting new HTTPS connection (1): datasets-server.huggingface.co:443
+[08/21/2025 11:22:31 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://datasets-server.huggingface.co:443 "GET /info?dataset=wmt14 HTTP/1.1" 404 None
+[08/21/2025 11:22:31 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt14/revision/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 307 108
+[08/21/2025 11:22:31 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt/wmt14/revision/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 200 7089
+[08/21/2025 11:22:31 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt14/tree/b199e406369ec1b7634206d3ded5ba45de2fe696?recursive=False&expand=False HTTP/1.1" 307 133
+[08/21/2025 11:22:31 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt/wmt14/tree/b199e406369ec1b7634206d3ded5ba45de2fe696?recursive=False&expand=False HTTP/1.1" 200 669
+[08/21/2025 11:22:31 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "POST /api/datasets/wmt14/paths-info/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 307 110
+[08/21/2025 11:22:31 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "POST /api/datasets/wmt/wmt14/paths-info/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 200 236
+[08/21/2025 11:22:31 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt14/tree/b199e406369ec1b7634206d3ded5ba45de2fe696/cs-en?recursive=False&expand=False HTTP/1.1" 307 139
+[08/21/2025 11:22:31 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt/wmt14/tree/b199e406369ec1b7634206d3ded5ba45de2fe696/cs-en?recursive=False&expand=False HTTP/1.1" 200 950
+[08/21/2025 11:22:31 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_new_conn] : Starting new HTTPS connection (1): huggingface.co:443
+[08/21/2025 11:22:31 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt14/revision/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 307 108
+[08/21/2025 11:22:32 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt/wmt14/revision/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 200 7089
+[08/21/2025 11:22:32 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "POST /api/datasets/wmt14/paths-info/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 307 110
+[08/21/2025 11:22:32 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "POST /api/datasets/wmt/wmt14/paths-info/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 200 236
+[08/21/2025 11:22:32 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "POST /api/datasets/wmt14/paths-info/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 307 110
+[08/21/2025 11:22:32 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "POST /api/datasets/wmt/wmt14/paths-info/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 200 236
+[08/21/2025 11:22:32 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "HEAD /datasets/wmt14/resolve/b199e406369ec1b7634206d3ded5ba45de2fe696/dataset_infos.json HTTP/1.1" 307 0
+[08/21/2025 11:22:32 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "HEAD /datasets/wmt/wmt14/resolve/b199e406369ec1b7634206d3ded5ba45de2fe696/dataset_infos.json HTTP/1.1" 404 0
+[08/21/2025 11:22:32 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "POST /api/datasets/wmt14/paths-info/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 307 110
+[08/21/2025 11:22:32 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "POST /api/datasets/wmt/wmt14/paths-info/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 200 237
+[08/21/2025 11:22:32 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt14/tree/b199e406369ec1b7634206d3ded5ba45de2fe696/fr-en?recursive=False&expand=False HTTP/1.1" 307 139
+[08/21/2025 11:22:32 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt/wmt14/tree/b199e406369ec1b7634206d3ded5ba45de2fe696/fr-en?recursive=False&expand=False HTTP/1.1" 200 10201
+[08/21/2025 11:22:32 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_new_conn] : Starting new HTTPS connection (1): huggingface.co:443
+[08/21/2025 11:22:32 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_new_conn] : Starting new HTTPS connection (1): huggingface.co:443
+[08/21/2025 11:22:32 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_new_conn] : Starting new HTTPS connection (1): huggingface.co:443
+[08/21/2025 11:22:32 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_new_conn] : Starting new HTTPS connection (1): huggingface.co:443
+[08/21/2025 11:22:32 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_new_conn] : Starting new HTTPS connection (1): huggingface.co:443
+[08/21/2025 11:22:32 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_new_conn] : Starting new HTTPS connection (1): huggingface.co:443
+[08/21/2025 11:22:32 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_new_conn] : Starting new HTTPS connection (1): huggingface.co:443
+[08/21/2025 11:22:32 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_new_conn] : Starting new HTTPS connection (1): huggingface.co:443
+[08/21/2025 11:22:32 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_new_conn] : Starting new HTTPS connection (1): huggingface.co:443
+[08/21/2025 11:22:32 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_new_conn] : Starting new HTTPS connection (1): huggingface.co:443
+[08/21/2025 11:22:32 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_new_conn] : Starting new HTTPS connection (1): huggingface.co:443
+[08/21/2025 11:22:32 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt14/revision/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 307 108
+[08/21/2025 11:22:32 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt14/revision/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 307 108
+[08/21/2025 11:22:32 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt14/revision/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 307 108
+[08/21/2025 11:22:32 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt14/revision/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 307 108
+[08/21/2025 11:22:32 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt/wmt14/revision/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 200 7089
+[08/21/2025 11:22:32 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt14/revision/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 307 108
+[08/21/2025 11:22:32 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt14/revision/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 307 108
+[08/21/2025 11:22:32 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt14/revision/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 307 108
+[08/21/2025 11:22:32 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt14/revision/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 307 108
+[08/21/2025 11:22:32 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt14/revision/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 307 108
+[08/21/2025 11:22:32 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt14/revision/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 307 108
+[08/21/2025 11:22:32 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt14/revision/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 307 108
+[08/21/2025 11:22:32 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt/wmt14/revision/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 200 7089
+[08/21/2025 11:22:32 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt/wmt14/revision/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 200 7089
+[08/21/2025 11:22:32 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt/wmt14/revision/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 200 7089
+[08/21/2025 11:22:32 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt/wmt14/revision/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 200 7089
+[08/21/2025 11:22:32 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt/wmt14/revision/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 200 7089
+[08/21/2025 11:22:32 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt/wmt14/revision/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 200 7089
+[08/21/2025 11:22:32 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt/wmt14/revision/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 200 7089
+[08/21/2025 11:22:32 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt/wmt14/revision/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 200 7089
+[08/21/2025 11:22:32 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt/wmt14/revision/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 200 7089
+[08/21/2025 11:22:32 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /api/datasets/wmt/wmt14/revision/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 200 7089
+[08/21/2025 11:22:33 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "POST /api/datasets/wmt14/paths-info/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 307 110
+[08/21/2025 11:22:33 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "POST /api/datasets/wmt/wmt14/paths-info/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 200 237
+[08/21/2025 11:22:33 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "POST /api/datasets/wmt14/paths-info/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 307 110
+[08/21/2025 11:22:33 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "POST /api/datasets/wmt/wmt14/paths-info/b199e406369ec1b7634206d3ded5ba45de2fe696 HTTP/1.1" 200 237
+[08/21/2025 11:22:33 PM] [DEBUG] [filelock] [_api] [acquire] : Attempting to acquire lock 135213582534704 on /home/john/.cache/huggingface/datasets/_home_john_.cache_huggingface_datasets_wmt14_fr-en_0.0.0_b199e406369ec1b7634206d3ded5ba45de2fe696.lock
+[08/21/2025 11:22:33 PM] [DEBUG] [filelock] [_api] [acquire] : Lock 135213582534704 acquired on /home/john/.cache/huggingface/datasets/_home_john_.cache_huggingface_datasets_wmt14_fr-en_0.0.0_b199e406369ec1b7634206d3ded5ba45de2fe696.lock
+[08/21/2025 11:22:33 PM] [DEBUG] [filelock] [_api] [release] : Attempting to release lock 135213582534704 on /home/john/.cache/huggingface/datasets/_home_john_.cache_huggingface_datasets_wmt14_fr-en_0.0.0_b199e406369ec1b7634206d3ded5ba45de2fe696.lock
+[08/21/2025 11:22:33 PM] [DEBUG] [filelock] [_api] [release] : Lock 135213582534704 released on /home/john/.cache/huggingface/datasets/_home_john_.cache_huggingface_datasets_wmt14_fr-en_0.0.0_b199e406369ec1b7634206d3ded5ba45de2fe696.lock
+[08/21/2025 11:22:33 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /datasets/wmt14/resolve/b199e406369ec1b7634206d3ded5ba45de2fe696/fr-en/validation-00000-of-00001.parquet HTTP/1.1" 307 143
+[08/21/2025 11:22:33 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /datasets/wmt/wmt14/resolve/b199e406369ec1b7634206d3ded5ba45de2fe696/fr-en/validation-00000-of-00001.parquet HTTP/1.1" 302 1363
+[08/21/2025 11:22:33 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_new_conn] : Starting new HTTPS connection (1): cas-bridge.xethub.hf.co:443
+[08/21/2025 11:22:33 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://cas-bridge.xethub.hf.co:443 "GET /xet-bridge-us/621ffdd236468d709f182016/80fbda30b553a03c89671b420e1e573e56a26d48f4a25fa0c3ea9ef5ade17660?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=cas%2F20250822%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250822T032234Z&X-Amz-Expires=3600&X-Amz-Signature=dd49c652fc78e0a848df4ab7ccd2b2a6835df02b54ffa0237f195457a62f9049&X-Amz-SignedHeaders=host&X-Xet-Cas-Uid=public&response-content-disposition=inline%3B+filename*%3DUTF-8%27%27validation-00000-of-00001.parquet%3B+filename%3D%22validation-00000-of-00001.parquet%22%3B&x-id=GetObject&Expires=1755836554&Policy=eyJTdGF0ZW1lbnQiOlt7IkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc1NTgzNjU1NH19LCJSZXNvdXJjZSI6Imh0dHBzOi8vY2FzLWJyaWRnZS54ZXRodWIuaGYuY28veGV0LWJyaWRnZS11cy82MjFmZmRkMjM2NDY4ZDcwOWYxODIwMTYvODBmYmRhMzBiNTUzYTAzYzg5NjcxYjQyMGUxZTU3M2U1NmEyNmQ0OGY0YTI1ZmEwYzNlYTllZjVhZGUxNzY2MCoifV19&Signature=XFillS-BEkDtAfBTK3rM8xiYbIKEvD87xIH7e~It~ASJ5wf93lXtY3q8TeUn5pdOXA-xZ0MGQOZfVRKcHyYH2RGmivfZFGIcrocuEKkF0XBhqSsIIotWW-DiAm0LD7M7IR~LAdGXS1uxmYNHco-qikw3BMeo2iGbOXAKDhOmJdIBxeExCrB4vvM-HC~drgZKjtVoa1hr1b7jfnaJVSLHYd~LXZlC~fWAi0YJg8Gn27oZfVuJyPSDKNsPm6BjBBR9L4c5T8v9lyREvQhXUbeY~p2w4gh65fgh3Hax7LOaN6KXkF7jb4xCppKC8W84w~PswY7t~wY~apdvrJRwuKkQzg__&Key-Pair-Id=K2L8F4GPSG1IFC HTTP/1.1" 206 65536
+[08/21/2025 11:22:33 PM] [DEBUG] [fsspec] [spec] [read] : <File-like object HfFileSystem, datasets/wmt14@b199e406369ec1b7634206d3ded5ba45de2fe696/fr-en/validation-00000-of-00001.parquet> read: 409005 - 474541  , readahead: 0 hits, 1 misses, 65536 total requested bytes
+[08/21/2025 11:22:33 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /datasets/wmt14/resolve/b199e406369ec1b7634206d3ded5ba45de2fe696/fr-en/validation-00000-of-00001.parquet HTTP/1.1" 307 143
+[08/21/2025 11:22:33 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://huggingface.co:443 "GET /datasets/wmt/wmt14/resolve/b199e406369ec1b7634206d3ded5ba45de2fe696/fr-en/validation-00000-of-00001.parquet HTTP/1.1" 302 1363
+[08/21/2025 11:22:33 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_new_conn] : Starting new HTTPS connection (1): cas-bridge.xethub.hf.co:443
+[08/21/2025 11:22:33 PM] [DEBUG] [urllib3.connectionpool] [connectionpool] [_make_request] : https://cas-bridge.xethub.hf.co:443 "GET /xet-bridge-us/621ffdd236468d709f182016/80fbda30b553a03c89671b420e1e573e56a26d48f4a25fa0c3ea9ef5ade17660?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=cas%2F20250822%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250822T032234Z&X-Amz-Expires=3600&X-Amz-Signature=dd49c652fc78e0a848df4ab7ccd2b2a6835df02b54ffa0237f195457a62f9049&X-Amz-SignedHeaders=host&X-Xet-Cas-Uid=public&response-content-disposition=inline%3B+filename*%3DUTF-8%27%27validation-00000-of-00001.parquet%3B+filename%3D%22validation-00000-of-00001.parquet%22%3B&x-id=GetObject&Expires=1755836554&Policy=eyJTdGF0ZW1lbnQiOlt7IkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc1NTgzNjU1NH19LCJSZXNvdXJjZSI6Imh0dHBzOi8vY2FzLWJyaWRnZS54ZXRodWIuaGYuY28veGV0LWJyaWRnZS11cy82MjFmZmRkMjM2NDY4ZDcwOWYxODIwMTYvODBmYmRhMzBiNTUzYTAzYzg5NjcxYjQyMGUxZTU3M2U1NmEyNmQ0OGY0YTI1ZmEwYzNlYTllZjVhZGUxNzY2MCoifV19&Signature=XFillS-BEkDtAfBTK3rM8xiYbIKEvD87xIH7e~It~ASJ5wf93lXtY3q8TeUn5pdOXA-xZ0MGQOZfVRKcHyYH2RGmivfZFGIcrocuEKkF0XBhqSsIIotWW-DiAm0LD7M7IR~LAdGXS1uxmYNHco-qikw3BMeo2iGbOXAKDhOmJdIBxeExCrB4vvM-HC~drgZKjtVoa1hr1b7jfnaJVSLHYd~LXZlC~fWAi0YJg8Gn27oZfVuJyPSDKNsPm6BjBBR9L4c5T8v9lyREvQhXUbeY~p2w4gh65fgh3Hax7LOaN6KXkF7jb4xCppKC8W84w~PswY7t~wY~apdvrJRwuKkQzg__&Key-Pair-Id=K2L8F4GPSG1IFC HTTP/1.1" 206 474537
+[08/21/2025 11:22:33 PM] [DEBUG] [fsspec] [spec] [read] : <File-like object HfFileSystem, datasets/wmt14@b199e406369ec1b7634206d3ded5ba45de2fe696/fr-en/validation-00000-of-00001.parquet> read: 4 - 471312  , readahead: 0 hits, 2 misses, 540073 total requested bytes
+[08/21/2025 11:22:34 PM] [INFO] [mini_transformer.data.builder] [builder] [log_summary] : 
+
+                             DatasetBuilderObserver                             
+                              started_at | 2025-08-21 23:22:29.582985
+                                ended_at | 2025-08-21 23:22:34.014354
+                                duration | 4.431
+                                 dataset | wmt14
+                                   split | validation
+                                    lang | fr-en
+                                    seed | 42
+                            dataset_size | 16
+                              oversample | 5
+                                    seen | 92
+                                filtered | 12
+                              candidates | 80
+                                selected | 16
+                          filtered_empty | 0
+                          filtered_ratio | 0
+                      filtered_src_short | 12
+                       filtered_src_long | 0
+                      filtered_tgt_short | 0
+                       filtered_tgt_long | 0
+                              throughput | 20.763
+
+
+[08/21/2025 11:23:00 PM] [INFO] [mini_transformer.data.builder] [builder] [log_summary] : 
+
+                             DatasetBuilderObserver                             
+                              started_at | 2025-08-21 23:22:56.607089
+                                ended_at | 2025-08-21 23:23:00.623940
+                                duration | 4.017
+                                 dataset | wmt14
+                                   split | validation
+                                    lang | fr-en
+                                    seed | 42
+                            dataset_size | 16
+                              oversample | 5
+                                    seen | 92
+                                filtered | 12
+                              candidates | 80
+                                selected | 16
+                          filtered_empty | 0
+                          filtered_ratio | 0
+                      filtered_src_short | 12
+                       filtered_src_long | 0
+                      filtered_tgt_short | 0
+                       filtered_tgt_long | 0
+                              throughput | 22.903
+
+

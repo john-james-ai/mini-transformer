@@ -11,7 +11,7 @@
 # URL        : https://github.com/john-james-ai/mini-transformer                                   #
 # ------------------------------------------------------------------------------------------------ #
 # Created    : Tuesday August 19th 2025 09:53:28 pm                                                #
-# Modified   : Tuesday August 19th 2025 11:18:49 pm                                                #
+# Modified   : Friday August 22nd 2025 02:15:31 am                                                 #
 # ------------------------------------------------------------------------------------------------ #
 # License    : MIT License                                                                         #
 # Copyright  : (c) 2025 John James                                                                 #
@@ -24,76 +24,80 @@ from typing import Any
 
 # ------------------------------------------------------------------------------------------------ #
 class DAL(ABC):
-    """Abstract base class for a minimal Data Access Layer (DAL).
+    """Abstract data access layer (DAL) interface.
 
-    The DAL provides a storage-agnostic interface for working with logical
-    object names/IDs rather than physical paths. Implementations encapsulate
-    all persistence details (e.g., filesystem, S3, database).
+    This interface defines minimal CRUD-style operations for a storage backend.
+    Each method operates on a backend-specific **locator** (`loc`), which must
+    uniquely identify a stored object for that backend (e.g., a Redis key or a
+    filesystem path). The concrete implementation decides how `data` is
+    serialized/persisted.
 
-    Contract:
-      * `create()` is **create-only** and must not overwrite existing objects.
-      * `read()` returns the stored object or raises if it is absent.
-      * `delete()` is **idempotent** and returns whether anything was removed.
-      * `exists()` reports presence of the object without side effects.
-
-    Notes:
-      * Payload type is `Any` to remain backend-agnostic; concrete
-        implementations should document the accepted data types (e.g., bytes,
-        JSON-serializable dicts, streams).
-      * The class docstring documents constructor behavior per Google style;
-        do not add an `__init__` docstring.
+    Conventions:
+      * `create()` should fail if an object already exists at `loc`.
+      * `read()` should raise `KeyError` if no object exists at `loc`.
+      * `delete()` should be idempotent and return whether a deletion occurred.
+      * `exists()` should return whether an object is present at `loc`.
     """
 
     @abstractmethod
-    def create(self, name: str, data: Any) -> None:
-        """Create a new object (create-only; no overwrite).
+    def create(self, loc: str, data: Any) -> None:
+        """Create a new object at `loc`.
+
+        Implementations should persist `data` under the given locator. If an
+        object already exists at `loc`, they should raise `KeyError`.
 
         Args:
-          name: Logical object name or identifier.
-          data: The value to persist. Accepted types are implementation-specific.
+            loc: Backend-specific locator (e.g., key or file path).
+            data: Object to persist (type is backend-specific but must be
+                supported by the implementation’s serialization).
 
         Raises:
-          FileExistsError: If an object with the given ``name`` already exists.
-          OSError: For other I/O or permission-related failures.
+            KeyError: If an object already exists at `loc`.
+            Exception: Implementations may raise backend-specific errors
+                (e.g., I/O errors) on failure to persist.
         """
+        ...
 
     @abstractmethod
-    def read(self, name: str) -> Any:
-        """Retrieve an object by name.
+    def read(self, loc: str) -> Any:
+        """Read and return the object stored at `loc`.
 
         Args:
-          name: Logical object name or identifier.
+            loc: Backend-specific locator (e.g., key or file path).
 
         Returns:
-          The stored value associated with ``name``. The concrete type depends on
-          the implementation (e.g., bytes, dict, list).
+            The deserialized object stored at `loc`.
 
         Raises:
-          FileNotFoundError: If no object with ``name`` exists.
-          OSError: For other I/O or permission-related failures.
+            KeyError: If no object exists at `loc`.
+            Exception: Implementations may raise backend-specific errors
+                (e.g., I/O errors) on failure to read/deserialize.
         """
+        ...
 
     @abstractmethod
-    def delete(self, name: str) -> bool:
-        """Delete an object by name.
+    def delete(self, loc: str) -> bool:
+        """Delete the object at `loc`.
+
+        Implementations should be idempotent.
 
         Args:
-          name: Logical object name or identifier.
+            loc: Backend-specific locator (e.g., key or file path).
 
         Returns:
-          True if an object was removed; False if no matching object existed.
-
-        Raises:
-          OSError: For storage errors other than a simple not-found condition.
+            True if an object existed and was deleted; False if no object
+            existed at `loc`.
         """
+        ...
 
     @abstractmethod
-    def exists(self, name: str) -> bool:
-        """Check whether an object exists.
+    def exists(self, loc: str) -> bool:
+        """Return whether an object exists at `loc`.
 
         Args:
-          name: Logical object name or identifier.
+            loc: Backend-specific locator (e.g., key or file path).
 
         Returns:
-          True if an object with ``name`` exists; otherwise, False.
+            True if an object exists at `loc`; False otherwise.
         """
+        ...

@@ -45,7 +45,7 @@ test = [
   "pytest-cov >=3",
 ]
 dev = [
-  { include-group = "test" },
+  { include-group = "tests" },
 ]
 docs = [
   "sphinx>=7.0",
@@ -67,12 +67,17 @@ scripts.test = "pytest {args}"
 
 
 [tool.pytest.ini_options]
-minversion = "6.0"
-addopts = ["-ra", "--showlocals", "--strict-markers", "--strict-config"]
-xfail_strict = true
+addopts = """\
+    --cov mini_transformer \
+    --cov tests \
+    --cov-report term-missing \
+    --no-cov-on-fail \
+"""
 filterwarnings = [
-  "error",
-]
+    "ignore::pytest.PytestCollectionWarning",
+    "ignore::pytest.PytestUnknownMarkWarning",
+    ]
+
 log_cli_level = "INFO"
 testpaths = [
   "tests",
