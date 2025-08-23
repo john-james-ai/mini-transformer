@@ -97,7 +97,7 @@
 [08/21/2025 11:17:09 PM] [DEBUG] [fsspec] [spec] [read] : <File-like object HfFileSystem, datasets/wmt14@b199e406369ec1b7634206d3ded5ba45de2fe696/fr-en/validation-00000-of-00001.parquet> read: 4 - 471312  , readahead: 0 hits, 2 misses, 540073 total requested bytes
 [08/21/2025 11:17:09 PM] [DEBUG] [mini_transformer.data.builder] [builder] [log_summary] : 
 
-                             DatasetBuilderObserver                             
+                             DatasetBuilderMetrics                             
                               started_at | 2025-08-21 23:17:02.792843
                                 ended_at | 2025-08-21 23:17:09.113299
                                 duration | 6.32
@@ -208,7 +208,7 @@
 [08/21/2025 11:22:33 PM] [DEBUG] [fsspec] [spec] [read] : <File-like object HfFileSystem, datasets/wmt14@b199e406369ec1b7634206d3ded5ba45de2fe696/fr-en/validation-00000-of-00001.parquet> read: 4 - 471312  , readahead: 0 hits, 2 misses, 540073 total requested bytes
 [08/21/2025 11:22:34 PM] [INFO] [mini_transformer.data.builder] [builder] [log_summary] : 
 
-                             DatasetBuilderObserver                             
+                             DatasetBuilderMetrics                             
                               started_at | 2025-08-21 23:22:29.582985
                                 ended_at | 2025-08-21 23:22:34.014354
                                 duration | 4.431
@@ -233,7 +233,7 @@
 
 [08/21/2025 11:23:00 PM] [INFO] [mini_transformer.data.builder] [builder] [log_summary] : 
 
-                             DatasetBuilderObserver                             
+                             DatasetBuilderMetrics                             
                               started_at | 2025-08-21 23:22:56.607089
                                 ended_at | 2025-08-21 23:23:00.623940
                                 duration | 4.017

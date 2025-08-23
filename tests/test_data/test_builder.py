@@ -4,14 +4,14 @@
 # Project    : Mini-Transformer                                                                    #
 # Version    : 0.1.0                                                                               #
 # Python     : 3.13.5                                                                              #
-# Filename   : /test_builder.py                                                                    #
+# Filename   : /tests/test_data/test_builder.py                                                    #
 # ------------------------------------------------------------------------------------------------ #
 # Author     : John James                                                                          #
 # Email      : john.james.ai.studio@gmail.com                                                      #
 # URL        : https://github.com/john-james-ai/mini-transformer                                   #
 # ------------------------------------------------------------------------------------------------ #
 # Created    : Thursday August 21st 2025 06:10:44 pm                                               #
-# Modified   : Thursday August 21st 2025 09:47:44 pm                                               #
+# Modified   : Saturday August 23rd 2025 12:54:32 am                                               #
 # ------------------------------------------------------------------------------------------------ #
 # License    : MIT License                                                                         #
 # Copyright  : (c) 2025 John James                                                                 #
@@ -20,10 +20,11 @@ import copy
 
 import pytest
 
-from mini_transformer.data.builder import TranslationDatasetBuilder
-
 # ⬇️ adjust these imports to your project layout
-from mini_transformer.data.config import DatasetConfig
+from mini_transformer.data.builder.translation import (
+    TranslationDatasetBuilder,
+    TranslationDatasetBuilderConfig,
+)
 
 # ---------- helpers ----------
 
@@ -60,7 +61,7 @@ def stream_known_mix_for_counts():
 
 
 def stream_too_few_valid():
-    """Only 6 valid total; will fail if dataset_size=8."""
+    """Only 6 valid total; will fail if dataset_target_size=8."""
     for _ in range(6):
         yield {"translation": {"en": _words(4), "fr": _words(4)}}
     # lots of invalid after
@@ -69,7 +70,7 @@ def stream_too_few_valid():
 
 
 def make_config(
-    dataset_size=8,
+    dataset_target_size=8,
     oversample=5,
     seed=123,
     tokens_min=1,
@@ -78,11 +79,11 @@ def make_config(
     lang_src="en",
     lang_tgt="fr",
 ):
-    return DatasetConfig(
-        dataset="wmt14",  # not used (we monkeypatch _load_dataset)
+    return TranslationDatasetBuilderConfig(
+        source_dataset_name="wmt14",  # not used (we monkeypatch _load_dataset)
         lang=f"{lang_src}-{lang_tgt}",
         split="train",
-        dataset_size=dataset_size,
+        dataset_target_size=dataset_target_size,
         oversample=oversample,
         seed=seed,
         lang_src=lang_src,
@@ -96,22 +97,24 @@ def make_config(
 # ---------- tests ----------
 
 
+@pytest.mark.builder
 def test_early_stop_at_target_valid(monkeypatch):
-    """Stops once candidates reach target; observer counters reflect that."""
-    cfg = make_config(dataset_size=8, oversample=5)  # target = 40
+    """Stops once candidates reach target; builder_metrics counters reflect that."""
+    cfg = make_config(dataset_target_size=8, oversample=5)  # target = 40
     b = TranslationDatasetBuilder(cfg)
     monkeypatch.setattr(b, "_load_dataset", lambda: stream_all_valid(100))
 
     out = b._extract(b._load_dataset())
 
-    assert len(out) == cfg.dataset_size
+    assert len(out) == cfg.dataset_target_size
     # all rows valid → seen == candidates == target
-    assert b.observer.seen == cfg.dataset_size * cfg.oversample
-    assert b.observer.candidates == cfg.dataset_size * cfg.oversample
-    assert b.observer.filtered == 0
-    assert b.observer.selected == cfg.dataset_size
+    assert b.builder_metrics.seen == cfg.dataset_target_size * cfg.oversample
+    assert b.builder_metrics.candidates == cfg.dataset_target_size * cfg.oversample
+    assert b.builder_metrics.filtered == 0
+    assert b.builder_metrics.selected == cfg.dataset_target_size
 
 
+@pytest.mark.builder
 def test_deterministic_sampling_same_seed(monkeypatch):
     """Same seed + same stream order ⇒ identical selection and order."""
     cfg = make_config(seed=777)
@@ -127,6 +130,7 @@ def test_deterministic_sampling_same_seed(monkeypatch):
     assert out1 == out2
 
 
+@pytest.mark.builder
 def test_seed_changes_selection(monkeypatch):
     """Different seeds ⇒ different selections (almost surely)."""
     cfg_a = make_config(seed=1)
@@ -144,6 +148,7 @@ def test_seed_changes_selection(monkeypatch):
     assert {r["idx"] for r in out_a} != {r["idx"] for r in out_b}
 
 
+@pytest.mark.builder
 def test_keyerror_on_missing_language_key(monkeypatch):
     """Missing lang keys should raise KeyError with context."""
     cfg = make_config()
@@ -156,9 +161,10 @@ def test_keyerror_on_missing_language_key(monkeypatch):
     assert cfg.lang_src in msg and cfg.lang_tgt in msg
 
 
+@pytest.mark.builder
 def test_insufficient_candidates_raises(monkeypatch):
-    """Fewer valid rows than dataset_size ⇒ ValueError."""
-    cfg = make_config(dataset_size=8, oversample=5)
+    """Fewer valid rows than dataset_target_size ⇒ ValueError."""
+    cfg = make_config(dataset_target_size=8, oversample=5)
     b = TranslationDatasetBuilder(cfg)
     monkeypatch.setattr(b, "_load_dataset", lambda: stream_too_few_valid())
 
@@ -166,19 +172,20 @@ def test_insufficient_candidates_raises(monkeypatch):
         _ = b._extract(b._load_dataset())
 
 
-def test_observer_counts_on_mixed_stream(monkeypatch):
+@pytest.mark.builder
+def test_builder_metrics_counts_on_mixed_stream(monkeypatch):
     """Upfront invalids counted; then collect until target candidates."""
-    cfg = make_config(dataset_size=5, oversample=2)  # target=10
+    cfg = make_config(dataset_target_size=5, oversample=2)  # target=10
     b = TranslationDatasetBuilder(cfg)
     monkeypatch.setattr(b, "_load_dataset", stream_known_mix_for_counts)
 
     out = b._extract(b._load_dataset())
 
     # 5 invalid first, then 10 valid → seen=15, candidates=10, filtered=5
-    assert len(out) == cfg.dataset_size
-    assert b.observer.seen == 15
-    assert b.observer.candidates == 10
-    assert b.observer.filtered == 5
-    assert b.observer.filtered_empty == 3
-    assert b.observer.filtered_ratio == 2
-    assert b.observer.selected == cfg.dataset_size
+    assert len(out) == cfg.dataset_target_size
+    assert b.builder_metrics.seen == 15
+    assert b.builder_metrics.candidates == 10
+    assert b.builder_metrics.filtered == 5
+    assert b.builder_metrics.filtered_empty == 3
+    assert b.builder_metrics.filtered_ratio == 2
+    assert b.builder_metrics.selected == cfg.dataset_target_size

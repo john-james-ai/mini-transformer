@@ -11,7 +11,7 @@
 # URL        : https://github.com/john-james-ai/mini-transformer                                   #
 # ------------------------------------------------------------------------------------------------ #
 # Created    : Tuesday August 19th 2025 02:45:28 pm                                                #
-# Modified   : Friday August 22nd 2025 07:32:30 pm                                                 #
+# Modified   : Friday August 22nd 2025 10:27:33 pm                                                 #
 # ------------------------------------------------------------------------------------------------ #
 # License    : MIT License                                                                         #
 # Copyright  : (c) 2025 John James                                                                 #
@@ -174,23 +174,23 @@ class ObjectRepresentationMixin:
         return s
 
     def as_dict(self) -> Dict[str, Union[str, int, float, datetime, None]]:
-        """Returns a dictionary representation of the the Config object."""
+        """Returns a dictionary representation of the object."""
         return {
-            k: self._export_config(v)
+            k: self._export(v)
             for k, v in self.__dict__.items()
             if not k.startswith("_")
         }
 
     @classmethod
-    def _export_config(
+    def _export(
         cls,
         v: Any,
     ) -> Any:  # pragma: no cover
-        """Returns v with Configs converted to dicts, recursively."""
+        """Returns v converted to dicts, recursively."""
         if isinstance(v, IMMUTABLE_TYPES):
             return v
         elif isinstance(v, SEQUENCE_TYPES):
-            return type(v)(map(cls._export_config, v))
+            return type(v)(map(cls._export, v))
         elif isinstance(v, dict):
             return v
         elif hasattr(v, "as_dict"):
@@ -201,6 +201,6 @@ class ObjectRepresentationMixin:
             return dict()
 
     def as_df(self) -> Any:
-        """Returns the project in DataFrame format"""
+        """Returns the object in DataFrame format"""
         d = self.as_dict()
         return pd.DataFrame(data=d, index=[0])

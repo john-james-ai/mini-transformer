@@ -4,16 +4,15 @@
 # Project    : Mini-Transformer                                                                    #
 # Version    : 0.1.0                                                                               #
 # Python     : 3.13.5                                                                              #
-# Filename   : /__init__.py                                                                        #
+# Filename   : /mini_transformer/data/builder/__init__.py                                          #
 # ------------------------------------------------------------------------------------------------ #
 # Author     : John James                                                                          #
 # Email      : john.james.ai.studio@gmail.com                                                      #
 # URL        : https://github.com/john-james-ai/mini-transformer                                   #
 # ------------------------------------------------------------------------------------------------ #
-# Created    : Thursday August 21st 2025 09:41:22 pm                                               #
-# Modified   : Friday August 22nd 2025 08:41:09 pm                                                 #
+# Created    : Friday August 22nd 2025 11:56:47 pm                                                 #
+# Modified   : Friday August 22nd 2025 11:56:55 pm                                                 #
 # ------------------------------------------------------------------------------------------------ #
 # License    : MIT License                                                                         #
 # Copyright  : (c) 2025 John James                                                                 #
 # ================================================================================================ #
-TEST_DATA_ROOT = "tests/data"

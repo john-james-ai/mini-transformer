@@ -11,7 +11,7 @@
 # URL        : https://github.com/john-james-ai/mini-transformer                                   #
 # ------------------------------------------------------------------------------------------------ #
 # Created    : Monday August 18th 2025 11:59:17 pm                                                 #
-# Modified   : Friday August 22nd 2025 06:20:59 am                                                 #
+# Modified   : Friday August 22nd 2025 08:15:14 pm                                                 #
 # ------------------------------------------------------------------------------------------------ #
 # License    : MIT License                                                                         #
 # Copyright  : (c) 2025 John James                                                                 #
@@ -36,29 +36,29 @@ class ObjectAccessLayer:
         # writeback=False by default; protocol=None = highest available
         return shelve.open(self._path, flag=flag, protocol=None)
 
-    def create(self, name: str, data: Any) -> None:
-        """Create a new entry. Raises if the name already exists."""
+    def create(self, key: str, data: Any) -> None:
+        """Create a new entry. Raises if the key already exists."""
         with self._open(flag="c") as db:
-            if name in db:
-                raise KeyError(f"Key {name!r} already exists")
-            db[name] = data  # closing the shelf flushes
+            if key in db:
+                raise KeyError(f"Key {key!r} already exists")
+            db[key] = data  # closing the shelf flushes
 
-    def read(self, name: str) -> Any:
-        """Return the object stored under `name`. Raises KeyError if missing."""
+    def read(self, key: str) -> Any:
+        """Return the object stored under `key`. Raises KeyError if missing."""
         try:
             with self._open(flag="r") as db:
-                return db[name]
+                return db[key]
         except KeyError:
-            raise KeyError(f"Key {name!r} not found") from None
+            raise KeyError(f"Key {key!r} not found") from None
         except OSError as e:
             raise RuntimeError(f"Failed to open shelf at {self._path}") from e
 
-    def delete(self, name: str) -> bool:
+    def delete(self, key: str) -> bool:
         """Delete the entry; return True if it existed, False otherwise."""
         try:
             with self._open(flag="c") as db:
-                if name in db:
-                    del db[name]
+                if key in db:
+                    del db[key]
                     return True
                 return False
         except OSError as e:
@@ -72,10 +72,10 @@ class ObjectAccessLayer:
         except OSError:
             return []
 
-    def exists(self, name: str) -> bool:
-        """Return True if `name` exists (does not create a new shelf)."""
+    def exists(self, key: str) -> bool:
+        """Return True if `key` exists (does not create a new shelf)."""
         try:
             with self._open(flag="r") as db:
-                return name in db
+                return key in db
         except OSError:
             return False

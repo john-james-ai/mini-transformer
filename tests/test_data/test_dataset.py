@@ -4,14 +4,14 @@
 # Project    : Mini-Transformer                                                                    #
 # Version    : 0.1.0                                                                               #
 # Python     : 3.13.5                                                                              #
-# Filename   : /test_dataset.py                                                                    #
+# Filename   : /tests/test_data/test_dataset.py                                                    #
 # ------------------------------------------------------------------------------------------------ #
 # Author     : John James                                                                          #
 # Email      : john.james.ai.studio@gmail.com                                                      #
 # URL        : https://github.com/john-james-ai/mini-transformer                                   #
 # ------------------------------------------------------------------------------------------------ #
 # Created    : Friday August 22nd 2025 06:55:55 pm                                                 #
-# Modified   : Friday August 22nd 2025 08:00:32 pm                                                 #
+# Modified   : Saturday August 23rd 2025 12:52:47 am                                               #
 # ------------------------------------------------------------------------------------------------ #
 # License    : MIT License                                                                         #
 # Copyright  : (c) 2025 John James                                                                 #
@@ -25,7 +25,7 @@ from datetime import datetime
 import pandas as pd
 import pytest
 
-from mini_transformer.data.builder import TranslationDatasetBuilderObserver
+from mini_transformer.data.builder.translation import TranslationDatasetBuilderMetrics
 
 # ------------------------------------------------------------------------------------------------ #
 # pylint: disable=missing-class-docstring, line-too-long
@@ -50,8 +50,8 @@ class TestDataset:  # pragma: no cover
         )
         logger.info(double_line)
         # ---------------------------------------------------------------------------------------- #
-        assert isinstance(dataset.dataset_id, str)
-        assert "wmt14" in dataset.dataset_name
+        assert isinstance(dataset.id, str)
+        assert "wmt14" in dataset.name
         assert len(dataset) == 16
 
         # ---------------------------------------------------------------------------------------- #
@@ -71,25 +71,25 @@ class TestDataset:  # pragma: no cover
         )
         logger.info(double_line)
         # ---------------------------------------------------------------------------------------- #
-        assert dataset.config.dataset == "wmt14"
-        assert dataset.config.lang == "fr-en"
-        assert dataset.config.lang_src == "en"
-        assert dataset.config.lang_tgt == "fr"
-        assert dataset.config.split == "test"
-        assert dataset.config.dataset_size == 16
-        assert dataset.config.oversample == 3
-        assert dataset.config.tokens_min == 8
-        assert dataset.config.tokens_max == 256
-        assert dataset.config.ratio_min == 0.5
-        assert dataset.config.ratio_max == 2.0
-        assert dataset.config.src_bos is False
-        assert dataset.config.src_eos is False
-        assert dataset.config.tgt_bos is True
-        assert dataset.config.tgt_eos is True
-        assert dataset.config.seed == 42
-        assert dataset.config.src_max_words < dataset.config.tokens_max
-        assert dataset.config.tgt_max_words < dataset.config.tokens_max
-        logger.info(str(dataset.config))
+        assert dataset.builder_config.source_dataset_name == "wmt14"
+        assert dataset.builder_config.lang == "fr-en"
+        assert dataset.builder_config.lang_src == "en"
+        assert dataset.builder_config.lang_tgt == "fr"
+        assert dataset.builder_config.split == "test"
+        assert dataset.builder_config.dataset_target_size == 16
+        assert dataset.builder_config.oversample == 3
+        assert dataset.builder_config.tokens_min == 8
+        assert dataset.builder_config.tokens_max == 256
+        assert dataset.builder_config.ratio_min == 0.5
+        assert dataset.builder_config.ratio_max == 2.0
+        assert dataset.builder_config.src_bos is False
+        assert dataset.builder_config.src_eos is False
+        assert dataset.builder_config.tgt_bos is True
+        assert dataset.builder_config.tgt_eos is True
+        assert dataset.builder_config.seed == 42
+        assert dataset.builder_config.src_max_words < dataset.builder_config.tokens_max
+        assert dataset.builder_config.tgt_max_words < dataset.builder_config.tokens_max
+        logger.info(str(dataset.builder_config))
 
         # ---------------------------------------------------------------------------------------- #
         end = datetime.now()
@@ -101,15 +101,15 @@ class TestDataset:  # pragma: no cover
         logger.info(single_line)
 
     # ============================================================================================ #
-    def test_build_log(self, dataset, caplog) -> None:
+    def test_builder_metrics(self, dataset, caplog) -> None:
         start = datetime.now()
         logger.info(
             f"\n\nStarted {self.__class__.__name__} {inspect.stack()[0][3]} at {start.strftime('%I:%M:%S %p')} on {start.strftime('%m/%d/%Y')}"
         )
         logger.info(double_line)
         # ---------------------------------------------------------------------------------------- #
-        assert isinstance(dataset.build_log, TranslationDatasetBuilderObserver)
-        print(dataset.build_log)
+        assert isinstance(dataset.builder_metrics, TranslationDatasetBuilderMetrics)
+        print(dataset.builder_metrics)
 
         # ---------------------------------------------------------------------------------------- #
         end = datetime.now()
@@ -129,8 +129,8 @@ class TestDataset:  # pragma: no cover
         logger.info(double_line)
         # ---------------------------------------------------------------------------------------- #
         assert isinstance(dataset.info, dict)
-        assert "dataset_id" in dataset.info.keys()
-        assert "dataset_name" in dataset.info.keys()
+        assert "id" in dataset.info.keys()
+        assert "name" in dataset.info.keys()
         assert "size" in dataset.info.keys()
         assert "created" in dataset.info.keys()
 

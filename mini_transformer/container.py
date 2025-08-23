@@ -4,14 +4,14 @@
 # Project    : Mini-Transformer                                                                    #
 # Version    : 0.1.0                                                                               #
 # Python     : 3.13.5                                                                              #
-# Filename   : /container.py                                                                       #
+# Filename   : /mini_transformer/container.py                                                      #
 # ------------------------------------------------------------------------------------------------ #
 # Author     : John James                                                                          #
 # Email      : john.james.ai.studio@gmail.com                                                      #
 # URL        : https://github.com/john-james-ai/mini-transformer                                   #
 # ------------------------------------------------------------------------------------------------ #
 # Created    : Tuesday August 19th 2025 07:59:27 pm                                                #
-# Modified   : Friday August 22nd 2025 06:33:37 am                                                 #
+# Modified   : Saturday August 23rd 2025 12:35:10 am                                               #
 # ------------------------------------------------------------------------------------------------ #
 # License    : MIT License                                                                         #
 # Copyright  : (c) 2025 John James                                                                 #
@@ -24,7 +24,7 @@ import logging.config  # pragma: no cover
 import redis
 from dependency_injector import containers, providers
 
-from mini_transformer.data.repo import DatasetRepo
+from mini_transformer.data.repo.dataset_repo import DatasetRepo
 from mini_transformer.infra.database.fal import FileAccessLayer
 from mini_transformer.infra.database.oal import ObjectAccessLayer
 

@@ -12,5 +12,9 @@
         ["version", "0.1.0"],
         ["pythonversion","3.13.5"]
     ],
+    "psi-header.config": {
+
+    },
+    "psi-header.lang-config": [],
     }
 }

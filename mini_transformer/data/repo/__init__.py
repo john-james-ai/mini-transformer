@@ -4,14 +4,14 @@
 # Project    : Mini-Transformer                                                                    #
 # Version    : 0.1.0                                                                               #
 # Python     : 3.13.5                                                                              #
-# Filename   : /config.py                                                                          #
+# Filename   : /__init__.py                                                                        #
 # ------------------------------------------------------------------------------------------------ #
 # Author     : John James                                                                          #
 # Email      : john.james.ai.studio@gmail.com                                                      #
 # URL        : https://github.com/john-james-ai/mini-transformer                                   #
 # ------------------------------------------------------------------------------------------------ #
-# Created    : Tuesday August 19th 2025 09:14:45 pm                                                #
-# Modified   : Tuesday August 19th 2025 09:14:53 pm                                                #
+# Created    : Sunday August 17th 2025 10:12:42 pm                                                 #
+# Modified   : Monday August 18th 2025 11:59:57 pm                                                 #
 # ------------------------------------------------------------------------------------------------ #
 # License    : MIT License                                                                         #
 # Copyright  : (c) 2025 John James                                                                 #

@@ -4,14 +4,14 @@
 # Project    : Mini-Transformer                                                                    #
 # Version    : 0.1.0                                                                               #
 # Python     : 3.13.5                                                                              #
-# Filename   : /repo.py                                                                            #
+# Filename   : /mini_transformer/data/repo/dataset_repo.py                                         #
 # ------------------------------------------------------------------------------------------------ #
 # Author     : John James                                                                          #
 # Email      : john.james.ai.studio@gmail.com                                                      #
 # URL        : https://github.com/john-james-ai/mini-transformer                                   #
 # ------------------------------------------------------------------------------------------------ #
 # Created    : Tuesday August 19th 2025 06:28:04 pm                                                #
-# Modified   : Friday August 22nd 2025 06:43:45 am                                                 #
+# Modified   : Saturday August 23rd 2025 12:47:57 am                                               #
 # ------------------------------------------------------------------------------------------------ #
 # License    : MIT License                                                                         #
 # Copyright  : (c) 2025 John James                                                                 #
@@ -24,6 +24,7 @@ import pandas as pd
 
 from mini_transformer.infra.database.fal import FileAccessLayer
 from mini_transformer.infra.database.oal import ObjectAccessLayer
+from mini_transformer.utils.exceptions import DataCorruptionError
 
 # ------------------------------------------------------------------------------------------------ #
 logger = logging.getLogger(__name__)
@@ -63,29 +64,33 @@ class DatasetRepo(ABC):
         """Persist a dataset (rows + slim manifest).
 
         Writes the materialized rows to JSONL, then stores a dematerialized
-        manifest (same dataset object with `data=[]`) under `dataset.dataset_id`.
+        manifest (same dataset object with `data=[]`) under `dataset.id`.
 
         Args:
             dataset: A Dataset (or subclass) instance with attributes
-                `dataset_id`, `dataset_name`, and `data` (list of dicts).
+                `id`, `name`, and `data` (list of dicts).
 
         Raises:
             ValueError: If required attributes are missing or invalid.
             FileExistsError: If `fal`/`oal` enforce exclusive create and an object already exists.
             OSError: On underlying I/O failures (file write or object store issues).
         """
-        name = getattr(dataset, "dataset_name", None)
-        dsid = getattr(dataset, "dataset_id", None)
-        if not isinstance(name, str) or not name:
-            raise ValueError("Dataset is missing a valid 'dataset_name'.")
+        key = getattr(dataset, "name", None)
+        dsid = getattr(dataset, "id", None)
+        if not isinstance(key, str) or not key:
+            raise ValueError("Dataset is missing a valid 'name'.")
         if not isinstance(dsid, str) or not dsid:
-            raise ValueError("Dataset is missing a valid 'dataset_id'.")
+            raise ValueError("Dataset is missing a valid 'id'.")
 
         # 1) Write rows first to avoid dangling meta on failure.
-        self._fal.create(name=name, data=dataset.data)
+        self._fal.create(key=key, data=dataset.data)
 
         # 2) Persist slim manifest (data = []).
-        self._oal.create(name=dsid, data=dataset.dematerialize())
+        self._oal.create(key=dsid, data=dataset.dematerialize())
+
+        logger.info(
+            f"Added dataset id: {dataset.id}, name: {dataset.name} to the Dataset repository."
+        )
 
     def get(self, dataset_id: str):
         """Return the dataset for the given `dataset_id` (manifest + rows).
@@ -102,7 +107,7 @@ class DatasetRepo(ABC):
             OSError: For other I/O or deserialization errors.
         """
         try:
-            dataset_meta = self._oal.read(name=dataset_id)  # raises KeyError if missing
+            dataset_meta = self._oal.read(key=dataset_id)  # raises KeyError if missing
         except KeyError:
             raise KeyError(
                 f"No dataset manifest found for id '{dataset_id}'."
@@ -110,16 +115,12 @@ class DatasetRepo(ABC):
         except Exception as e:
             raise OSError(f"Failed to read manifest for id '{dataset_id}'.") from e
 
-        name = getattr(dataset_meta, "dataset_name", None)
-        if not isinstance(name, str) or not name:
-            raise ValueError(
-                f"Manifest for id '{dataset_id}' lacks a valid 'dataset_name'."
-            )
+        key = getattr(dataset_meta, "name", None)
+        if not isinstance(key, str) or not key:
+            raise ValueError(f"Manifest for id '{dataset_id}' lacks a valid 'name'.")
 
         try:
-            data = self._fal.read(
-                name=name
-            )  # should raise FileNotFoundError if missing
+            data = self._fal.read(key=key)  # should raise FileNotFoundError if missing
         except FileNotFoundError:
             raise FileNotFoundError(
                 f"Data file not found for id '{dataset_id}'."
@@ -139,15 +140,15 @@ class DatasetRepo(ABC):
             True if at least one of (manifest, data file) was deleted; False if nothing existed.
 
         Raises:
-            ValueError: If the manifest exists but lacks a valid dataset_name.
+            ValueError: If the manifest exists but lacks a valid name.
             OSError: If underlying delete operations fail unexpectedly.
         """
         deleted_meta = False
         deleted_data = False
 
-        # Resolve manifest → dataset_name
+        # Resolve manifest → name
         try:
-            meta = self._oal.read(name=dataset_id)
+            meta = self._oal.read(key=dataset_id)
         except KeyError:
             logger.info("Nothing to remove for '%s' (metadata missing).", dataset_id)
             return False
@@ -159,20 +160,18 @@ class DatasetRepo(ABC):
             )
             return False
 
-        name = getattr(meta, "dataset_name", None)
-        if not isinstance(name, str) or not name:
-            raise ValueError(
-                f"Metadata for '{dataset_id}' lacks a valid 'dataset_name'."
-            )
+        key = getattr(meta, "name", None)
+        if not isinstance(key, str) or not key:
+            raise ValueError(f"Metadata for '{dataset_id}' lacks a valid 'name'.")
 
         # Delete data first, then manifest
         try:
-            deleted_data = self._fal.delete(name=name)  # False if not present
+            deleted_data = self._fal.delete(key=key)  # False if not present
         except Exception as e:
             raise OSError(f"Failed deleting data for '{dataset_id}'.") from e
 
         try:
-            deleted_meta = self._oal.delete(name=dataset_id)  # False if not present
+            deleted_meta = self._oal.delete(key=dataset_id)  # False if not present
         except Exception as e:
             raise OSError(f"Failed deleting metadata for '{dataset_id}'.") from e
 
@@ -188,7 +187,36 @@ class DatasetRepo(ABC):
         return deleted_meta or deleted_data
 
     def exists(self, dataset_id: str) -> bool:
-        return self._oal.exists(name=dataset_id)
+        """Check whether a dataset exists in both metadata and file storage.
+
+        This method verifies the integrity of a dataset by ensuring two conditions:
+        1. The dataset metadata exists in the object access layer (OAL).
+        2. The corresponding dataset file exists in the file access layer (FAL).
+
+        If the metadata exists but the file does not, a ``DataCorruptionError`` is raised
+        to signal an inconsistent or corrupted state.
+
+        Args:
+            dataset_id (str): Unique identifier of the dataset to check.
+
+        Returns:
+            bool: ``True`` if both metadata and dataset file exist;
+                ``False`` if the dataset metadata does not exist.
+
+        Raises:
+            DataCorruptionError: If metadata exists but the corresponding dataset file is missing.
+        """
+        if self._oal.exists(key=dataset_id):
+            dataset_meta = self._oal.read(key=dataset_id)
+            key = dataset_meta.name
+            if self._fal.exists(key=key):
+                return True
+            else:
+                raise DataCorruptionError(
+                    f"Dataset file for dataset_id: {dataset_id}, name: {dataset_meta.name} does not exist."
+                )
+        else:
+            return False
 
     def show(self) -> pd.DataFrame:
         """Return a minimal registry of datasets as a pandas DataFrame.
@@ -216,7 +244,7 @@ class DatasetRepo(ABC):
 
         for dataset_id in ids:
             try:
-                meta = self._oal.read(name=dataset_id)
+                meta = self._oal.read(key=dataset_id)
             except KeyError:
                 continue
             except Exception as e:
@@ -231,7 +259,7 @@ class DatasetRepo(ABC):
                 )
                 info = {
                     "dataset_id": dataset_id,
-                    "name": getattr(meta, "dataset_name", None),
+                    "name": getattr(meta, "name", None),
                     "size": None,
                 }
 
