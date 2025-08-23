@@ -11,7 +11,7 @@
 # URL        : https://github.com/john-james-ai/mini-transformer                                   #
 # ------------------------------------------------------------------------------------------------ #
 # Created    : Thursday August 21st 2025 06:39:14 pm                                               #
-# Modified   : Friday August 22nd 2025 12:03:01 am                                                 #
+# Modified   : Friday August 22nd 2025 07:34:18 pm                                                 #
 # ------------------------------------------------------------------------------------------------ #
 # License    : MIT License                                                                         #
 # Copyright  : (c) 2025 John James                                                                 #
@@ -19,16 +19,15 @@
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from dataclasses import asdict, dataclass
+from dataclasses import dataclass
 from datetime import datetime
 
-from mini_transformer.utils.format import dict_as_string
-from mini_transformer.utils.mixins import FreezableMixin
+from mini_transformer.utils.mixins import FreezableMixin, ObjectRepresentationMixin
 
 
 # ------------------------------------------------------------------------------------------------ #
 @dataclass
-class Observer(ABC, FreezableMixin):
+class Observer(ABC, FreezableMixin, ObjectRepresentationMixin):
     started_at: datetime = None
     ended_at: datetime = None
     duration: float = 0.0
@@ -41,9 +40,6 @@ class Observer(ABC, FreezableMixin):
             raise TypeError("Attempted to end without first calling start().")
         self.ended_at = datetime.now()
         self.duration = round((self.ended_at - self.started_at).total_seconds(), 3)
-
-    def as_string(self) -> str:
-        return dict_as_string(name=self.__class__.__name__, data=asdict(self))
 
     def __enter__(self) -> Observer:
         self.start()

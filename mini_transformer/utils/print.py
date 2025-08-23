@@ -11,36 +11,16 @@
 # URL        : https://github.com/john-james-ai/mini-transformer                                   #
 # ------------------------------------------------------------------------------------------------ #
 # Created    : Thursday August 21st 2025 06:23:53 pm                                               #
-# Modified   : Thursday August 21st 2025 08:19:08 pm                                               #
+# Modified   : Friday August 22nd 2025 07:28:58 pm                                                 #
 # ------------------------------------------------------------------------------------------------ #
 # License    : MIT License                                                                         #
 # Copyright  : (c) 2025 John James                                                                 #
 # ================================================================================================ #
-from datetime import date, datetime
 from typing import Optional
 
-import numpy as np
+from mini_transformer.utils.dtypes import IMMUTABLE_TYPES
 
 # ------------------------------------------------------------------------------------------------ #
-IMMUTABLE_TYPES: tuple = (
-    str,
-    int,
-    float,
-    bool,
-    np.int16,
-    np.int32,
-    np.int64,
-    np.int8,
-    np.uint8,
-    np.uint16,
-    np.float16,
-    np.float32,
-    np.float64,
-    np.float128,
-    np.bool_,
-    datetime,
-    date,
-)
 
 
 class Printer:

@@ -11,7 +11,7 @@
 # URL        : https://github.com/john-james-ai/mini-transformer                                   #
 # ------------------------------------------------------------------------------------------------ #
 # Created    : Tuesday August 19th 2025 08:17:31 am                                                #
-# Modified   : Friday August 22nd 2025 05:43:53 am                                                 #
+# Modified   : Friday August 22nd 2025 07:49:10 pm                                                 #
 # ------------------------------------------------------------------------------------------------ #
 # License    : MIT License                                                                         #
 # Copyright  : (c) 2025 John James                                                                 #
@@ -22,6 +22,7 @@ import json
 from abc import ABC
 from collections.abc import Iterator
 from dataclasses import dataclass, replace
+from pathlib import Path
 from typing import TYPE_CHECKING, Any, Dict, List
 
 import pandas as pd
@@ -91,7 +92,7 @@ class Dataset(ABC):
     def info(self) -> Dict[str, Any]:
         return {
             "dataset_id": self.dataset_id,
-            "name": self.dataset_name,
+            "dataset_name": self.dataset_name,
             "size": len(self),
         }
 
@@ -117,8 +118,9 @@ class Dataset(ABC):
             OSError: If the file cannot be created or written.
             TypeError: If elements in `self.data` are not JSON-serializable.
         """
-
-        with open(path, "w", encoding="utf-8") as f:
+        filepath = Path(path)
+        filepath.parent.mkdir(parents=True, exist_ok=True)
+        with open(filepath, "w", encoding="utf-8") as f:
             for ex in self.data:
                 f.write(json.dumps(ex, ensure_ascii=ensure_ascii) + "\n")
 
@@ -145,7 +147,7 @@ class TranslationDataset(Dataset):
     def info(self) -> Dict[str, Any]:
         return {
             "dataset_id": self.dataset_id,
-            "name": self.dataset_name,
+            "dataset_name": self.dataset_name,
             "size": len(self),
             "created": self.build_log.ended_at,
         }

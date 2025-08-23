@@ -11,19 +11,19 @@
 # URL        : https://github.com/john-james-ai/mini-transformer                                   #
 # ------------------------------------------------------------------------------------------------ #
 # Created    : Tuesday August 19th 2025 06:50:12 am                                                #
-# Modified   : Friday August 22nd 2025 06:09:27 am                                                 #
+# Modified   : Friday August 22nd 2025 07:32:27 pm                                                 #
 # ------------------------------------------------------------------------------------------------ #
 # License    : MIT License                                                                         #
 # Copyright  : (c) 2025 John James                                                                 #
 # ================================================================================================ #
 from dataclasses import dataclass, field
 
-from mini_transformer.utils.mixins import FingerprintMixin
+from mini_transformer.utils.mixins import FingerprintMixin, ObjectRepresentationMixin
 
 
 # ------------------------------------------------------------------------------------------------ #
 @dataclass(frozen=True)
-class DatasetConfig(FingerprintMixin):
+class DatasetConfig(FingerprintMixin, ObjectRepresentationMixin):
     """Configuration for building a small, reproducible WMT-style sample.
 
     This dataclass specifies dataset identity, split selection, target sample size,

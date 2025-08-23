@@ -11,7 +11,7 @@
 # URL        : https://github.com/john-james-ai/mini-transformer                                   #
 # ------------------------------------------------------------------------------------------------ #
 # Created    : Wednesday August 20th 2025 02:14:01 am                                              #
-# Modified   : Friday August 22nd 2025 03:23:54 am                                                 #
+# Modified   : Friday August 22nd 2025 07:34:43 pm                                                 #
 # ------------------------------------------------------------------------------------------------ #
 # License    : MIT License                                                                         #
 # Copyright  : (c) 2025 John James                                                                 #
@@ -58,9 +58,6 @@ class TranslationDatasetBuilderObserver(Observer):
     filtered_tgt_long: int = 0
 
     throughput: float = 0.0
-
-    def __str__(self) -> str:
-        return self.as_string()
 
     def end(self) -> None:
         super().end()
