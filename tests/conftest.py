@@ -3,7 +3,7 @@
 # ================================================================================================ #
 # Project    : Mini-Transformer                                                                    #
 # Version    : 0.1.0                                                                               #
-# Python     : 3.13.5                                                                              #
+# Python     : 3.11.13                                                                             #
 # Filename   : /tests/conftest.py                                                                  #
 # ------------------------------------------------------------------------------------------------ #
 # Author     : John James                                                                          #
@@ -11,7 +11,7 @@
 # URL        : https://github.com/john-james-ai/mini-transformer                                   #
 # ------------------------------------------------------------------------------------------------ #
 # Created    : Friday August 22nd 2025 05:23:36 am                                                 #
-# Modified   : Saturday August 23rd 2025 12:34:58 am                                               #
+# Modified   : Monday August 25th 2025 08:27:46 am                                                 #
 # ------------------------------------------------------------------------------------------------ #
 # License    : MIT License                                                                         #
 # Copyright  : (c) 2025 John James                                                                 #
@@ -21,7 +21,7 @@ import shutil
 import pytest
 
 from mini_transformer.container import MiniTransformerContainer
-from mini_transformer.data.builder.translation import (
+from mini_transformer.data.dataset_builder.builder import (
     TranslationDatasetBuilder,
     TranslationDatasetBuilderConfig,
 )

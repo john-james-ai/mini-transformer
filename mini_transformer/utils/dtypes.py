@@ -3,15 +3,15 @@
 # ================================================================================================ #
 # Project    : Mini-Transformer                                                                    #
 # Version    : 0.1.0                                                                               #
-# Python     : 3.13.5                                                                              #
-# Filename   : /dtypes.py                                                                          #
+# Python     : 3.11.13                                                                             #
+# Filename   : /mini_transformer/utils/dtypes.py                                                   #
 # ------------------------------------------------------------------------------------------------ #
 # Author     : John James                                                                          #
 # Email      : john.james.ai.studio@gmail.com                                                      #
 # URL        : https://github.com/john-james-ai/mini-transformer                                   #
 # ------------------------------------------------------------------------------------------------ #
 # Created    : Thursday August 21st 2025 08:18:33 pm                                               #
-# Modified   : Friday August 22nd 2025 07:29:37 pm                                                 #
+# Modified   : Monday August 25th 2025 01:28:58 am                                                 #
 # ------------------------------------------------------------------------------------------------ #
 # License    : MIT License                                                                         #
 # Copyright  : (c) 2025 John James                                                                 #

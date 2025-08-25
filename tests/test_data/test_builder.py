@@ -3,7 +3,7 @@
 # ================================================================================================ #
 # Project    : Mini-Transformer                                                                    #
 # Version    : 0.1.0                                                                               #
-# Python     : 3.13.5                                                                              #
+# Python     : 3.11.13                                                                             #
 # Filename   : /tests/test_data/test_builder.py                                                    #
 # ------------------------------------------------------------------------------------------------ #
 # Author     : John James                                                                          #
@@ -11,7 +11,7 @@
 # URL        : https://github.com/john-james-ai/mini-transformer                                   #
 # ------------------------------------------------------------------------------------------------ #
 # Created    : Thursday August 21st 2025 06:10:44 pm                                               #
-# Modified   : Saturday August 23rd 2025 12:54:32 am                                               #
+# Modified   : Monday August 25th 2025 08:27:46 am                                                 #
 # ------------------------------------------------------------------------------------------------ #
 # License    : MIT License                                                                         #
 # Copyright  : (c) 2025 John James                                                                 #
@@ -21,7 +21,7 @@ import copy
 import pytest
 
 # ⬇️ adjust these imports to your project layout
-from mini_transformer.data.builder.translation import (
+from mini_transformer.data.dataset_builder.builder import (
     TranslationDatasetBuilder,
     TranslationDatasetBuilderConfig,
 )

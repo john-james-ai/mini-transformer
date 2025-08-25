@@ -3,7 +3,7 @@
 # ================================================================================================ #
 # Project    : Mini-Transformer                                                                    #
 # Version    : 0.1.0                                                                               #
-# Python     : 3.13.5                                                                              #
+# Python     : 3.11.13                                                                             #
 # Filename   : /config.yaml                                                                        #
 # ------------------------------------------------------------------------------------------------ #
 # Author     : John James                                                                          #
@@ -11,7 +11,7 @@
 # URL        : https://github.com/john-james-ai/mini-transformer                                   #
 # ------------------------------------------------------------------------------------------------ #
 # Created    : Tuesday August 19th 2025 08:00:33 pm                                                #
-# Modified   : Friday August 22nd 2025 06:41:00 am                                                 #
+# Modified   : Monday August 25th 2025 09:06:41 am                                                 #
 # ------------------------------------------------------------------------------------------------ #
 # License    : MIT License                                                                         #
 # Copyright  : (c) 2025 John James                                                                 #
@@ -52,6 +52,36 @@ utils:
     line_width: 80
 # ------------------------------------------------------------------------------------------------ #
 repo:
-  location: tests/data/datasets/
+  dataset: tests/data/dataset/
+  datafile: tests/data/datafile/
+# ------------------------------------------------------------------------------------------------ # 
+data:
+  raw: tests/data/raw/
+  splits:  
+    train: 4000000
+    validation: 1000
+    test: 1000
+
+# ------------------------------------------------------------------------------------------------ # 
+infra:
+  hf_downloader:
+    dataset: wmt14
+    language: fr_en
+    shuffle: True  
+    buffer_size: 10000
+    seed: 55
+# ------------------------------------------------------------------------------------------------ # 
+tokenizer:
+  model_file: models/tokenizer.json
+  vocab_size: 50000
+  min_frequency: 2
+  show_progress: True
+  unk_token: <UNK>
+  special_tokens:
+    - <UNK>
+    - <BOS>
+    - <EOS>
+    - <MASK>
+
 
 

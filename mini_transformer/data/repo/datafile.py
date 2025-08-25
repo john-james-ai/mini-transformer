@@ -3,15 +3,15 @@
 # ================================================================================================ #
 # Project    : Mini-Transformer                                                                    #
 # Version    : 0.1.0                                                                               #
-# Python     : 3.13.5                                                                              #
-# Filename   : /mini_transformer/data/repo/dataset_repo.py                                         #
+# Python     : 3.11.13                                                                             #
+# Filename   : /mini_transformer/data/repo/datafile.py                                             #
 # ------------------------------------------------------------------------------------------------ #
 # Author     : John James                                                                          #
 # Email      : john.james.ai.studio@gmail.com                                                      #
 # URL        : https://github.com/john-james-ai/mini-transformer                                   #
 # ------------------------------------------------------------------------------------------------ #
 # Created    : Tuesday August 19th 2025 06:28:04 pm                                                #
-# Modified   : Saturday August 23rd 2025 12:47:57 am                                               #
+# Modified   : Monday August 25th 2025 08:27:47 am                                                 #
 # ------------------------------------------------------------------------------------------------ #
 # License    : MIT License                                                                         #
 # Copyright  : (c) 2025 John James                                                                 #
@@ -22,45 +22,19 @@ from typing import Any
 
 import pandas as pd
 
-from mini_transformer.infra.database.fal import FileAccessLayer
-from mini_transformer.infra.database.oal import ObjectAccessLayer
-from mini_transformer.utils.exceptions import DataCorruptionError
+from mini_transformer.infra.dal.fal import FileAccessLayer
 
 # ------------------------------------------------------------------------------------------------ #
 logger = logging.getLogger(__name__)
 # ------------------------------------------------------------------------------------------------ #
 
 
-class DatasetRepo(ABC):
-    """Lightweight local repository for dataset manifests + row files.
+class DataFileRepo(ABC):
 
-    Persists datasets using:
-      - ObjectAccessLayer (OAL): stores a *slim* manifest (same class as the dataset) with `data=[]`.
-      - FileAccessLayer (FAL): stores row data as JSONL at a deterministic path.
-
-    Policy:
-      - `add()` writes rows first, then the slim manifest (to avoid dangling meta on write failure).
-      - `get()` rehydrates by reading manifest then the JSONL rows.
-      - `remove()` is best-effort and idempotent: deletes whatever exists; returns True if anything was removed.
-      - `show()` returns a minimal registry derived from each manifest's `.info` (dict).
-    """
-
-    def __init__(self, fal: FileAccessLayer, oal: ObjectAccessLayer) -> None:
-        """Initialize the repository.
-
-        Args:
-            fal: File access layer providing create/read/delete for JSONL files.
-            oal: Object access layer providing create/read/delete and listing of manifests.
-
-        Notes:
-            - `fal.create()` should create parent directories as needed.
-            - `oal.read()` is expected to raise KeyError if the key is missing.
-        """
-
+    def __init__(self, fal: FileAccessLayer) -> None:
         self._fal = fal
-        self._oal = oal
 
-    def add(self, dataset) -> None:
+    def add(self, datafile: str) -> None:
         """Persist a dataset (rows + slim manifest).
 
         Writes the materialized rows to JSONL, then stores a dematerialized

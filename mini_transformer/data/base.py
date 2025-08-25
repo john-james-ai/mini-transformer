@@ -3,19 +3,20 @@
 # ================================================================================================ #
 # Project    : Mini-Transformer                                                                    #
 # Version    : 0.1.0                                                                               #
-# Python     : 3.13.5                                                                              #
-# Filename   : /mini_transformer/data/dataset/base.py                                              #
+# Python     : 3.11.13                                                                             #
+# Filename   : /mini_transformer/data/base.py                                                      #
 # ------------------------------------------------------------------------------------------------ #
 # Author     : John James                                                                          #
 # Email      : john.james.ai.studio@gmail.com                                                      #
 # URL        : https://github.com/john-james-ai/mini-transformer                                   #
 # ------------------------------------------------------------------------------------------------ #
-# Created    : Friday August 22nd 2025 11:17:40 pm                                                 #
-# Modified   : Saturday August 23rd 2025 12:41:38 am                                               #
+# Created    : Monday August 25th 2025 06:52:31 am                                                 #
+# Modified   : Monday August 25th 2025 09:21:23 am                                                 #
 # ------------------------------------------------------------------------------------------------ #
 # License    : MIT License                                                                         #
 # Copyright  : (c) 2025 John James                                                                 #
 # ================================================================================================ #
+"""Abstract Base Classes for Dataset & DataFile Builders"""
 from __future__ import annotations
 
 import json
@@ -24,27 +25,21 @@ from collections.abc import Iterator
 from dataclasses import dataclass, replace
 from datetime import datetime
 from pathlib import Path
-from typing import TYPE_CHECKING, Any, Dict, List
+from typing import Any, Dict, List, Optional, Union
 
 import pandas as pd
 
-if TYPE_CHECKING:
-    from mini_transformer.data.builder.base import (
-        DatasetBuilderConfig,
-        DatasetBuilderMetrics,
-    )
-
-from mini_transformer.utils.mixins import ObjectRepresentationMixin
+from mini_transformer.utils.mixins import FreezableMixin, ObjectRepresentationMixin
 
 
 # ------------------------------------------------------------------------------------------------ #
 @dataclass(frozen=True)
-class Dataset(ABC, ObjectRepresentationMixin):
+class DataObject(ABC, ObjectRepresentationMixin):
     # Metadata
     id: str  # Unique identifier for the dataset
-    name: str  # Human readable identifying name
+    name: str  # Descriptive name for the dataset
     split: str  # train, validation, test
-    size: int  # Number of rows in the dataset
+    n: int  # Number of rows in the dataset
     source: str  # Source ie HuggingFace
     source_dataset_name: str  # Dataset name at source
 
@@ -53,8 +48,8 @@ class Dataset(ABC, ObjectRepresentationMixin):
 
     # Provenance
     created: datetime
-    builder_config: DatasetBuilderConfig
-    builder_metrics: DatasetBuilderMetrics
+    builder_config: BuilderConfig
+    builder_metrics: BuilderMetrics
 
     def __len__(self) -> int:
         """Number of examples in the dataset.
@@ -93,10 +88,10 @@ class Dataset(ABC, ObjectRepresentationMixin):
         """Returns select (immutable) information about the dataset in dictionary format."""
 
     # --- MATERIALIZE ---------------------------------------------------------
-    def materialize(self, data: List[Dict[str, Any]]) -> Dataset:
+    def materialize(self, data: List[Dict[str, Any]]) -> DataObject:
         return replace(self, data=data)
 
-    def dematerialize(self) -> Dataset:
+    def dematerialize(self) -> DataObject:
         return replace(self, data=[])
 
     # --- IO ------------------------------------------------------------------
@@ -131,3 +126,99 @@ class Dataset(ABC, ObjectRepresentationMixin):
             Requires pandas to be installed and importable as `pd`.
         """
         return pd.DataFrame.from_records(self.data)
+
+
+# ------------------------------------------------------------------------------------------------ #
+class Builder(ABC):
+    """Abstract base for Dataset and DataFile builders.
+
+    Subclasses implement concrete extraction and construction logic for specific
+    dataset types (e.g., translation pairs, classification records).
+
+    Methods:
+        build: Construct and return a concrete `Dataset` instance.
+    """
+
+    def __init__(self, builder_config: BuilderConfig) -> None:
+        self._builder_config = builder_config
+
+    @abstractmethod
+    def build(self) -> Union[DataObject, DataObject]:
+        """Build the data object.
+
+        Returns:
+            Union[Dataset, DataFile]: A concrete Dataset or DataFile instance
+
+        Raises:
+            ValueError: If the builder cannot construct a dataset due to
+                insufficient valid examples or configuration issues.
+        """
+
+
+# ------------------------------------------------------------------------------------------------ #
+@dataclass(frozen=True)
+class BuilderConfig(ABC):
+    """Abstract base class for builder configurations."""
+
+
+# ------------------------------------------------------------------------------------------------ #
+@dataclass
+class BuilderMetrics(ABC, FreezableMixin, ObjectRepresentationMixin):
+    """Abstract base class for builder metrics."""
+
+    started_at: Optional[datetime] = None
+    ended_at: Optional[datetime] = None
+    duration: float = 0.0
+
+    def start(self) -> None:
+        """Mark the beginning of metric collection.
+
+        Sets ``started_at`` to the current wall-clock time.
+
+        Notes:
+            Calling :meth:`start` more than once will overwrite the previous
+            ``started_at`` value.
+        """
+        self.started_at = datetime.now()
+
+    def end(self) -> None:
+        """Finalize metric collection and compute duration.
+
+        Sets ``ended_at`` to the current wall-clock time and computes
+        ``duration = round((ended_at - started_at).total_seconds(), 3)``.
+
+        Raises:
+            TypeError: If called before :meth:`start`.
+        """
+        if self.started_at is None:
+            raise TypeError("Attempted to end without first calling start().")
+        self.ended_at = datetime.now()
+        self.duration = round((self.ended_at - self.started_at).total_seconds(), 3)
+
+    def __enter__(self) -> "BuilderMetrics":
+        """Enter the context manager and start timing.
+
+        Returns:
+            DatasetBuilderMetrics: The metrics object itself.
+        """
+        self.start()
+        return self
+
+    def __exit__(self, exc_type, exc, tb) -> None:
+        """Exit the context manager, finalize timing, and log a summary.
+
+        Always calls :meth:`end` and then :meth:`log_summary`. Exceptions
+        raised within the context are **not** suppressed.
+        """
+        self.end()
+        self.log_summary()
+
+    @abstractmethod
+    def log_summary(self) -> None:
+        """Emit a concise, human-readable summary of the metrics.
+
+        Implementations typically use the representation provided by
+        ``ObjectRepresentationMixin`` (e.g., ``str(self)``) and log at
+        INFO level. Called automatically from :meth:`__exit__`.
+        """
+        """Logs the builder_metrics."""

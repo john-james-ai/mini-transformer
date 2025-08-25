@@ -3,15 +3,15 @@
 # ================================================================================================ #
 # Project    : Mini-Transformer                                                                    #
 # Version    : 0.1.0                                                                               #
-# Python     : 3.13.5                                                                              #
-# Filename   : /__init__.py                                                                        #
+# Python     : 3.11.13                                                                             #
+# Filename   : /tests/__init__.py                                                                  #
 # ------------------------------------------------------------------------------------------------ #
 # Author     : John James                                                                          #
 # Email      : john.james.ai.studio@gmail.com                                                      #
 # URL        : https://github.com/john-james-ai/mini-transformer                                   #
 # ------------------------------------------------------------------------------------------------ #
 # Created    : Thursday August 21st 2025 09:41:22 pm                                               #
-# Modified   : Thursday August 21st 2025 09:41:32 pm                                               #
+# Modified   : Monday August 25th 2025 01:28:58 am                                                 #
 # ------------------------------------------------------------------------------------------------ #
 # License    : MIT License                                                                         #
 # Copyright  : (c) 2025 John James                                                                 #

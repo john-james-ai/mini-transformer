@@ -1,0 +1,998 @@
+[08/23/2025 12:43:49 AM] [INFO] [mini_transformer.data.builder.translation] [translation] [log_summary] : 
+
+                TranslationDatasetBuilderMetrics                
+                      started_at | 2025-08-23 00:43:45.578905
+                        ended_at | 2025-08-23 00:43:49.976109
+                        duration | 4.397
+             source_dataset_name | wmt14
+                           split | test
+                            lang | fr-en
+                            seed | 42
+             dataset_target_size | 16
+                      oversample | 3
+                            seen | 59
+                        filtered | 11
+                      candidates | 48
+                        selected | 16
+                  filtered_empty | 0
+                  filtered_ratio | 0
+              filtered_src_short | 9
+               filtered_src_long | 0
+              filtered_tgt_short | 2
+               filtered_tgt_long | 0
+                      throughput | 13.418
+
+
+[08/23/2025 12:43:50 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_id_name_size] : 
+
+Started TestDataset test_id_name_size at 12:43:49 AM on 08/23/2025
+[08/23/2025 12:43:50 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_id_name_size] : 
+====================================================================================================
+[08/23/2025 12:43:50 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_id_name_size] : 
+
+Completed TestDataset test_id_name_size in 0.1 seconds at 12:43:49 AM on 08/23/2025
+[08/23/2025 12:43:50 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_id_name_size] : 
+----------------------------------------------------------------------------------------------------
+[08/23/2025 12:43:50 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_config] : 
+
+Started TestDataset test_config at 12:43:50 AM on 08/23/2025
+[08/23/2025 12:43:50 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_config] : 
+====================================================================================================
+[08/23/2025 12:43:50 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_build_metrics] : 
+
+Started TestDataset test_build_metrics at 12:43:50 AM on 08/23/2025
+[08/23/2025 12:43:50 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_build_metrics] : 
+====================================================================================================
+[08/23/2025 12:43:50 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_info] : 
+
+Started TestDataset test_info at 12:43:50 AM on 08/23/2025
+[08/23/2025 12:43:50 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_info] : 
+====================================================================================================
+[08/23/2025 12:43:50 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_to_jsonl] : 
+
+Started TestDataset test_to_jsonl at 12:43:50 AM on 08/23/2025
+[08/23/2025 12:43:50 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_to_jsonl] : 
+====================================================================================================
+[08/23/2025 12:43:50 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_to_jsonl] : 
+
+Completed TestDataset test_to_jsonl in 0.0 seconds at 12:43:50 AM on 08/23/2025
+[08/23/2025 12:43:50 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_to_jsonl] : 
+----------------------------------------------------------------------------------------------------
+[08/23/2025 12:43:50 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_to_pandas] : 
+
+Started TestDataset test_to_pandas at 12:43:50 AM on 08/23/2025
+[08/23/2025 12:43:50 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_to_pandas] : 
+====================================================================================================
+[08/23/2025 12:43:50 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_to_pandas] :              idx  ...                                                tgt
+0   20a9bf8fe34b  ...  À l'origine, la société ne se destinait pas à ...
+1   92accc1300bd  ...  Et tandis que les membres du Congrès n'arriven...
+2   c5724ec4f310  ...  Equipé d'un wingsuit (une combinaison munie d'...
+3   e039b8a54135  ...  Son État a récemment fait installer des traceu...
+4   bf5c6f488d81  ...  Les hommes politiques sont réticents à augment...
+5   e03a6b1e50f3  ...  La taxe fédérale elle-même, qui est de 18,4 ce...
+6   32c83a7a2a40  ...  Ils cherchent comment, au cours de la prochain...
+7   1e2551942fb4  ...  L'American Civil Liberties Union est elle auss...
+8   fba1b6996f04  ...  « Les inquiétudes au sujet de Big Brother et c...
+9   37ef4ca63799  ...  Les libertaires ont rejoint des groupes écolog...
+10  272724c6c200  ...  Le Nevada fait partie des quelques États qui s...
+11  8daea67d6e49  ...  Mais la présidence de la Chambre a tué la prop...
+12  3ce32a87f3d2  ...  Alors que les planificateurs du réseau routier...
+13  30b8e801735d  ...  Il existe des moyens bien moins onéreux et des...
+14  822a4e89a6db  ...  Si on peut faire ça, a ajouté Khan, les citoye...
+15  0fba4228d452  ...  Les voitures peuvent parcourir plus de miles a...
+
+[16 rows x 3 columns]
+[08/23/2025 12:43:50 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_to_pandas] : 
+
+Completed TestDataset test_to_pandas in 0.1 seconds at 12:43:50 AM on 08/23/2025
+[08/23/2025 12:43:50 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_to_pandas] : 
+----------------------------------------------------------------------------------------------------
+[08/23/2025 12:43:50 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_iteration] : 
+
+Started TestDataset test_iteration at 12:43:50 AM on 08/23/2025
+[08/23/2025 12:43:50 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_iteration] : 
+====================================================================================================
+[08/23/2025 12:43:50 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_iteration] : 
+
+Completed TestDataset test_iteration in 0.0 seconds at 12:43:50 AM on 08/23/2025
+[08/23/2025 12:43:50 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_iteration] : 
+----------------------------------------------------------------------------------------------------
+[08/23/2025 12:43:50 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_getitem] : 
+
+Started TestDataset test_getitem at 12:43:50 AM on 08/23/2025
+[08/23/2025 12:43:50 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_getitem] : 
+====================================================================================================
+[08/23/2025 12:43:50 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_getitem] : 
+
+Completed TestDataset test_getitem in 0.0 seconds at 12:43:50 AM on 08/23/2025
+[08/23/2025 12:43:50 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_getitem] : 
+----------------------------------------------------------------------------------------------------
+[08/23/2025 12:43:50 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_materialize] : 
+
+Started TestDataset test_materialize at 12:43:50 AM on 08/23/2025
+[08/23/2025 12:43:50 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_materialize] : 
+====================================================================================================
+[08/23/2025 12:43:50 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_materialize] : 
+
+Completed TestDataset test_materialize in 0.0 seconds at 12:43:50 AM on 08/23/2025
+[08/23/2025 12:43:50 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_materialize] : 
+----------------------------------------------------------------------------------------------------
+[08/23/2025 12:43:50 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_teardown] : 
+
+Started TestDataset test_teardown at 12:43:50 AM on 08/23/2025
+[08/23/2025 12:43:50 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_teardown] : 
+====================================================================================================
+[08/23/2025 12:43:50 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_teardown] : 
+
+Completed TestDataset test_teardown in 0.0 seconds at 12:43:50 AM on 08/23/2025
+[08/23/2025 12:43:50 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_teardown] : 
+----------------------------------------------------------------------------------------------------
+[08/23/2025 12:43:53 AM] [INFO] [mini_transformer.data.builder.translation] [translation] [log_summary] : 
+
+                TranslationDatasetBuilderMetrics                
+                      started_at | 2025-08-23 00:43:50.524718
+                        ended_at | 2025-08-23 00:43:53.239692
+                        duration | 2.715
+             source_dataset_name | wmt14
+                           split | test
+                            lang | fr-en
+                            seed | 42
+             dataset_target_size | 16
+                      oversample | 3
+                            seen | 59
+                        filtered | 11
+                      candidates | 48
+                        selected | 16
+                  filtered_empty | 0
+                  filtered_ratio | 0
+              filtered_src_short | 9
+               filtered_src_long | 0
+              filtered_tgt_short | 2
+               filtered_tgt_long | 0
+                      throughput | 21.731
+
+
+[08/23/2025 12:43:53 AM] [INFO] [tests.test_data.test_repo] [test_repo] [test_add] : 
+
+Started TestRepo test_add at 12:43:53 AM on 08/23/2025
+[08/23/2025 12:43:53 AM] [INFO] [tests.test_data.test_repo] [test_repo] [test_add] : 
+====================================================================================================
+[08/23/2025 12:43:53 AM] [INFO] [tests.test_data.test_repo] [test_repo] [test_get_not_found] : 
+
+Started TestRepo test_get_not_found at 12:43:53 AM on 08/23/2025
+[08/23/2025 12:43:53 AM] [INFO] [tests.test_data.test_repo] [test_repo] [test_get_not_found] : 
+====================================================================================================
+[08/23/2025 12:44:01 AM] [INFO] [mini_transformer.data.builder.translation] [translation] [log_summary] : 
+
+                TranslationDatasetBuilderMetrics                
+                      started_at | 2025-08-23 00:43:53.601383
+                        ended_at | 2025-08-23 00:44:01.895175
+                        duration | 8.294
+             source_dataset_name | wmt14
+                           split | train
+                            lang | fr-en
+                            seed | 42
+             dataset_target_size | 16
+                      oversample | 3
+                            seen | 54
+                        filtered | 6
+                      candidates | 48
+                        selected | 16
+                  filtered_empty | 0
+                  filtered_ratio | 2
+              filtered_src_short | 4
+               filtered_src_long | 0
+              filtered_tgt_short | 0
+               filtered_tgt_long | 0
+                      throughput | 6.511
+
+
+[08/23/2025 12:44:04 AM] [INFO] [mini_transformer.data.builder.translation] [translation] [log_summary] : 
+
+                TranslationDatasetBuilderMetrics                
+                      started_at | 2025-08-23 00:44:01.897071
+                        ended_at | 2025-08-23 00:44:04.247610
+                        duration | 2.351
+             source_dataset_name | wmt14
+                           split | validation
+                            lang | fr-en
+                            seed | 42
+             dataset_target_size | 12
+                      oversample | 3
+                            seen | 38
+                        filtered | 2
+                      candidates | 36
+                        selected | 12
+                  filtered_empty | 0
+                  filtered_ratio | 0
+              filtered_src_short | 2
+               filtered_src_long | 0
+              filtered_tgt_short | 0
+               filtered_tgt_long | 0
+                      throughput | 16.163
+
+
+[08/23/2025 12:44:06 AM] [INFO] [mini_transformer.data.builder.translation] [translation] [log_summary] : 
+
+                TranslationDatasetBuilderMetrics                
+                      started_at | 2025-08-23 00:44:04.248765
+                        ended_at | 2025-08-23 00:44:06.378136
+                        duration | 2.129
+             source_dataset_name | wmt14
+                           split | test
+                            lang | fr-en
+                            seed | 42
+             dataset_target_size | 8
+                      oversample | 3
+                            seen | 31
+                        filtered | 7
+                      candidates | 24
+                        selected | 8
+                  filtered_empty | 0
+                  filtered_ratio | 0
+              filtered_src_short | 5
+               filtered_src_long | 0
+              filtered_tgt_short | 2
+               filtered_tgt_long | 0
+                      throughput | 14.561
+
+
+[08/23/2025 12:48:11 AM] [INFO] [mini_transformer.data.builder.translation] [translation] [log_summary] : 
+
+                TranslationDatasetBuilderMetrics                
+                      started_at | 2025-08-23 00:48:07.907674
+                        ended_at | 2025-08-23 00:48:11.910865
+                        duration | 4.003
+             source_dataset_name | wmt14
+                           split | test
+                            lang | fr-en
+                            seed | 42
+             dataset_target_size | 16
+                      oversample | 3
+                            seen | 59
+                        filtered | 11
+                      candidates | 48
+                        selected | 16
+                  filtered_empty | 0
+                  filtered_ratio | 0
+              filtered_src_short | 9
+               filtered_src_long | 0
+              filtered_tgt_short | 2
+               filtered_tgt_long | 0
+                      throughput | 14.739
+
+
+[08/23/2025 12:48:12 AM] [INFO] [tests.test_data.test_repo] [test_repo] [test_add] : 
+
+Started TestRepo test_add at 12:48:11 AM on 08/23/2025
+[08/23/2025 12:48:12 AM] [INFO] [tests.test_data.test_repo] [test_repo] [test_add] : 
+====================================================================================================
+[08/23/2025 12:48:12 AM] [INFO] [mini_transformer.data.repo.dataset_repo] [dataset_repo] [add] : Added dataset id: 56aa8d7d, name: wmt14_fr-en_test_16-rows_seed-42_56aa8d7d to the Dataset repository.
+[08/23/2025 12:48:12 AM] [ERROR] [mini_transformer.infra.database.fal] [fal] [create] : Unable to create wmt14_fr-en_test_16-rows_seed-42_56aa8d7d. It already exists.
+[08/23/2025 12:48:12 AM] [INFO] [tests.test_data.test_repo] [test_repo] [test_add] : 
+
+Completed TestRepo test_add in 0.2 seconds at 12:48:11 AM on 08/23/2025
+[08/23/2025 12:48:12 AM] [INFO] [tests.test_data.test_repo] [test_repo] [test_add] : 
+----------------------------------------------------------------------------------------------------
+[08/23/2025 12:48:12 AM] [INFO] [mini_transformer.data.repo.dataset_repo] [dataset_repo] [add] : Added dataset id: 56aa8d7d, name: wmt14_fr-en_test_16-rows_seed-42_56aa8d7d to the Dataset repository.
+[08/23/2025 12:48:12 AM] [INFO] [tests.test_data.test_repo] [test_repo] [test_get] : 
+
+Started TestRepo test_get at 12:48:12 AM on 08/23/2025
+[08/23/2025 12:48:12 AM] [INFO] [tests.test_data.test_repo] [test_repo] [test_get] : 
+====================================================================================================
+[08/23/2025 12:48:12 AM] [INFO] [tests.test_data.test_repo] [test_repo] [test_get] : 
+
+Completed TestRepo test_get in 0.0 seconds at 12:48:12 AM on 08/23/2025
+[08/23/2025 12:48:12 AM] [INFO] [tests.test_data.test_repo] [test_repo] [test_get] : 
+----------------------------------------------------------------------------------------------------
+[08/23/2025 12:48:12 AM] [INFO] [tests.test_data.test_repo] [test_repo] [test_get_not_found] : 
+
+Started TestRepo test_get_not_found at 12:48:12 AM on 08/23/2025
+[08/23/2025 12:48:12 AM] [INFO] [tests.test_data.test_repo] [test_repo] [test_get_not_found] : 
+====================================================================================================
+[08/23/2025 12:48:12 AM] [INFO] [tests.test_data.test_repo] [test_repo] [test_get_not_found] : 
+
+Completed TestRepo test_get_not_found in 0.0 seconds at 12:48:12 AM on 08/23/2025
+[08/23/2025 12:48:12 AM] [INFO] [tests.test_data.test_repo] [test_repo] [test_get_not_found] : 
+----------------------------------------------------------------------------------------------------
+[08/23/2025 12:48:12 AM] [INFO] [mini_transformer.data.repo.dataset_repo] [dataset_repo] [add] : Added dataset id: 56aa8d7d, name: wmt14_fr-en_test_16-rows_seed-42_56aa8d7d to the Dataset repository.
+[08/23/2025 12:48:12 AM] [INFO] [tests.test_data.test_repo] [test_repo] [test_get_filenotfound] : 
+
+Started TestRepo test_get_filenotfound at 12:48:12 AM on 08/23/2025
+[08/23/2025 12:48:12 AM] [INFO] [tests.test_data.test_repo] [test_repo] [test_get_filenotfound] : 
+====================================================================================================
+[08/23/2025 12:48:12 AM] [ERROR] [mini_transformer.infra.database.fal] [fal] [read] : Unable to read wmt14_fr-en_test_16-rows_seed-42_56aa8d7d. File does not exist.
+[08/23/2025 12:48:12 AM] [INFO] [tests.test_data.test_repo] [test_repo] [test_get_filenotfound] : 
+
+Completed TestRepo test_get_filenotfound in 0.0 seconds at 12:48:12 AM on 08/23/2025
+[08/23/2025 12:48:12 AM] [INFO] [tests.test_data.test_repo] [test_repo] [test_get_filenotfound] : 
+----------------------------------------------------------------------------------------------------
+[08/23/2025 12:48:12 AM] [INFO] [mini_transformer.data.repo.dataset_repo] [dataset_repo] [add] : Added dataset id: 56aa8d7d, name: wmt14_fr-en_test_16-rows_seed-42_56aa8d7d to the Dataset repository.
+[08/23/2025 12:48:12 AM] [INFO] [tests.test_data.test_repo] [test_repo] [test_remove] : 
+
+Started TestRepo test_remove at 12:48:12 AM on 08/23/2025
+[08/23/2025 12:48:12 AM] [INFO] [tests.test_data.test_repo] [test_repo] [test_remove] : 
+====================================================================================================
+[08/23/2025 12:48:12 AM] [INFO] [mini_transformer.data.repo.dataset_repo] [dataset_repo] [remove] : Removed dataset '56aa8d7d' (metadata + data).
+[08/23/2025 12:48:12 AM] [INFO] [mini_transformer.data.repo.dataset_repo] [dataset_repo] [remove] : Nothing to remove for '56aa8d7d' (metadata missing).
+[08/23/2025 12:48:12 AM] [INFO] [tests.test_data.test_repo] [test_repo] [test_remove] : 
+
+Completed TestRepo test_remove in 0.0 seconds at 12:48:12 AM on 08/23/2025
+[08/23/2025 12:48:12 AM] [INFO] [tests.test_data.test_repo] [test_repo] [test_remove] : 
+----------------------------------------------------------------------------------------------------
+[08/23/2025 12:48:12 AM] [INFO] [mini_transformer.data.repo.dataset_repo] [dataset_repo] [add] : Added dataset id: 56aa8d7d, name: wmt14_fr-en_test_16-rows_seed-42_56aa8d7d to the Dataset repository.
+[08/23/2025 12:48:12 AM] [INFO] [tests.test_data.test_repo] [test_repo] [test_exists] : 
+
+Started TestRepo test_exists at 12:48:12 AM on 08/23/2025
+[08/23/2025 12:48:12 AM] [INFO] [tests.test_data.test_repo] [test_repo] [test_exists] : 
+====================================================================================================
+[08/23/2025 12:48:12 AM] [INFO] [tests.test_data.test_repo] [test_repo] [test_exists] : 
+
+Completed TestRepo test_exists in 0.0 seconds at 12:48:12 AM on 08/23/2025
+[08/23/2025 12:48:12 AM] [INFO] [tests.test_data.test_repo] [test_repo] [test_exists] : 
+----------------------------------------------------------------------------------------------------
+[08/23/2025 12:48:24 AM] [INFO] [mini_transformer.data.builder.translation] [translation] [log_summary] : 
+
+                TranslationDatasetBuilderMetrics                
+                      started_at | 2025-08-23 00:48:12.487259
+                        ended_at | 2025-08-23 00:48:24.747531
+                        duration | 12.26
+             source_dataset_name | wmt14
+                           split | train
+                            lang | fr-en
+                            seed | 42
+             dataset_target_size | 16
+                      oversample | 3
+                            seen | 54
+                        filtered | 6
+                      candidates | 48
+                        selected | 16
+                  filtered_empty | 0
+                  filtered_ratio | 2
+              filtered_src_short | 4
+               filtered_src_long | 0
+              filtered_tgt_short | 0
+               filtered_tgt_long | 0
+                      throughput | 4.405
+
+
+[08/23/2025 12:48:27 AM] [INFO] [mini_transformer.data.builder.translation] [translation] [log_summary] : 
+
+                TranslationDatasetBuilderMetrics                
+                      started_at | 2025-08-23 00:48:24.749072
+                        ended_at | 2025-08-23 00:48:27.144558
+                        duration | 2.395
+             source_dataset_name | wmt14
+                           split | validation
+                            lang | fr-en
+                            seed | 42
+             dataset_target_size | 12
+                      oversample | 3
+                            seen | 38
+                        filtered | 2
+                      candidates | 36
+                        selected | 12
+                  filtered_empty | 0
+                  filtered_ratio | 0
+              filtered_src_short | 2
+               filtered_src_long | 0
+              filtered_tgt_short | 0
+               filtered_tgt_long | 0
+                      throughput | 15.866
+
+
+[08/23/2025 12:48:29 AM] [INFO] [mini_transformer.data.builder.translation] [translation] [log_summary] : 
+
+                TranslationDatasetBuilderMetrics                
+                      started_at | 2025-08-23 00:48:27.145750
+                        ended_at | 2025-08-23 00:48:29.050685
+                        duration | 1.905
+             source_dataset_name | wmt14
+                           split | test
+                            lang | fr-en
+                            seed | 42
+             dataset_target_size | 8
+                      oversample | 3
+                            seen | 31
+                        filtered | 7
+                      candidates | 24
+                        selected | 8
+                  filtered_empty | 0
+                  filtered_ratio | 0
+              filtered_src_short | 5
+               filtered_src_long | 0
+              filtered_tgt_short | 2
+               filtered_tgt_long | 0
+                      throughput | 16.273
+
+
+[08/23/2025 12:48:29 AM] [INFO] [mini_transformer.data.repo.dataset_repo] [dataset_repo] [add] : Added dataset id: 7fe5b7ff, name: wmt14_fr-en_train_16-rows_seed-42_7fe5b7ff to the Dataset repository.
+[08/23/2025 12:48:29 AM] [INFO] [mini_transformer.data.repo.dataset_repo] [dataset_repo] [add] : Added dataset id: 5c44b04c, name: wmt14_fr-en_validation_12-rows_seed-42_5c44b04c to the Dataset repository.
+[08/23/2025 12:48:29 AM] [INFO] [mini_transformer.data.repo.dataset_repo] [dataset_repo] [add] : Added dataset id: da8433ad, name: wmt14_fr-en_test_8-rows_seed-42_da8433ad to the Dataset repository.
+[08/23/2025 12:48:29 AM] [INFO] [tests.test_data.test_repo] [test_repo] [test_show] : 
+
+Started TestRepo test_show at 12:48:29 AM on 08/23/2025
+[08/23/2025 12:48:29 AM] [INFO] [tests.test_data.test_repo] [test_repo] [test_show] : 
+====================================================================================================
+[08/23/2025 12:48:29 AM] [INFO] [tests.test_data.test_repo] [test_repo] [test_show] :                                               name  size                    created  ... lang_tgt       source source_dataset_name
+0         wmt14_fr-en_test_8-rows_seed-42_da8433ad     8 2025-08-23 00:48:29.050685  ...       fr  HuggingFace               wmt14
+1       wmt14_fr-en_train_16-rows_seed-42_7fe5b7ff    16 2025-08-23 00:48:24.747531  ...       fr  HuggingFace               wmt14
+2  wmt14_fr-en_validation_12-rows_seed-42_5c44b04c    12 2025-08-23 00:48:27.144558  ...       fr  HuggingFace               wmt14
+
+[3 rows x 10 columns]
+[08/23/2025 12:48:29 AM] [INFO] [tests.test_data.test_repo] [test_repo] [test_show] : 
+
+Completed TestRepo test_show in 0.2 seconds at 12:48:29 AM on 08/23/2025
+[08/23/2025 12:48:29 AM] [INFO] [tests.test_data.test_repo] [test_repo] [test_show] : 
+----------------------------------------------------------------------------------------------------
+[08/23/2025 12:49:03 AM] [INFO] [mini_transformer.data.builder.translation] [translation] [log_summary] : 
+
+                TranslationDatasetBuilderMetrics                
+                      started_at | 2025-08-23 00:48:59.281774
+                        ended_at | 2025-08-23 00:49:03.288364
+                        duration | 4.007
+             source_dataset_name | wmt14
+                           split | test
+                            lang | fr-en
+                            seed | 42
+             dataset_target_size | 16
+                      oversample | 3
+                            seen | 59
+                        filtered | 11
+                      candidates | 48
+                        selected | 16
+                  filtered_empty | 0
+                  filtered_ratio | 0
+              filtered_src_short | 9
+               filtered_src_long | 0
+              filtered_tgt_short | 2
+               filtered_tgt_long | 0
+                      throughput | 14.724
+
+
+[08/23/2025 12:49:03 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_id_name_size] : 
+
+Started TestDataset test_id_name_size at 12:49:03 AM on 08/23/2025
+[08/23/2025 12:49:03 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_id_name_size] : 
+====================================================================================================
+[08/23/2025 12:49:03 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_id_name_size] : 
+
+Completed TestDataset test_id_name_size in 0.2 seconds at 12:49:03 AM on 08/23/2025
+[08/23/2025 12:49:03 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_id_name_size] : 
+----------------------------------------------------------------------------------------------------
+[08/23/2025 12:49:03 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_config] : 
+
+Started TestDataset test_config at 12:49:03 AM on 08/23/2025
+[08/23/2025 12:49:03 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_config] : 
+====================================================================================================
+[08/23/2025 12:49:03 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_builder_metrics] : 
+
+Started TestDataset test_builder_metrics at 12:49:03 AM on 08/23/2025
+[08/23/2025 12:49:03 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_builder_metrics] : 
+====================================================================================================
+[08/23/2025 12:49:03 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_builder_metrics] : 
+
+Completed TestDataset test_builder_metrics in 0.0 seconds at 12:49:03 AM on 08/23/2025
+[08/23/2025 12:49:03 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_builder_metrics] : 
+----------------------------------------------------------------------------------------------------
+[08/23/2025 12:49:03 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_info] : 
+
+Started TestDataset test_info at 12:49:03 AM on 08/23/2025
+[08/23/2025 12:49:03 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_info] : 
+====================================================================================================
+[08/23/2025 12:49:03 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_to_jsonl] : 
+
+Started TestDataset test_to_jsonl at 12:49:03 AM on 08/23/2025
+[08/23/2025 12:49:03 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_to_jsonl] : 
+====================================================================================================
+[08/23/2025 12:49:03 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_to_jsonl] : 
+
+Completed TestDataset test_to_jsonl in 0.0 seconds at 12:49:03 AM on 08/23/2025
+[08/23/2025 12:49:03 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_to_jsonl] : 
+----------------------------------------------------------------------------------------------------
+[08/23/2025 12:49:03 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_to_pandas] : 
+
+Started TestDataset test_to_pandas at 12:49:03 AM on 08/23/2025
+[08/23/2025 12:49:03 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_to_pandas] : 
+====================================================================================================
+[08/23/2025 12:49:03 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_to_pandas] :              idx                                                src                                                tgt
+0   20a9bf8fe34b  The firm was not originally in the business of...  À l'origine, la société ne se destinait pas à ...
+1   92accc1300bd  And while Congress can't agree on whether to p...  Et tandis que les membres du Congrès n'arriven...
+2   c5724ec4f310  Wearing a wingsuit, he flew past over the famo...  Equipé d'un wingsuit (une combinaison munie d'...
+3   e039b8a54135  His state recently put tracking devices on 500...  Son État a récemment fait installer des traceu...
+4   bf5c6f488d81  Politicians are loath to raise the tax even on...  Les hommes politiques sont réticents à augment...
+5   e03a6b1e50f3  The federal tax itself, 18.4 cents per gallon,...  La taxe fédérale elle-même, qui est de 18,4 ce...
+6   32c83a7a2a40  They are exploring how, over the next decade, ...  Ils cherchent comment, au cours de la prochain...
+7   1e2551942fb4  The American Civil Liberties Union is deeply c...  L'American Civil Liberties Union est elle auss...
+8   fba1b6996f04  "Concerns about Big Brother and those sorts of...  « Les inquiétudes au sujet de Big Brother et c...
+9   37ef4ca63799  Libertarians have joined environmental groups ...  Les libertaires ont rejoint des groupes écolog...
+10  272724c6c200  Nevada is among several states now scrambling ...  Le Nevada fait partie des quelques États qui s...
+11  8daea67d6e49  But the House leadership killed the proposal, ...  Mais la présidence de la Chambre a tué la prop...
+12  3ce32a87f3d2  As America's road planners struggle to find th...  Alors que les planificateurs du réseau routier...
+13  30b8e801735d  There are a lot less expensive and less intrus...  Il existe des moyens bien moins onéreux et des...
+14  822a4e89a6db  If you can do that, Khan said, the public gets...  Si on peut faire ça, a ajouté Khan, les citoye...
+15  0fba4228d452            Cars get many more miles to the gallon.  Les voitures peuvent parcourir plus de miles a...
+[08/23/2025 12:49:03 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_to_pandas] : 
+
+Completed TestDataset test_to_pandas in 0.1 seconds at 12:49:03 AM on 08/23/2025
+[08/23/2025 12:49:03 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_to_pandas] : 
+----------------------------------------------------------------------------------------------------
+[08/23/2025 12:49:03 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_iteration] : 
+
+Started TestDataset test_iteration at 12:49:03 AM on 08/23/2025
+[08/23/2025 12:49:03 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_iteration] : 
+====================================================================================================
+[08/23/2025 12:49:03 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_iteration] : 
+
+Completed TestDataset test_iteration in 0.0 seconds at 12:49:03 AM on 08/23/2025
+[08/23/2025 12:49:03 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_iteration] : 
+----------------------------------------------------------------------------------------------------
+[08/23/2025 12:49:03 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_getitem] : 
+
+Started TestDataset test_getitem at 12:49:03 AM on 08/23/2025
+[08/23/2025 12:49:03 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_getitem] : 
+====================================================================================================
+[08/23/2025 12:49:03 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_getitem] : 
+
+Completed TestDataset test_getitem in 0.0 seconds at 12:49:03 AM on 08/23/2025
+[08/23/2025 12:49:03 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_getitem] : 
+----------------------------------------------------------------------------------------------------
+[08/23/2025 12:49:03 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_materialize] : 
+
+Started TestDataset test_materialize at 12:49:03 AM on 08/23/2025
+[08/23/2025 12:49:03 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_materialize] : 
+====================================================================================================
+[08/23/2025 12:49:03 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_materialize] : 
+
+Completed TestDataset test_materialize in 0.0 seconds at 12:49:03 AM on 08/23/2025
+[08/23/2025 12:49:03 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_materialize] : 
+----------------------------------------------------------------------------------------------------
+[08/23/2025 12:49:03 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_teardown] : 
+
+Started TestDataset test_teardown at 12:49:03 AM on 08/23/2025
+[08/23/2025 12:49:03 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_teardown] : 
+====================================================================================================
+[08/23/2025 12:49:03 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_teardown] : 
+
+Completed TestDataset test_teardown in 0.0 seconds at 12:49:03 AM on 08/23/2025
+[08/23/2025 12:49:03 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_teardown] : 
+----------------------------------------------------------------------------------------------------
+[08/23/2025 12:50:02 AM] [INFO] [mini_transformer.data.builder.translation] [translation] [log_summary] : 
+
+                TranslationDatasetBuilderMetrics                
+                      started_at | 2025-08-23 00:49:57.899473
+                        ended_at | 2025-08-23 00:50:02.648622
+                        duration | 4.749
+             source_dataset_name | wmt14
+                           split | test
+                            lang | fr-en
+                            seed | 42
+             dataset_target_size | 16
+                      oversample | 3
+                            seen | 59
+                        filtered | 11
+                      candidates | 48
+                        selected | 16
+                  filtered_empty | 0
+                  filtered_ratio | 0
+              filtered_src_short | 9
+               filtered_src_long | 0
+              filtered_tgt_short | 2
+               filtered_tgt_long | 0
+                      throughput | 12.424
+
+
+[08/23/2025 12:50:02 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_id_name_size] : 
+
+Started TestDataset test_id_name_size at 12:50:02 AM on 08/23/2025
+[08/23/2025 12:50:02 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_id_name_size] : 
+====================================================================================================
+[08/23/2025 12:50:02 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_id_name_size] : 
+
+Completed TestDataset test_id_name_size in 0.1 seconds at 12:50:02 AM on 08/23/2025
+[08/23/2025 12:50:02 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_id_name_size] : 
+----------------------------------------------------------------------------------------------------
+[08/23/2025 12:50:02 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_config] : 
+
+Started TestDataset test_config at 12:50:02 AM on 08/23/2025
+[08/23/2025 12:50:02 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_config] : 
+====================================================================================================
+[08/23/2025 12:50:02 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_builder_metrics] : 
+
+Started TestDataset test_builder_metrics at 12:50:02 AM on 08/23/2025
+[08/23/2025 12:50:02 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_builder_metrics] : 
+====================================================================================================
+[08/23/2025 12:50:02 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_builder_metrics] : 
+
+Completed TestDataset test_builder_metrics in 0.0 seconds at 12:50:02 AM on 08/23/2025
+[08/23/2025 12:50:02 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_builder_metrics] : 
+----------------------------------------------------------------------------------------------------
+[08/23/2025 12:50:02 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_info] : 
+
+Started TestDataset test_info at 12:50:02 AM on 08/23/2025
+[08/23/2025 12:50:02 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_info] : 
+====================================================================================================
+[08/23/2025 12:50:02 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_info] : 
+
+Completed TestDataset test_info in 0.0 seconds at 12:50:02 AM on 08/23/2025
+[08/23/2025 12:50:02 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_info] : 
+----------------------------------------------------------------------------------------------------
+[08/23/2025 12:50:02 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_to_jsonl] : 
+
+Started TestDataset test_to_jsonl at 12:50:02 AM on 08/23/2025
+[08/23/2025 12:50:02 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_to_jsonl] : 
+====================================================================================================
+[08/23/2025 12:50:02 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_to_jsonl] : 
+
+Completed TestDataset test_to_jsonl in 0.0 seconds at 12:50:02 AM on 08/23/2025
+[08/23/2025 12:50:02 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_to_jsonl] : 
+----------------------------------------------------------------------------------------------------
+[08/23/2025 12:50:02 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_to_pandas] : 
+
+Started TestDataset test_to_pandas at 12:50:02 AM on 08/23/2025
+[08/23/2025 12:50:02 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_to_pandas] : 
+====================================================================================================
+[08/23/2025 12:50:02 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_to_pandas] :              idx                                                src                                                tgt
+0   20a9bf8fe34b  The firm was not originally in the business of...  À l'origine, la société ne se destinait pas à ...
+1   92accc1300bd  And while Congress can't agree on whether to p...  Et tandis que les membres du Congrès n'arriven...
+2   c5724ec4f310  Wearing a wingsuit, he flew past over the famo...  Equipé d'un wingsuit (une combinaison munie d'...
+3   e039b8a54135  His state recently put tracking devices on 500...  Son État a récemment fait installer des traceu...
+4   bf5c6f488d81  Politicians are loath to raise the tax even on...  Les hommes politiques sont réticents à augment...
+5   e03a6b1e50f3  The federal tax itself, 18.4 cents per gallon,...  La taxe fédérale elle-même, qui est de 18,4 ce...
+6   32c83a7a2a40  They are exploring how, over the next decade, ...  Ils cherchent comment, au cours de la prochain...
+7   1e2551942fb4  The American Civil Liberties Union is deeply c...  L'American Civil Liberties Union est elle auss...
+8   fba1b6996f04  "Concerns about Big Brother and those sorts of...  « Les inquiétudes au sujet de Big Brother et c...
+9   37ef4ca63799  Libertarians have joined environmental groups ...  Les libertaires ont rejoint des groupes écolog...
+10  272724c6c200  Nevada is among several states now scrambling ...  Le Nevada fait partie des quelques États qui s...
+11  8daea67d6e49  But the House leadership killed the proposal, ...  Mais la présidence de la Chambre a tué la prop...
+12  3ce32a87f3d2  As America's road planners struggle to find th...  Alors que les planificateurs du réseau routier...
+13  30b8e801735d  There are a lot less expensive and less intrus...  Il existe des moyens bien moins onéreux et des...
+14  822a4e89a6db  If you can do that, Khan said, the public gets...  Si on peut faire ça, a ajouté Khan, les citoye...
+15  0fba4228d452            Cars get many more miles to the gallon.  Les voitures peuvent parcourir plus de miles a...
+[08/23/2025 12:50:03 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_to_pandas] : 
+
+Completed TestDataset test_to_pandas in 0.1 seconds at 12:50:02 AM on 08/23/2025
+[08/23/2025 12:50:03 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_to_pandas] : 
+----------------------------------------------------------------------------------------------------
+[08/23/2025 12:50:03 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_iteration] : 
+
+Started TestDataset test_iteration at 12:50:03 AM on 08/23/2025
+[08/23/2025 12:50:03 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_iteration] : 
+====================================================================================================
+[08/23/2025 12:50:03 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_iteration] : 
+
+Completed TestDataset test_iteration in 0.0 seconds at 12:50:03 AM on 08/23/2025
+[08/23/2025 12:50:03 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_iteration] : 
+----------------------------------------------------------------------------------------------------
+[08/23/2025 12:50:03 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_getitem] : 
+
+Started TestDataset test_getitem at 12:50:03 AM on 08/23/2025
+[08/23/2025 12:50:03 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_getitem] : 
+====================================================================================================
+[08/23/2025 12:50:03 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_getitem] : 
+
+Completed TestDataset test_getitem in 0.0 seconds at 12:50:03 AM on 08/23/2025
+[08/23/2025 12:50:03 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_getitem] : 
+----------------------------------------------------------------------------------------------------
+[08/23/2025 12:50:03 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_materialize] : 
+
+Started TestDataset test_materialize at 12:50:03 AM on 08/23/2025
+[08/23/2025 12:50:03 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_materialize] : 
+====================================================================================================
+[08/23/2025 12:50:03 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_materialize] : 
+
+Completed TestDataset test_materialize in 0.0 seconds at 12:50:03 AM on 08/23/2025
+[08/23/2025 12:50:03 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_materialize] : 
+----------------------------------------------------------------------------------------------------
+[08/23/2025 12:50:03 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_teardown] : 
+
+Started TestDataset test_teardown at 12:50:03 AM on 08/23/2025
+[08/23/2025 12:50:03 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_teardown] : 
+====================================================================================================
+[08/23/2025 12:50:03 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_teardown] : 
+
+Completed TestDataset test_teardown in 0.0 seconds at 12:50:03 AM on 08/23/2025
+[08/23/2025 12:50:03 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_teardown] : 
+----------------------------------------------------------------------------------------------------
+[08/23/2025 12:51:58 AM] [INFO] [mini_transformer.data.builder.translation] [translation] [log_summary] : 
+
+                TranslationDatasetBuilderMetrics                
+                      started_at | 2025-08-23 00:51:51.338902
+                        ended_at | 2025-08-23 00:51:58.986707
+                        duration | 7.648
+             source_dataset_name | wmt14
+                           split | test
+                            lang | fr-en
+                            seed | 42
+             dataset_target_size | 16
+                      oversample | 3
+                            seen | 59
+                        filtered | 11
+                      candidates | 48
+                        selected | 16
+                  filtered_empty | 0
+                  filtered_ratio | 0
+              filtered_src_short | 9
+               filtered_src_long | 0
+              filtered_tgt_short | 2
+               filtered_tgt_long | 0
+                      throughput | 7.714
+
+
+[08/23/2025 12:51:59 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_id_name_size] : 
+
+Started TestDataset test_id_name_size at 12:51:58 AM on 08/23/2025
+[08/23/2025 12:51:59 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_id_name_size] : 
+====================================================================================================
+[08/23/2025 12:51:59 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_id_name_size] : 
+
+Completed TestDataset test_id_name_size in 0.2 seconds at 12:51:58 AM on 08/23/2025
+[08/23/2025 12:51:59 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_id_name_size] : 
+----------------------------------------------------------------------------------------------------
+[08/23/2025 12:51:59 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_config] : 
+
+Started TestDataset test_config at 12:51:59 AM on 08/23/2025
+[08/23/2025 12:51:59 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_config] : 
+====================================================================================================
+[08/23/2025 12:51:59 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_builder_metrics] : 
+
+Started TestDataset test_builder_metrics at 12:51:59 AM on 08/23/2025
+[08/23/2025 12:51:59 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_builder_metrics] : 
+====================================================================================================
+[08/23/2025 12:51:59 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_builder_metrics] : 
+
+Completed TestDataset test_builder_metrics in 0.0 seconds at 12:51:59 AM on 08/23/2025
+[08/23/2025 12:51:59 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_builder_metrics] : 
+----------------------------------------------------------------------------------------------------
+[08/23/2025 12:51:59 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_info] : 
+
+Started TestDataset test_info at 12:51:59 AM on 08/23/2025
+[08/23/2025 12:51:59 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_info] : 
+====================================================================================================
+[08/23/2025 12:51:59 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_info] : 
+
+Completed TestDataset test_info in 0.0 seconds at 12:51:59 AM on 08/23/2025
+[08/23/2025 12:51:59 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_info] : 
+----------------------------------------------------------------------------------------------------
+[08/23/2025 12:51:59 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_to_jsonl] : 
+
+Started TestDataset test_to_jsonl at 12:51:59 AM on 08/23/2025
+[08/23/2025 12:51:59 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_to_jsonl] : 
+====================================================================================================
+[08/23/2025 12:51:59 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_to_jsonl] : 
+
+Completed TestDataset test_to_jsonl in 0.0 seconds at 12:51:59 AM on 08/23/2025
+[08/23/2025 12:51:59 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_to_jsonl] : 
+----------------------------------------------------------------------------------------------------
+[08/23/2025 12:51:59 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_to_pandas] : 
+
+Started TestDataset test_to_pandas at 12:51:59 AM on 08/23/2025
+[08/23/2025 12:51:59 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_to_pandas] : 
+====================================================================================================
+[08/23/2025 12:51:59 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_to_pandas] :              idx                                                src                                                tgt
+0   20a9bf8fe34b  The firm was not originally in the business of...  À l'origine, la société ne se destinait pas à ...
+1   92accc1300bd  And while Congress can't agree on whether to p...  Et tandis que les membres du Congrès n'arriven...
+2   c5724ec4f310  Wearing a wingsuit, he flew past over the famo...  Equipé d'un wingsuit (une combinaison munie d'...
+3   e039b8a54135  His state recently put tracking devices on 500...  Son État a récemment fait installer des traceu...
+4   bf5c6f488d81  Politicians are loath to raise the tax even on...  Les hommes politiques sont réticents à augment...
+5   e03a6b1e50f3  The federal tax itself, 18.4 cents per gallon,...  La taxe fédérale elle-même, qui est de 18,4 ce...
+6   32c83a7a2a40  They are exploring how, over the next decade, ...  Ils cherchent comment, au cours de la prochain...
+7   1e2551942fb4  The American Civil Liberties Union is deeply c...  L'American Civil Liberties Union est elle auss...
+8   fba1b6996f04  "Concerns about Big Brother and those sorts of...  « Les inquiétudes au sujet de Big Brother et c...
+9   37ef4ca63799  Libertarians have joined environmental groups ...  Les libertaires ont rejoint des groupes écolog...
+10  272724c6c200  Nevada is among several states now scrambling ...  Le Nevada fait partie des quelques États qui s...
+11  8daea67d6e49  But the House leadership killed the proposal, ...  Mais la présidence de la Chambre a tué la prop...
+12  3ce32a87f3d2  As America's road planners struggle to find th...  Alors que les planificateurs du réseau routier...
+13  30b8e801735d  There are a lot less expensive and less intrus...  Il existe des moyens bien moins onéreux et des...
+14  822a4e89a6db  If you can do that, Khan said, the public gets...  Si on peut faire ça, a ajouté Khan, les citoye...
+15  0fba4228d452            Cars get many more miles to the gallon.  Les voitures peuvent parcourir plus de miles a...
+[08/23/2025 12:51:59 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_to_pandas] : 
+
+Completed TestDataset test_to_pandas in 0.1 seconds at 12:51:59 AM on 08/23/2025
+[08/23/2025 12:51:59 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_to_pandas] : 
+----------------------------------------------------------------------------------------------------
+[08/23/2025 12:51:59 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_iteration] : 
+
+Started TestDataset test_iteration at 12:51:59 AM on 08/23/2025
+[08/23/2025 12:51:59 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_iteration] : 
+====================================================================================================
+[08/23/2025 12:51:59 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_iteration] : 
+
+Completed TestDataset test_iteration in 0.0 seconds at 12:51:59 AM on 08/23/2025
+[08/23/2025 12:51:59 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_iteration] : 
+----------------------------------------------------------------------------------------------------
+[08/23/2025 12:51:59 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_getitem] : 
+
+Started TestDataset test_getitem at 12:51:59 AM on 08/23/2025
+[08/23/2025 12:51:59 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_getitem] : 
+====================================================================================================
+[08/23/2025 12:51:59 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_getitem] : 
+
+Completed TestDataset test_getitem in 0.0 seconds at 12:51:59 AM on 08/23/2025
+[08/23/2025 12:51:59 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_getitem] : 
+----------------------------------------------------------------------------------------------------
+[08/23/2025 12:51:59 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_materialize] : 
+
+Started TestDataset test_materialize at 12:51:59 AM on 08/23/2025
+[08/23/2025 12:51:59 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_materialize] : 
+====================================================================================================
+[08/23/2025 12:51:59 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_materialize] : 
+
+Completed TestDataset test_materialize in 0.0 seconds at 12:51:59 AM on 08/23/2025
+[08/23/2025 12:51:59 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_materialize] : 
+----------------------------------------------------------------------------------------------------
+[08/23/2025 12:51:59 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_teardown] : 
+
+Started TestDataset test_teardown at 12:51:59 AM on 08/23/2025
+[08/23/2025 12:51:59 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_teardown] : 
+====================================================================================================
+[08/23/2025 12:51:59 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_teardown] : 
+
+Completed TestDataset test_teardown in 0.0 seconds at 12:51:59 AM on 08/23/2025
+[08/23/2025 12:51:59 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_teardown] : 
+----------------------------------------------------------------------------------------------------
+[08/23/2025 12:53:02 AM] [INFO] [mini_transformer.data.builder.translation] [translation] [log_summary] : 
+
+                TranslationDatasetBuilderMetrics                
+                      started_at | 2025-08-23 00:52:58.141567
+                        ended_at | 2025-08-23 00:53:02.296735
+                        duration | 4.155
+             source_dataset_name | wmt14
+                           split | test
+                            lang | fr-en
+                            seed | 42
+             dataset_target_size | 16
+                      oversample | 3
+                            seen | 59
+                        filtered | 11
+                      candidates | 48
+                        selected | 16
+                  filtered_empty | 0
+                  filtered_ratio | 0
+              filtered_src_short | 9
+               filtered_src_long | 0
+              filtered_tgt_short | 2
+               filtered_tgt_long | 0
+                      throughput | 14.2
+
+
+[08/23/2025 12:53:02 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_id_name_size] : 
+
+Started TestDataset test_id_name_size at 12:53:02 AM on 08/23/2025
+[08/23/2025 12:53:02 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_id_name_size] : 
+====================================================================================================
+[08/23/2025 12:53:02 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_id_name_size] : 
+
+Completed TestDataset test_id_name_size in 0.1 seconds at 12:53:02 AM on 08/23/2025
+[08/23/2025 12:53:02 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_id_name_size] : 
+----------------------------------------------------------------------------------------------------
+[08/23/2025 12:53:02 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_config] : 
+
+Started TestDataset test_config at 12:53:02 AM on 08/23/2025
+[08/23/2025 12:53:02 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_config] : 
+====================================================================================================
+[08/23/2025 12:53:02 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_config] : 
+
+                TranslationDatasetBuilderConfig                 
+                          source | HuggingFace
+             source_dataset_name | wmt14
+              source_dataset_url | https://huggingface.co/datasets/wmt/wmt14
+                            lang | fr-en
+                        lang_src | en
+                        lang_tgt | fr
+                           split | test
+             dataset_target_size | 16
+                      oversample | 3
+                      tokens_min | 8
+                      tokens_max | 256
+                       ratio_min | 0.5
+                       ratio_max | 2.0
+                         src_bos | False
+                         src_eos | False
+                         tgt_bos | True
+                         tgt_eos | True
+                            seed | 42
+
+
+[08/23/2025 12:53:02 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_config] : 
+
+Completed TestDataset test_config in 0.0 seconds at 12:53:02 AM on 08/23/2025
+[08/23/2025 12:53:02 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_config] : 
+----------------------------------------------------------------------------------------------------
+[08/23/2025 12:53:02 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_builder_metrics] : 
+
+Started TestDataset test_builder_metrics at 12:53:02 AM on 08/23/2025
+[08/23/2025 12:53:02 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_builder_metrics] : 
+====================================================================================================
+[08/23/2025 12:53:02 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_builder_metrics] : 
+
+Completed TestDataset test_builder_metrics in 0.0 seconds at 12:53:02 AM on 08/23/2025
+[08/23/2025 12:53:02 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_builder_metrics] : 
+----------------------------------------------------------------------------------------------------
+[08/23/2025 12:53:02 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_info] : 
+
+Started TestDataset test_info at 12:53:02 AM on 08/23/2025
+[08/23/2025 12:53:02 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_info] : 
+====================================================================================================
+[08/23/2025 12:53:02 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_info] : 
+
+Completed TestDataset test_info in 0.0 seconds at 12:53:02 AM on 08/23/2025
+[08/23/2025 12:53:02 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_info] : 
+----------------------------------------------------------------------------------------------------
+[08/23/2025 12:53:02 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_to_jsonl] : 
+
+Started TestDataset test_to_jsonl at 12:53:02 AM on 08/23/2025
+[08/23/2025 12:53:02 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_to_jsonl] : 
+====================================================================================================
+[08/23/2025 12:53:02 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_to_jsonl] : 
+
+Completed TestDataset test_to_jsonl in 0.0 seconds at 12:53:02 AM on 08/23/2025
+[08/23/2025 12:53:02 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_to_jsonl] : 
+----------------------------------------------------------------------------------------------------
+[08/23/2025 12:53:02 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_to_pandas] : 
+
+Started TestDataset test_to_pandas at 12:53:02 AM on 08/23/2025
+[08/23/2025 12:53:02 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_to_pandas] : 
+====================================================================================================
+[08/23/2025 12:53:02 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_to_pandas] :              idx                                                src                                                tgt
+0   20a9bf8fe34b  The firm was not originally in the business of...  À l'origine, la société ne se destinait pas à ...
+1   92accc1300bd  And while Congress can't agree on whether to p...  Et tandis que les membres du Congrès n'arriven...
+2   c5724ec4f310  Wearing a wingsuit, he flew past over the famo...  Equipé d'un wingsuit (une combinaison munie d'...
+3   e039b8a54135  His state recently put tracking devices on 500...  Son État a récemment fait installer des traceu...
+4   bf5c6f488d81  Politicians are loath to raise the tax even on...  Les hommes politiques sont réticents à augment...
+5   e03a6b1e50f3  The federal tax itself, 18.4 cents per gallon,...  La taxe fédérale elle-même, qui est de 18,4 ce...
+6   32c83a7a2a40  They are exploring how, over the next decade, ...  Ils cherchent comment, au cours de la prochain...
+7   1e2551942fb4  The American Civil Liberties Union is deeply c...  L'American Civil Liberties Union est elle auss...
+8   fba1b6996f04  "Concerns about Big Brother and those sorts of...  « Les inquiétudes au sujet de Big Brother et c...
+9   37ef4ca63799  Libertarians have joined environmental groups ...  Les libertaires ont rejoint des groupes écolog...
+10  272724c6c200  Nevada is among several states now scrambling ...  Le Nevada fait partie des quelques États qui s...
+11  8daea67d6e49  But the House leadership killed the proposal, ...  Mais la présidence de la Chambre a tué la prop...
+12  3ce32a87f3d2  As America's road planners struggle to find th...  Alors que les planificateurs du réseau routier...
+13  30b8e801735d  There are a lot less expensive and less intrus...  Il existe des moyens bien moins onéreux et des...
+14  822a4e89a6db  If you can do that, Khan said, the public gets...  Si on peut faire ça, a ajouté Khan, les citoye...
+15  0fba4228d452            Cars get many more miles to the gallon.  Les voitures peuvent parcourir plus de miles a...
+[08/23/2025 12:53:02 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_to_pandas] : 
+
+Completed TestDataset test_to_pandas in 0.1 seconds at 12:53:02 AM on 08/23/2025
+[08/23/2025 12:53:02 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_to_pandas] : 
+----------------------------------------------------------------------------------------------------
+[08/23/2025 12:53:02 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_iteration] : 
+
+Started TestDataset test_iteration at 12:53:02 AM on 08/23/2025
+[08/23/2025 12:53:02 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_iteration] : 
+====================================================================================================
+[08/23/2025 12:53:02 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_iteration] : 
+
+Completed TestDataset test_iteration in 0.0 seconds at 12:53:02 AM on 08/23/2025
+[08/23/2025 12:53:02 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_iteration] : 
+----------------------------------------------------------------------------------------------------
+[08/23/2025 12:53:02 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_getitem] : 
+
+Started TestDataset test_getitem at 12:53:02 AM on 08/23/2025
+[08/23/2025 12:53:02 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_getitem] : 
+====================================================================================================
+[08/23/2025 12:53:02 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_getitem] : 
+
+Completed TestDataset test_getitem in 0.0 seconds at 12:53:02 AM on 08/23/2025
+[08/23/2025 12:53:02 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_getitem] : 
+----------------------------------------------------------------------------------------------------
+[08/23/2025 12:53:02 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_materialize] : 
+
+Started TestDataset test_materialize at 12:53:02 AM on 08/23/2025
+[08/23/2025 12:53:02 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_materialize] : 
+====================================================================================================
+[08/23/2025 12:53:02 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_materialize] : 
+
+Completed TestDataset test_materialize in 0.0 seconds at 12:53:02 AM on 08/23/2025
+[08/23/2025 12:53:02 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_materialize] : 
+----------------------------------------------------------------------------------------------------
+[08/23/2025 12:53:02 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_teardown] : 
+
+Started TestDataset test_teardown at 12:53:02 AM on 08/23/2025
+[08/23/2025 12:53:02 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_teardown] : 
+====================================================================================================
+[08/23/2025 12:53:02 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_teardown] : 
+
+Completed TestDataset test_teardown in 0.0 seconds at 12:53:02 AM on 08/23/2025
+[08/23/2025 12:53:02 AM] [INFO] [tests.test_data.test_dataset] [test_dataset] [test_teardown] : 
+----------------------------------------------------------------------------------------------------

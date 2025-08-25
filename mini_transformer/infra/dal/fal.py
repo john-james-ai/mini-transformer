@@ -3,15 +3,15 @@
 # ================================================================================================ #
 # Project    : Mini-Transformer                                                                    #
 # Version    : 0.1.0                                                                               #
-# Python     : 3.13.5                                                                              #
-# Filename   : /fal.py                                                                             #
+# Python     : 3.11.13                                                                             #
+# Filename   : /mini_transformer/infra/dal/fal.py                                                  #
 # ------------------------------------------------------------------------------------------------ #
 # Author     : John James                                                                          #
 # Email      : john.james.ai.studio@gmail.com                                                      #
 # URL        : https://github.com/john-james-ai/mini-transformer                                   #
 # ------------------------------------------------------------------------------------------------ #
 # Created    : Monday August 18th 2025 11:59:17 pm                                                 #
-# Modified   : Friday August 22nd 2025 08:14:54 pm                                                 #
+# Modified   : Monday August 25th 2025 08:27:46 am                                                 #
 # ------------------------------------------------------------------------------------------------ #
 # License    : MIT License                                                                         #
 # Copyright  : (c) 2025 John James                                                                 #
@@ -25,7 +25,7 @@ import os
 from pathlib import Path
 from typing import Dict, List
 
-from mini_transformer.infra.database.dal import DAL
+from mini_transformer.infra.dal.base import DAL
 
 # ------------------------------------------------------------------------------------------------ #
 logger = logging.getLogger(__name__)
