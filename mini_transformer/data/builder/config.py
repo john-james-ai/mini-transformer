@@ -4,30 +4,31 @@
 # Project    : Mini-Transformer                                                                    #
 # Version    : 0.1.0                                                                               #
 # Python     : 3.11.13                                                                             #
-# Filename   : /mini_transformer/data/dataset_builder/config.py                                    #
+# Filename   : /mini_transformer/data/builder/config.py                                            #
 # ------------------------------------------------------------------------------------------------ #
 # Author     : John James                                                                          #
 # Email      : john.james.ai.studio@gmail.com                                                      #
 # URL        : https://github.com/john-james-ai/mini-transformer                                   #
 # ------------------------------------------------------------------------------------------------ #
 # Created    : Friday August 22nd 2025 11:57:08 pm                                                 #
-# Modified   : Monday August 25th 2025 08:41:30 am                                                 #
+# Modified   : Monday August 25th 2025 09:33:32 pm                                                 #
 # ------------------------------------------------------------------------------------------------ #
 # License    : MIT License                                                                         #
 # Copyright  : (c) 2025 John James                                                                 #
 # ================================================================================================ #
 from __future__ import annotations
 
+import math
 from dataclasses import dataclass, field
 
-from mini_transformer.data.base import BuilderConfig
+from mini_transformer.data.base import Config
 from mini_transformer.utils.mixins import FingerprintMixin, ObjectRepresentationMixin
 
 
 # ------------------------------------------------------------------------------------------------ #
 @dataclass(frozen=True)
 class TranslationDatasetBuilderConfig(
-    BuilderConfig, FingerprintMixin, ObjectRepresentationMixin
+    Config, FingerprintMixin, ObjectRepresentationMixin
 ):
 
     source: str = field(default="HuggingFace", metadata={"stable": True})
@@ -40,7 +41,6 @@ class TranslationDatasetBuilderConfig(
     lang_tgt: str = field(default="fr", metadata={"stable": True})
     split: str = field(default="train", metadata={"stable": True})
     n: int = field(default=120, metadata={"stable": True})
-    oversample: int = field(default=10, metadata={"stable": True})
     tokens_min: int = field(default=8, metadata={"stable": True})
     tokens_max: int = field(default=256, metadata={"stable": True})
     ratio_min: float = field(default=0.5, metadata={"stable": True})
@@ -49,11 +49,14 @@ class TranslationDatasetBuilderConfig(
     src_eos: bool = field(default=False, metadata={"stable": True})
     tgt_bos: bool = field(default=True, metadata={"stable": True})
     tgt_eos: bool = field(default=True, metadata={"stable": True})
+    lbl_bos: bool = field(default=False, metadata={"stable": True})
+    lbl_eos: bool = field(default=True, metadata={"stable": True})
     seed: int = field(default=42, metadata={"stable": True})
+    stage: bool = field(default="tokenized", metadata={"stable": True})
 
     @property
     def name(self) -> str:
-        return f"{self.source_dataset_name}-{self.lang}-{self.split}-{self.n}_examples-{self.fingerprint}"
+        return f"{self.source_dataset_name}-{self.lang}-{self.split}-{self.stage}-{self.n}_examples-{self.fingerprint}"
 
     @property
     def src_max_words(self) -> int:
@@ -74,7 +77,7 @@ class TranslationDatasetBuilderConfig(
         return self._compute_word_cap_from_tokens(bos=self.tgt_bos, eos=self.tgt_eos)
 
     def _compute_word_cap_from_tokens(
-        self, bos: bool, eos: bool, r: float = 1.5, margin: int = 8
+        self, bos: bool, eos: bool, r: float = 1.3, margin: int = 8
     ) -> int:
         """Derive a word-count cap that rarely exceeds ``tokens_max`` after tokenization.
 
@@ -96,4 +99,4 @@ class TranslationDatasetBuilderConfig(
         """
         specials = int(bos) + int(eos)
         budget = self.tokens_max - specials - margin
-        return max(1, budget // int(round(r)))
+        return max(1, math.floor(budget / r))

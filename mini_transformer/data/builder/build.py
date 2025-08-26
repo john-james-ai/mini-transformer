@@ -4,137 +4,109 @@
 # Project    : Mini-Transformer                                                                    #
 # Version    : 0.1.0                                                                               #
 # Python     : 3.11.13                                                                             #
-# Filename   : /mini_transformer/data/datafile_builder/builder.py                                  #
+# Filename   : /mini_transformer/data/builder/build.py                                             #
 # ------------------------------------------------------------------------------------------------ #
 # Author     : John James                                                                          #
 # Email      : john.james.ai.studio@gmail.com                                                      #
 # URL        : https://github.com/john-james-ai/mini-transformer                                   #
 # ------------------------------------------------------------------------------------------------ #
 # Created    : Saturday August 23rd 2025 12:02:51 am                                               #
-# Modified   : Monday August 25th 2025 09:34:47 am                                                 #
+# Modified   : Monday August 25th 2025 09:54:36 pm                                                 #
 # ------------------------------------------------------------------------------------------------ #
 # License    : MIT License                                                                         #
 # Copyright  : (c) 2025 John James                                                                 #
 # ================================================================================================ #
 import logging
 import random
+from abc import ABC, abstractmethod
 from hashlib import sha1
 from typing import Any, Dict, List
-
-from datasets import load_dataset
-from dependency_injector.wiring import Provide, inject
-from tqdm import tqdm
+from dependency_injector.wiring import Provide, inject  
 
 from mini_transformer.container import MiniTransformerContainer
-from mini_transformer.data.base import Builder
-from mini_transformer.data.datafile import TranslationDataFile
-from mini_transformer.data.datafile_builder.config import (
-    TranslationDataFileBuilderConfig,
-)
-from mini_transformer.data.datafile_builder.metrics import (
-    TranslationDataFileBuilderMetrics,
-)
-from mini_transformer.infra.data_io.download import HFDatasetDownloader
+from mini_transformer.data.base import MetricsCollector
+from mini_transformer.data.builder.config import TranslationDatasetBuilderConfig
+from mini_transformer.data.builder.metrics import TranslationDatasetBuilderMetrics
+from mini_transformer.data.dataset import Dataset, TranslationDataset
+from mini_transformer.data.tokenize.bpe import BPETokenization
 
 # ------------------------------------------------------------------------------------------------ #
 logger = logging.getLogger(__name__)
 
 
 # ------------------------------------------------------------------------------------------------ #
-class TranslationDataFileBuilder(Builder):
+class Builder(ABC):
+    """Abstract base class for all builders."""
+
+    @property
+    @abstractmethod
+    def builder_metrics(self) -> MetricsCollector:
+        """Metrics: Internal builder_metrics with counters and timing."""
+        pass
+
+    @abstractmethod
+    def build(self) -> Dataset:
+        """Builds the object."""
+        pass
+
+
+# ------------------------------------------------------------------------------------------------ #
+class TranslationDatasetBuilder(Builder):
 
     @inject
     def __init__(
         self,
-        builder_config: TranslationDataFileBuilderConfig,
-        downloader: HFDatasetDownloader = Provide[
-            MiniTransformerContainer.infra.hf_downloader
-        ],
+        dataset: TranslationDataset,
+        builder_config: TranslationDatasetBuilderConfig,
+        builder_metrics: type[
+            TranslationDatasetBuilderMetrics
+        ] = TranslationDatasetBuilderMetrics,
+        tokenization: BPETokenization = Provide[MiniTransformerContainer.data.tokenization],
     ) -> None:
-        self._downloader = downloader
+        self._data = dataset.data
         self._builder_config = builder_config
-        self._builder_metrics = TranslationDataFileBuilderMetrics()
+        self._builder_metrics = builder_metrics()
+        self._tokenization = tokenization
 
     @property
-    def builder_metrics(self) -> TranslationDataFileBuilderMetrics:
+    def builder_metrics(self) -> TranslationDatasetBuilderMetrics:
         """Metrics: Internal builder_metrics with counters and timing."""
         return self._builder_metrics
 
-    def build(self) -> None:
-        n = 0
-        src_len = []
-        tgt_len = []
-        with self._builder_metrics:
-            data = self._downloader.download(
-                split=self._builder_config.split, n=self._builder_config.n
-            )
-            for row in tqdm(data):
-                row = row.get("translation", row)
-                src_seq_len = len(row[self._builder_config.lang_src].split())
-                tgt_seq_len = len(row[self._builder_config.lang_tgt].split())
-                src_len.append(src_seq_len)
-                tgt_len.append(tgt_seq_len)
-                n += 1
-
-        src_tgt_len = src_len + tgt_len
-        self._builder_metrics.n = n
-        self._builder_metrics.src_len_min = min(src_len)
-        self._builder_metrics.src_len_max = max(src_len)
-        self._builder_metrics.src_len_avg = (
-            sum(src_len) / len(src_len) if src_len else 0
-        )
-        self._builder_metrics.tgt_len_min = min(tgt_len)
-        self._builder_metrics.tgt_len_max = max(tgt_len)
-        self._builder_metrics.tgt_len_avg = (
-            sum(tgt_len) / len(tgt_len) if tgt_len else 0
-        )
-        self._builder_metrics.seq_len_min = min(src_tgt_len) if src_tgt_len else 0
-        self._builder_metrics.seq_len_max = max(src_tgt_len) if src_tgt_len else 0
-        self._builder_metrics.seq_len_avg = (
-            sum(src_tgt_len) / len(src_tgt_len) if src_tgt_len else 0
-        )
-
-        dataset = TranslationDataFile.create(
-            builder_config=self._builder_config,
-            builder_metrics=self._builder_metrics,
-            data=data,
-        )
-        return dataset
-
-    def _load_dataset(self) -> IterableDataFile:
-        return load_dataset(
-            self._builder_config.source_dataset_name,
-            self._builder_config.lang,
-            split=self._builder_config.split,
-            streaming=True,
-            # type: ignore[reportArgumentType]
-        )
-
-    def _extract(self, data: IterableDataFile) -> List[Dict[str, Any]]:
+    def _select_examples(self) -> List[Dict[str, Any]]:
+        
         candidates: List[Dict[str, Any]] = []
-        target = (
-            self._builder_config.dataset_target_size * self._builder_config.oversample
-        )
+        
+        with self._builder_metrics:            
+            # Shuffle the data with seed to ensure randomness and reproducibility when sampling
+            random.seed(self._builder_config.seed)
+            random.shuffle(self._data)
 
-        for row in data:
-            self._builder_metrics.seen += 1
-            candidate = row.get("translation", row)
-            if self._is_valid_row(candidate):
-                self._builder_metrics.candidates += 1
-                candidates.append(self._parse_row(candidate))
-                if len(candidates) >= target:
-                    break
+            for row in self._data:
+                self._builder_metrics.seen += 1
+                candidate = row.get("translation", row)
+                if self._is_valid_row(candidate):
+                    self._builder_metrics.candidates += 1
+                    candidates.append(self._parse_row(candidate))
+                    if len(candidates) >= self._builder_config.n:
+                        break
 
-        if len(candidates) < self._builder_config.dataset_target_size:
-            raise ValueError(
-                f"Not enough valid rows: {len(candidates)} < {self._builder_config.dataset_target_size}. "
-                f"Increase oversample or relax filters."
+            self._builder_metrics.n = len(candidates)
+            
+        return candidates
+    
+    def _tokenize_examples(self, candidates: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+        
+        
+    def _create_dataset(self, tokens: List[Dict[str, Any]]) -> Dataset:
+
+            dataset = TranslationDataset.create(
+                config=self._builder_config,
+                metrics=self._builder_metrics,
+                data=candidates,
             )
 
-        rng = random.Random(self._builder_config.seed)
-        selected = rng.sample(candidates, self._builder_config.dataset_target_size)
-        self._builder_metrics.selected = len(selected)
-        return selected
+        return dataset
 
     def _is_valid_row(self, row: Dict[str, Any]) -> bool:
         try:
@@ -143,7 +115,7 @@ class TranslationDataFileBuilder(Builder):
         except KeyError as e:
             present = list(row.keys())
             raise KeyError(
-                f"DataFile/Config mismatch: missing key {e!s}. "
+                f"Dataset/Config mismatch: missing key {e!s}. "
                 f"Expected keys: {self._builder_config.lang_src!r}, {self._builder_config.lang_tgt!r}. "
                 f"Row keys: {present}. "
                 f"dataset={self._builder_config.source_dataset_name} lang={self._builder_config.lang} split={self._builder_config.split}"

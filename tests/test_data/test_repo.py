@@ -11,7 +11,7 @@
 # URL        : https://github.com/john-james-ai/mini-transformer                                   #
 # ------------------------------------------------------------------------------------------------ #
 # Created    : Friday August 22nd 2025 05:28:20 am                                                 #
-# Modified   : Monday August 25th 2025 01:28:58 am                                                 #
+# Modified   : Monday August 25th 2025 03:07:28 pm                                                 #
 # ------------------------------------------------------------------------------------------------ #
 # License    : MIT License                                                                         #
 # Copyright  : (c) 2025 John James                                                                 #
@@ -48,7 +48,7 @@ class TestRepo:  # pragma: no cover
         )
         logger.info(double_line)
         # ---------------------------------------------------------------------------------------- #
-        repo = container.repo.repo()
+        repo = container.data.repo()
         repo.add(dataset=dataset)
         assert repo.exists(dataset_id=dataset.id)
 
@@ -95,7 +95,7 @@ class TestRepo:  # pragma: no cover
         )
         logger.info(double_line)
         # ---------------------------------------------------------------------------------------- #
-        repo = container.repo.repo()
+        repo = container.data.repo()
         with pytest.raises(KeyError):
             repo.get(dataset_id="bogus")
 

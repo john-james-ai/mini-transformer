@@ -4,14 +4,14 @@
 # Project    : Mini-Transformer                                                                    #
 # Version    : 0.1.0                                                                               #
 # Python     : 3.11.13                                                                             #
-# Filename   : /mini_transformer/data/base.py                                                      #
+# Filename   : /mini_transformer/data/builder/metrics.py                                           #
 # ------------------------------------------------------------------------------------------------ #
 # Author     : John James                                                                          #
 # Email      : john.james.ai.studio@gmail.com                                                      #
 # URL        : https://github.com/john-james-ai/mini-transformer                                   #
 # ------------------------------------------------------------------------------------------------ #
-# Created    : Monday August 25th 2025 10:02:48 am                                                 #
-# Modified   : Monday August 25th 2025 02:30:16 pm                                                 #
+# Created    : Friday August 22nd 2025 11:57:08 pm                                                 #
+# Modified   : Monday August 25th 2025 02:41:23 pm                                                 #
 # ------------------------------------------------------------------------------------------------ #
 # License    : MIT License                                                                         #
 # Copyright  : (c) 2025 John James                                                                 #
@@ -19,7 +19,7 @@
 from __future__ import annotations
 
 import logging
-from abc import ABC, abstractmethod
+from abc import ABC
 from dataclasses import dataclass
 from datetime import datetime
 from typing import Optional
@@ -31,14 +31,8 @@ logger = logging.getLogger(__name__)
 
 
 # ------------------------------------------------------------------------------------------------ #
-@dataclass(frozen=True)
-class Config(ABC):
-    """Abstract base class for configurations."""
-
-
-# ------------------------------------------------------------------------------------------------ #
 @dataclass
-class MetricsCollector(ABC, FreezableMixin, ObjectRepresentationMixin):
+class BuilderMetrics(ABC, FreezableMixin, ObjectRepresentationMixin):
     """Abstract base class for builder metrics."""
 
     started_at: Optional[datetime] = None
@@ -70,7 +64,7 @@ class MetricsCollector(ABC, FreezableMixin, ObjectRepresentationMixin):
         self.ended_at = datetime.now()
         self.duration = round((self.ended_at - self.started_at).total_seconds(), 3)
 
-    def __enter__(self) -> "MetricsCollector":
+    def __enter__(self) -> "BuilderMetrics":
         """Enter the context manager and start timing.
 
         Returns:
@@ -88,12 +82,44 @@ class MetricsCollector(ABC, FreezableMixin, ObjectRepresentationMixin):
         self.end()
         self.log_summary()
 
-    @abstractmethod
     def log_summary(self) -> None:
-        """Emit a concise, human-readable summary of the metrics.
+        """Log a compact, human-readable summary at INFO level.
 
-        Implementations typically use the representation provided by
-        ``ObjectRepresentationMixin`` (e.g., ``str(self)``) and log at
-        INFO level. Called automatically from :meth:`__exit__`.
+        Emits ``str(self)`` via the module logger. Customize ``__str__`` in
+        the base class if you need a different format.
         """
-        """Logs the builder_metrics."""
+        output = str(self)
+        logger.debug(output)
+
+
+# ------------------------------------------------------------------------------------------------ #
+@dataclass
+class TranslationDatasetBuilderMetrics(BuilderMetrics):
+    n: int = 0
+
+    seen: int = 0
+    filtered: int = 0
+    candidates: int = 0
+    selected: int = 0
+
+    filtered_empty: int = 0
+    filtered_ratio: int = 0
+    filtered_src_short: int = 0
+    filtered_src_long: int = 0
+    filtered_tgt_short: int = 0
+    filtered_tgt_long: int = 0
+
+    throughput: float = 0.0
+
+    def end(self) -> None:
+        """Finalize metrics, compute throughput, and freeze the snapshot.
+
+        Calls :meth:`super().end()` to close timing and set ``duration``,
+        computes ``throughput = round(seen / duration, 3)`` when duration
+        is positive (else 0.0), and invokes :meth:`freeze` to prevent
+        further mutation.
+        """
+        super().end()
+        d = self.duration
+        self.throughput = round(self.seen / d, 3) if d > 0 else 0.0
+        self.freeze()

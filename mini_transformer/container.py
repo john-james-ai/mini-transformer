@@ -11,7 +11,7 @@
 # URL        : https://github.com/john-james-ai/mini-transformer                                   #
 # ------------------------------------------------------------------------------------------------ #
 # Created    : Tuesday August 19th 2025 07:59:27 pm                                                #
-# Modified   : Monday August 25th 2025 09:07:05 am                                                 #
+# Modified   : Monday August 25th 2025 06:07:58 pm                                                 #
 # ------------------------------------------------------------------------------------------------ #
 # License    : MIT License                                                                         #
 # Copyright  : (c) 2025 John James                                                                 #
@@ -23,10 +23,10 @@ import logging.config  # pragma: no cover
 
 from dependency_injector import containers, providers
 
-from mini_transformer.data.repo.dataset import DatasetRepo
+from mini_transformer.data.repo import DatasetRepo
+from mini_transformer.data.tokenize.bpe import BPETokenization
 from mini_transformer.infra.dal.fal import FileAccessLayer
 from mini_transformer.infra.dal.oal import ObjectAccessLayer
-from mini_transformer.infra.data_io.download import HFDatasetDownloader
 
 
 # ------------------------------------------------------------------------------------------------ #
@@ -42,40 +42,26 @@ class LoggingContainer(containers.DeclarativeContainer):
 
 
 # ------------------------------------------------------------------------------------------------ #
-#                                        INFRA                                                     #
-# ------------------------------------------------------------------------------------------------ #
-class InfraContainer(containers.DeclarativeContainer):
-
-    config = providers.Configuration()
-
-    hf_downloader = providers.Singleton(
-        HFDatasetDownloader,
-        dataset=config.hf_downloader.dataset,
-        language=config.hf_downloader.language,
-        shuffle=config.hf_downloader.shuffle,
-        buffer_size=config.hf_downloader.buffer_size,
-        seed=config.hf_downloader.seed,
-    )
-
-
-# ------------------------------------------------------------------------------------------------ #
 #                                        REPO                                                      #
 # ------------------------------------------------------------------------------------------------ #
-class RepoContainer(containers.DeclarativeContainer):
+class DataContainer(containers.DeclarativeContainer):
 
     config = providers.Configuration()
 
-    oal_dataset = providers.Singleton(ObjectAccessLayer, location=config.dataset)
+    oal = providers.Singleton(ObjectAccessLayer, location=config.repo)
 
-    fal_dataset = providers.Singleton(FileAccessLayer, location=config.dataset)
+    fal = providers.Singleton(FileAccessLayer, location=config.repo)
 
-    oal_datafile = providers.Singleton(ObjectAccessLayer, location=config.datafile)
+    repo = providers.Singleton(DatasetRepo, fal=fal, oal=oal)
 
-    fal_datafile = providers.Singleton(FileAccessLayer, location=config.datafile)
-
-    dataset = providers.Singleton(DatasetRepo, fal=fal_dataset, oal=oal_dataset)
-
-    datafile = providers.Singleton(DataFileRepo, fal=fal_datafile, oal=oal_datafile)
+    tokenization = providers.Singleton(
+        BPETokenization,
+        filepath=config.tokenizer.filepath,
+        vocab_size=config.tokenizer.vocab_size,
+        min_frequency=config.tokenizer.min_frequency,
+        unk_token=config.tokenizer.unk_token,
+        special_tokens=config.tokenizer.special_tokens,
+    )
 
 
 # ------------------------------------------------------------------------------------------------ #
@@ -87,6 +73,4 @@ class MiniTransformerContainer(containers.DeclarativeContainer):
 
     logs = providers.Container(LoggingContainer, config=config)
 
-    repo = providers.Container(RepoContainer, config=config.repo)
-
-    infra = providers.Container(InfraContainer, config=config.infra)
+    data = providers.Container(DataContainer, config=config.data)

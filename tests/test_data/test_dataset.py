@@ -11,7 +11,7 @@
 # URL        : https://github.com/john-james-ai/mini-transformer                                   #
 # ------------------------------------------------------------------------------------------------ #
 # Created    : Friday August 22nd 2025 06:55:55 pm                                                 #
-# Modified   : Monday August 25th 2025 08:27:46 am                                                 #
+# Modified   : Monday August 25th 2025 03:09:28 pm                                                 #
 # ------------------------------------------------------------------------------------------------ #
 # License    : MIT License                                                                         #
 # Copyright  : (c) 2025 John James                                                                 #
@@ -25,9 +25,7 @@ from datetime import datetime
 import pandas as pd
 import pytest
 
-from mini_transformer.data.dataset_builder.builder import (
-    TranslationDatasetBuilderMetrics,
-)
+from mini_transformer.data.builder.metrics import TranslationDatasetBuilderMetrics
 
 # ------------------------------------------------------------------------------------------------ #
 # pylint: disable=missing-class-docstring, line-too-long
@@ -78,7 +76,7 @@ class TestDataset:  # pragma: no cover
         assert dataset.builder_config.lang_src == "en"
         assert dataset.builder_config.lang_tgt == "fr"
         assert dataset.builder_config.split == "test"
-        assert dataset.builder_config.dataset_target_size == 16
+        assert dataset.builder_config.n == 16
         assert dataset.builder_config.oversample == 3
         assert dataset.builder_config.tokens_min == 8
         assert dataset.builder_config.tokens_max == 256

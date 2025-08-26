@@ -11,7 +11,7 @@
 # URL        : https://github.com/john-james-ai/mini-transformer                                   #
 # ------------------------------------------------------------------------------------------------ #
 # Created    : Monday August 25th 2025 02:42:28 am                                                 #
-# Modified   : Monday August 25th 2025 08:45:26 am                                                 #
+# Modified   : Monday August 25th 2025 03:53:00 pm                                                 #
 # ------------------------------------------------------------------------------------------------ #
 # License    : MIT License                                                                         #
 # Copyright  : (c) 2025 John James                                                                 #
@@ -45,38 +45,34 @@ class HFDatasetDownloader:
         self,
         dataset: str,
         language: str,
+        split: str,
+        n: int,
         shuffle: bool = True,
         buffer_size: int = 10000,
         seed: Optional[int] = None,
     ) -> None:
         self._dataset = dataset
         self._language = language
+        self._split = split
+        self._n = n
         self._shuffle = shuffle
         self._buffer_size = buffer_size
         self._seed = seed
 
-    def download(self, split: str, n: Optional[int] = None) -> IterableDataset:
-        """Loads a dataset split as a streaming IterableDataset.
+    def download(self) -> IterableDataset:
+        """Downloads the dataset from Hugging Face and returns an iterable dataset."""
 
-        Args:
-            split (str): The name of the split to download (e.g., 'train').
-            n (Optional[int]): The number of examples to take from the stream.
-                If None, the entire stream is returned.
-
-        Returns:
-            IterableDataset: A streaming dataset object that can be iterated over.
-        """
         dataset: IterableDataset = load_dataset(
             self._dataset,
             self._language,
-            split=split,
+            split=self._split,
             streaming=True,
         )
 
         if self._shuffle:
             dataset = dataset.shuffle(buffer_size=self._buffer_size, seed=self._seed)
 
-        if n is not None:
-            dataset = dataset.take(n)
+        if self._n is not None:
+            dataset = dataset.take(self._n)
 
         return dataset

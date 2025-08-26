@@ -8,7 +8,7 @@
                            split | test
                             lang | fr-en
                             seed | 42
-             dataset_target_size | 16
+             n | 16
                       oversample | 3
                             seen | 59
                         filtered | 11
@@ -137,7 +137,7 @@ Completed TestDataset test_teardown in 0.0 seconds at 12:43:50 AM on 08/23/2025
                            split | test
                             lang | fr-en
                             seed | 42
-             dataset_target_size | 16
+             n | 16
                       oversample | 3
                             seen | 59
                         filtered | 11
@@ -172,7 +172,7 @@ Started TestRepo test_get_not_found at 12:43:53 AM on 08/23/2025
                            split | train
                             lang | fr-en
                             seed | 42
-             dataset_target_size | 16
+             n | 16
                       oversample | 3
                             seen | 54
                         filtered | 6
@@ -197,7 +197,7 @@ Started TestRepo test_get_not_found at 12:43:53 AM on 08/23/2025
                            split | validation
                             lang | fr-en
                             seed | 42
-             dataset_target_size | 12
+             n | 12
                       oversample | 3
                             seen | 38
                         filtered | 2
@@ -222,7 +222,7 @@ Started TestRepo test_get_not_found at 12:43:53 AM on 08/23/2025
                            split | test
                             lang | fr-en
                             seed | 42
-             dataset_target_size | 8
+             n | 8
                       oversample | 3
                             seen | 31
                         filtered | 7
@@ -247,7 +247,7 @@ Started TestRepo test_get_not_found at 12:43:53 AM on 08/23/2025
                            split | test
                             lang | fr-en
                             seed | 42
-             dataset_target_size | 16
+             n | 16
                       oversample | 3
                             seen | 59
                         filtered | 11
@@ -341,7 +341,7 @@ Completed TestRepo test_exists in 0.0 seconds at 12:48:12 AM on 08/23/2025
                            split | train
                             lang | fr-en
                             seed | 42
-             dataset_target_size | 16
+             n | 16
                       oversample | 3
                             seen | 54
                         filtered | 6
@@ -366,7 +366,7 @@ Completed TestRepo test_exists in 0.0 seconds at 12:48:12 AM on 08/23/2025
                            split | validation
                             lang | fr-en
                             seed | 42
-             dataset_target_size | 12
+             n | 12
                       oversample | 3
                             seen | 38
                         filtered | 2
@@ -391,7 +391,7 @@ Completed TestRepo test_exists in 0.0 seconds at 12:48:12 AM on 08/23/2025
                            split | test
                             lang | fr-en
                             seed | 42
-             dataset_target_size | 8
+             n | 8
                       oversample | 3
                             seen | 31
                         filtered | 7
@@ -435,7 +435,7 @@ Completed TestRepo test_show in 0.2 seconds at 12:48:29 AM on 08/23/2025
                            split | test
                             lang | fr-en
                             seed | 42
-             dataset_target_size | 16
+             n | 16
                       oversample | 3
                             seen | 59
                         filtered | 11
@@ -567,7 +567,7 @@ Completed TestDataset test_teardown in 0.0 seconds at 12:49:03 AM on 08/23/2025
                            split | test
                             lang | fr-en
                             seed | 42
-             dataset_target_size | 16
+             n | 16
                       oversample | 3
                             seen | 59
                         filtered | 11
@@ -704,7 +704,7 @@ Completed TestDataset test_teardown in 0.0 seconds at 12:50:03 AM on 08/23/2025
                            split | test
                             lang | fr-en
                             seed | 42
-             dataset_target_size | 16
+             n | 16
                       oversample | 3
                             seen | 59
                         filtered | 11
@@ -841,7 +841,7 @@ Completed TestDataset test_teardown in 0.0 seconds at 12:51:59 AM on 08/23/2025
                            split | test
                             lang | fr-en
                             seed | 42
-             dataset_target_size | 16
+             n | 16
                       oversample | 3
                             seen | 59
                         filtered | 11
@@ -881,7 +881,7 @@ Started TestDataset test_config at 12:53:02 AM on 08/23/2025
                         lang_src | en
                         lang_tgt | fr
                            split | test
-             dataset_target_size | 16
+             n | 16
                       oversample | 3
                       tokens_min | 8
                       tokens_max | 256
