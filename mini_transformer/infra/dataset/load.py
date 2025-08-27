@@ -4,14 +4,14 @@
 # Project    : Mini-Transformer                                                                    #
 # Version    : 0.1.0                                                                               #
 # Python     : 3.11.13                                                                             #
-# Filename   : /mini_transformer/infra/data_io/load.py                                             #
+# Filename   : /mini_transformer/infra/dataset/load.py                                             #
 # ------------------------------------------------------------------------------------------------ #
 # Author     : John James                                                                          #
 # Email      : john.james.ai.studio@gmail.com                                                      #
 # URL        : https://github.com/john-james-ai/mini-transformer                                   #
 # ------------------------------------------------------------------------------------------------ #
 # Created    : Sunday August 24th 2025 11:43:12 pm                                                 #
-# Modified   : Tuesday August 26th 2025 12:12:29 am                                                #
+# Modified   : Wednesday August 27th 2025 02:53:43 pm                                              #
 # ------------------------------------------------------------------------------------------------ #
 # License    : MIT License                                                                         #
 # Copyright  : (c) 2025 John James                                                                 #
@@ -133,42 +133,88 @@ def collate_fn(batch, tok, L_src=64, L_tgt=64, as_numpy=True):
 
 
 class BucketBatchSampler(Sampler):
+    """A PyTorch Sampler that groups samples of similar lengths into batches.
+
+    This sampler is designed to minimize padding in sequence models by ensuring
+    that each batch contains sequences of roughly the same length. It works by
+    grouping sample indices into buckets based on their sequence length. During
+    iteration, it shuffles the indices within each bucket and then yields batches
+    by drawing samples from the buckets in a round-robin fashion.
+
+    Attributes:
+        sequence_lengths (list[int]): A list of integers representing the
+            length of each sample in the dataset.
+        batch_size (int): The number of samples per batch.
+        bucket_width (int): The width of each length bucket. Samples with
+            lengths from `w*i` to `w*(i+1)-1` will be in the same bucket.
+        drop_last (bool): If True, the sampler will drop the last batch if
+            its size is less than batch_size.
+        seed (int): Random seed for shuffling.
+        epoch (int): The current epoch number, used to vary the random seed.
+        bucket_to_indices (dict): A mapping from a bucket ID to a list of
+            sample indices belonging to that bucket.
+    """
+
     def __init__(
         self,
-        bucket_ids: list,
-        batch_size: int = 16,
-        len_key: list = [],
+        sequence_lengths: list[int],
+        batch_size: int,
+        bucket_width: int = 16,
         drop_last: bool = False,
         seed: int = 42,
     ):
-        self.bucket_ids = bucket_ids
+        super().__init__(sequence_lengths)
+        self.sequence_lengths = sequence_lengths
         self.batch_size = batch_size
+        self.bucket_width = bucket_width
         self.drop_last = drop_last
         self.seed = seed
         self.epoch = 0
 
-        # 1) make bucket ids once (or on init)
-        bucket_ids = [min((k - 1) // 16, 3) for k in len_key]  # for L=64, 4 buckets
-        self.bucket_to_idx = collections.defaultdict(list)
-        for i, b in enumerate(bucket_ids):
-            self.bucket_to_idx[b].append(i)
+        # Create buckets based on a fixed width
+        self.bucket_to_indices = collections.defaultdict(list)
+        for i, length in enumerate(self.sequence_lengths):
+            bucket_id = length // self.bucket_width
+            self.bucket_to_indices[bucket_id].append(i)
 
     def __iter__(self):
+        """Generates batches of indices.
+
+        At the beginning of each epoch, this method shuffles the indices within
+        each bucket. It then iterates through the buckets in sorted order,
+        yielding batches of indices until all samples have been yielded.
+
+        Yields:
+            list[int]: A list of sample indices representing a single batch.
+        """
         rng = random.Random(self.seed + self.epoch)
-        buckets = {
-            b: rng.sample(ixs, len(ixs)) for b, ixs in self.bucket_to_idx.items()
+
+        # Shuffle indices within each bucket for the new epoch
+        shuffled_buckets = {
+            bucket_id: rng.sample(indices, len(indices))
+            for bucket_id, indices in self.bucket_to_indices.items()
         }
-        order = []
-        while any(buckets.values()):
-            for b in sorted(buckets):
-                buf = buckets[b]
-                if not buf:
+
+        # Create batches by iterating through buckets in a round-robin fashion
+        while any(shuffled_buckets.values()):
+            for bucket_id in sorted(shuffled_buckets):
+                buffer = shuffled_buckets[bucket_id]
+                if not buffer:
                     continue
-                batch, buckets[b] = buf[: self.batch_size], buf[self.batch_size :]
+
+                # Take a chunk for the next batch
+                batch, shuffled_buckets[bucket_id] = (
+                    buffer[: self.batch_size],
+                    buffer[self.batch_size :],
+                )
+
                 if batch and (len(batch) == self.batch_size or not self.drop_last):
                     yield batch
+
         self.epoch += 1
 
     def __len__(self):
-        n = sum(len(v) for v in self.bucket_to_idx.values())
-        return n // self.batch_size  # approx, ignores last partials
+        if self.drop_last:
+            return len(self.sequence_lengths) // self.batch_size
+        else:
+            return (len(self.sequence_lengths) + self.batch_size - 1) // self.batch_size
