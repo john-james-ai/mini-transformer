@@ -11,7 +11,7 @@
 # URL        : https://github.com/john-james-ai/mini-transformer                                   #
 # ------------------------------------------------------------------------------------------------ #
 # Created    : Tuesday August 26th 2025 10:02:18 pm                                                #
-# Modified   : Tuesday August 26th 2025 11:55:40 pm                                                #
+# Modified   : Wednesday August 27th 2025 12:55:31 am                                              #
 # ------------------------------------------------------------------------------------------------ #
 # License    : MIT License                                                                         #
 # Copyright  : (c) 2025 John James                                                                 #
@@ -95,6 +95,11 @@ class DatasetBuilderConfig(ABC, FingerprintMixin, ObjectRepresentationMixin):
     @abstractmethod
     def dataset_name(self) -> str:
         """Name: Unique name for the dataset."""
+
+    @property
+    def dataset_id(self) -> str:
+        """Name: Unique id for the dataset."""
+        return self.fingerprint
 
 
 # ------------------------------------------------------------------------------------------------ #

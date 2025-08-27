@@ -4,14 +4,14 @@
 # Project    : Mini-Transformer                                                                    #
 # Version    : 0.1.0                                                                               #
 # Python     : 3.11.13                                                                             #
-# Filename   : /mini_transformer/infra/database/oal.py                                             #
+# Filename   : /mini_transformer/infra/dal/oal.py                                                  #
 # ------------------------------------------------------------------------------------------------ #
 # Author     : John James                                                                          #
 # Email      : john.james.ai.studio@gmail.com                                                      #
 # URL        : https://github.com/john-james-ai/mini-transformer                                   #
 # ------------------------------------------------------------------------------------------------ #
 # Created    : Monday August 18th 2025 11:59:17 pm                                                 #
-# Modified   : Monday August 25th 2025 01:28:57 am                                                 #
+# Modified   : Wednesday August 27th 2025 01:15:41 am                                              #
 # ------------------------------------------------------------------------------------------------ #
 # License    : MIT License                                                                         #
 # Copyright  : (c) 2025 John James                                                                 #
@@ -38,7 +38,7 @@ class ObjectAccessLayer:
 
     def create(self, key: str, data: Any) -> None:
         """Create a new entry. Raises if the key already exists."""
-        with self._open(flag="c") as db:
+        with self._open() as db:
             if key in db:
                 raise KeyError(f"Key {key!r} already exists")
             db[key] = data  # closing the shelf flushes
@@ -46,7 +46,7 @@ class ObjectAccessLayer:
     def read(self, key: str) -> Any:
         """Return the object stored under `key`. Raises KeyError if missing."""
         try:
-            with self._open(flag="r") as db:
+            with self._open() as db:
                 return db[key]
         except KeyError:
             raise KeyError(f"Key {key!r} not found") from None
@@ -56,7 +56,7 @@ class ObjectAccessLayer:
     def delete(self, key: str) -> bool:
         """Delete the entry; return True if it existed, False otherwise."""
         try:
-            with self._open(flag="c") as db:
+            with self._open() as db:
                 if key in db:
                     del db[key]
                     return True
@@ -67,7 +67,7 @@ class ObjectAccessLayer:
     def get_all_names(self) -> List[str]:
         """Return all logical keys stored (dataset_ids)."""
         try:
-            with self._open(flag="r") as db:
+            with self._open() as db:
                 return list(db.keys())
         except OSError:
             return []
@@ -75,7 +75,7 @@ class ObjectAccessLayer:
     def exists(self, key: str) -> bool:
         """Return True if `key` exists (does not create a new shelf)."""
         try:
-            with self._open(flag="r") as db:
+            with self._open() as db:
                 return key in db
         except OSError:
             return False

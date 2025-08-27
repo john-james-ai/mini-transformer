@@ -11,7 +11,7 @@
 # URL        : https://github.com/john-james-ai/mini-transformer                                   #
 # ------------------------------------------------------------------------------------------------ #
 # Created    : Friday August 22nd 2025 11:17:40 pm                                                 #
-# Modified   : Tuesday August 26th 2025 11:12:52 pm                                                #
+# Modified   : Wednesday August 27th 2025 12:53:29 am                                              #
 # ------------------------------------------------------------------------------------------------ #
 # License    : MIT License                                                                         #
 # Copyright  : (c) 2025 John James                                                                 #
@@ -32,12 +32,12 @@ if TYPE_CHECKING:
     from mini_transformer.data.builder.base import MetricsCollector
     from mini_transformer.data.builder.base import DatasetBuilderConfig
     from mini_transformer.data.builder.data_filter import (
-        TranslationDatasetFilterBuilderConfig,
-        TranslationDatasetFilterBuilderMetrics,
+        TranslationDatasetBuilderFilteredConfig,
+        TranslationDatasetBuilderFilteredMetrics,
     )
     from mini_transformer.data.builder.extractor import (
-        TranslationDatasetExtractorBuilderConfig,
-        TranslationDatasetExtractorMetrics,
+        TranslationDatasetBuilderRawConfig,
+        TranslationDatasetBuilderRawMetrics,
     )
 
 from mini_transformer.utils.mixins import ObjectRepresentationMixin
@@ -143,10 +143,10 @@ class Dataset(ABC, ObjectRepresentationMixin):
 # ------------------------------------------------------------------------------------------------ #
 @dataclass(frozen=True)
 class TranslationDataset(Dataset):
-    config: (
-        TranslationDatasetFilterBuilderConfig | TranslationDatasetExtractorBuilderConfig
+    config: TranslationDatasetBuilderFilteredConfig | TranslationDatasetBuilderRawConfig
+    metrics: (
+        TranslationDatasetBuilderFilteredMetrics | TranslationDatasetBuilderRawMetrics
     )
-    metrics: TranslationDatasetFilterBuilderMetrics | TranslationDatasetExtractorMetrics
     lang: str
     lang_src: str
     lang_tgt: str
@@ -170,15 +170,16 @@ class TranslationDataset(Dataset):
     def create(
         cls,
         config: Union[
-            TranslationDatasetFilterBuilderConfig,
-            TranslationDatasetExtractorBuilderConfig,
+            TranslationDatasetBuilderFilteredConfig,
+            TranslationDatasetBuilderRawConfig,
         ],
         metrics: Union[
-            TranslationDatasetFilterBuilderMetrics, TranslationDatasetExtractorMetrics
+            TranslationDatasetBuilderFilteredMetrics,
+            TranslationDatasetBuilderRawMetrics,
         ],
         data: List[Dict[str, Any]],
     ) -> TranslationDataset:
-        """Creates a TranslationDataset from a TranslationDatasetFilterBuilderConfig.
+        """Creates a TranslationDataset from a TranslationDatasetBuilderFilteredConfig.
 
         Args:
             config: The configuration to create the Dataset from.

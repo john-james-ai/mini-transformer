@@ -11,7 +11,7 @@
 # URL        : https://github.com/john-james-ai/mini-transformer                                   #
 # ------------------------------------------------------------------------------------------------ #
 # Created    : Monday August 18th 2025 11:29:48 pm                                                 #
-# Modified   : Tuesday August 26th 2025 11:17:22 pm                                                #
+# Modified   : Wednesday August 27th 2025 12:35:26 am                                              #
 # ------------------------------------------------------------------------------------------------ #
 # License    : MIT License                                                                         #
 # Copyright  : (c) 2025 John James                                                                 #
@@ -24,4 +24,4 @@ from mini_transformer.container import MiniTransformerContainer
 if __name__ == "__main__":
     container = MiniTransformerContainer()
     container.init_resources()
-    container.wire(modules=[__name__, "mini_transformer.data.builder.extractor"])
+    container.wire(modules=[__name__])

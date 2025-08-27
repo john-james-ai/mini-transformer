@@ -11,7 +11,7 @@
 # URL        : https://github.com/john-james-ai/mini-transformer                                   #
 # ------------------------------------------------------------------------------------------------ #
 # Created    : Monday August 25th 2025 10:00:42 am                                                 #
-# Modified   : Tuesday August 26th 2025 11:57:27 pm                                                #
+# Modified   : Wednesday August 27th 2025 01:56:37 am                                              #
 # ------------------------------------------------------------------------------------------------ #
 # License    : MIT License                                                                         #
 # Copyright  : (c) 2025 John James                                                                 #
@@ -24,23 +24,20 @@ from hashlib import sha1
 from typing import Any, Dict, List, Optional
 
 import pandas as pd
-from dependency_injector.wiring import Provide, inject
 from tqdm import tqdm
 
-from mini_transformer.container import MiniTransformerContainer
 from mini_transformer.data.builder.base import (
     Builder,
     DatasetBuilderConfig,
     MetricsCollector,
 )
 from mini_transformer.data.dataset import TranslationDataset
-from mini_transformer.data.repo import DatasetRepo
-from mini_transformer.infra.data_io.download import HFDatasetDownloader
+from mini_transformer.infra.dataset.download import HFDatasetDownloader
 
 
 # ------------------------------------------------------------------------------------------------ #
 @dataclass(frozen=True)
-class TranslationDatasetExtractorBuilderConfig(DatasetBuilderConfig):
+class TranslationDatasetBuilderRawConfig(DatasetBuilderConfig):
     """Configuration for extracting a raw translation dataset from a source.
 
     This dataclass holds the configuration for the initial extraction of a
@@ -76,7 +73,7 @@ class TranslationDatasetExtractorBuilderConfig(DatasetBuilderConfig):
 
 # ------------------------------------------------------------------------------------------------ #
 @dataclass
-class TranslationDatasetExtractorMetrics(MetricsCollector):
+class TranslationDatasetBuilderRawMetrics(MetricsCollector):
     """Collects detailed quantitative metrics during dataset extraction.
 
     This class extends `MetricsCollector` to compute statistics about the
@@ -180,7 +177,7 @@ class TranslationDatasetExtractorMetrics(MetricsCollector):
 
 
 # ------------------------------------------------------------------------------------------------ #
-class TranslationDatasetExtractorBuilder(Builder):
+class TranslationDatasetBuilderRaw(Builder):
     """Builds a raw translation dataset by extracting it from a source.
 
     This class orchestrates the initial download and quantitative analysis of a
@@ -191,15 +188,13 @@ class TranslationDatasetExtractorBuilder(Builder):
     includes both the raw data and the computed metrics.
     """
 
-    @inject
     def __init__(
         self,
-        config: TranslationDatasetExtractorBuilderConfig,
+        config: TranslationDatasetBuilderRawConfig,
         metrics: type[
-            TranslationDatasetExtractorMetrics
-        ] = TranslationDatasetExtractorMetrics,
+            TranslationDatasetBuilderRawMetrics
+        ] = TranslationDatasetBuilderRawMetrics,
         downloader: type[HFDatasetDownloader] = HFDatasetDownloader,
-        repo: DatasetRepo = Provide[MiniTransformerContainer.data.repo],
     ) -> None:
         self._config = config
         self._downloader = downloader(
@@ -212,15 +207,14 @@ class TranslationDatasetExtractorBuilder(Builder):
             seed=config.seed,
         )
 
-        self._repo = repo
         self._metrics = metrics()
 
     @property
-    def metrics(self) -> Optional[TranslationDatasetExtractorMetrics]:
+    def metrics(self) -> Optional[TranslationDatasetBuilderRawMetrics]:
         """Provides access to the metrics collector for this build process.
 
         Returns:
-            TranslationDatasetExtractorMetrics: The metrics object containing
+            TranslationDatasetBuilderRawMetrics: The metrics object containing
             detailed quantitative statistics and timing data for the extraction.
         """
         return self._metrics

@@ -11,7 +11,7 @@
 # URL        : https://github.com/john-james-ai/mini-transformer                                   #
 # ------------------------------------------------------------------------------------------------ #
 # Created    : Monday August 25th 2025 03:22:54 pm                                                 #
-# Modified   : Tuesday August 26th 2025 11:59:22 pm                                                #
+# Modified   : Wednesday August 27th 2025 01:02:17 am                                              #
 # ------------------------------------------------------------------------------------------------ #
 # License    : MIT License                                                                         #
 # Copyright  : (c) 2025 John James                                                                 #
@@ -25,8 +25,8 @@ import datasets
 import pytest
 
 from mini_transformer.data.builder.extractor import (
-    TranslationDatasetExtractorBuilder,
-    TranslationDatasetExtractorBuilderConfig,
+    TranslationDatasetBuilderRaw,
+    TranslationDatasetBuilderRawConfig,
 )
 from mini_transformer.data.dataset import TranslationDataset
 
@@ -51,8 +51,8 @@ class TestExtract:  # pragma: no cover
         )
         logger.info(double_line)
         # ---------------------------------------------------------------------------------------- #
-        config = TranslationDatasetExtractorBuilderConfig(n=8)
-        extractor = TranslationDatasetExtractorBuilder(config=config)
+        config = TranslationDatasetBuilderRawConfig(n=8)
+        extractor = TranslationDatasetBuilderRaw(config=config)
         dataset = extractor.build()
         assert isinstance(dataset, TranslationDataset)
         assert isinstance(dataset.data, List)
@@ -77,10 +77,10 @@ class TestExtract:  # pragma: no cover
         )
         logger.info(double_line)
         # ---------------------------------------------------------------------------------------- #
-        config = TranslationDatasetExtractorBuilderConfig(
+        config = TranslationDatasetBuilderRawConfig(
             n=8, source_dataset_name="non_existent_dataset"
         )
-        extractor = TranslationDatasetExtractorBuilder(config=config)
+        extractor = TranslationDatasetBuilderRaw(config=config)
         with pytest.raises(
             datasets.exceptions.DatasetNotFoundError  # type: ignore[reportAttributeAccessIssue]
         ):

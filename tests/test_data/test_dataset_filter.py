@@ -11,7 +11,7 @@
 # URL        : https://github.com/john-james-ai/mini-transformer                                   #
 # ------------------------------------------------------------------------------------------------ #
 # Created    : Monday August 25th 2025 04:08:59 pm                                                 #
-# Modified   : Wednesday August 27th 2025 12:02:21 am                                              #
+# Modified   : Wednesday August 27th 2025 12:40:50 am                                              #
 # ------------------------------------------------------------------------------------------------ #
 # License    : MIT License                                                                         #
 # Copyright  : (c) 2025 John James                                                                 #
@@ -23,8 +23,8 @@ from datetime import datetime
 import pytest
 
 from mini_transformer.data.builder.data_filter import (
-    TranslationDatasetFilterBuilder,
-    TranslationDatasetFilterBuilderConfig,
+    TranslationDatasetBuilderFiltered,
+    TranslationDatasetBuilderFilteredConfig,
 )
 
 # ------------------------------------------------------------------------------------------------ #
@@ -48,8 +48,8 @@ class TestDatasetFilterBuilder:  # pragma: no cover
         )
         logger.info(double_line)
         # ---------------------------------------------------------------------------------------- #
-        config = TranslationDatasetFilterBuilderConfig(n=8)
-        filterer = TranslationDatasetFilterBuilder(config=config, dataset=dataset)
+        config = TranslationDatasetBuilderFilteredConfig(n=8)
+        filterer = TranslationDatasetBuilderFiltered(config=config, dataset=dataset)
         dataset = filterer.build()
         print(dataset)
         print(dataset.metrics)

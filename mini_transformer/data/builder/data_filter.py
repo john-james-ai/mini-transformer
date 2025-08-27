@@ -11,7 +11,7 @@
 # URL        : https://github.com/john-james-ai/mini-transformer                                   #
 # ------------------------------------------------------------------------------------------------ #
 # Created    : Saturday August 23rd 2025 12:02:51 am                                               #
-# Modified   : Tuesday August 26th 2025 11:57:51 pm                                                #
+# Modified   : Wednesday August 27th 2025 12:40:50 am                                              #
 # ------------------------------------------------------------------------------------------------ #
 # License    : MIT License                                                                         #
 # Copyright  : (c) 2025 John James                                                                 #
@@ -36,7 +36,7 @@ logger = logging.getLogger(__name__)
 
 # ------------------------------------------------------------------------------------------------ #
 @dataclass(frozen=True)
-class TranslationDatasetFilterBuilderConfig(DatasetBuilderConfig):
+class TranslationDatasetBuilderFilteredConfig(DatasetBuilderConfig):
     """Configuration for filtering and building a translation dataset.
 
     This dataclass holds all parameters for screening a large, raw translation
@@ -134,7 +134,7 @@ class TranslationDatasetFilterBuilderConfig(DatasetBuilderConfig):
 
 # ------------------------------------------------------------------------------------------------ #
 @dataclass
-class TranslationDatasetFilterBuilderMetrics(MetricsCollector):
+class TranslationDatasetBuilderFilteredMetrics(MetricsCollector):
     """Collects detailed metrics for the translation dataset filtering process.
 
     This class extends `MetricsCollector` with specific counters to track the
@@ -197,13 +197,13 @@ class TranslationDatasetFilterBuilderMetrics(MetricsCollector):
 
 
 # ------------------------------------------------------------------------------------------------ #
-class TranslationDatasetFilterBuilder(Builder):
+class TranslationDatasetBuilderFiltered(Builder):
     """Builds a filtered translation dataset from a raw data source.
 
     This class implements the Builder pattern to process a raw
     `TranslationDataset`. It shuffles the source data and then iterates through
     it, applying a series of validation checks based on the provided
-    `TranslationDatasetFilterBuilderConfig`.
+    `TranslationDatasetBuilderFilteredConfig`.
 
     The filtering criteria include checking for empty strings, validating the
     source-to-target length ratio, and ensuring sequence lengths fall within a
@@ -216,21 +216,21 @@ class TranslationDatasetFilterBuilder(Builder):
     def __init__(
         self,
         dataset: TranslationDataset,
-        config: TranslationDatasetFilterBuilderConfig,
+        config: TranslationDatasetBuilderFilteredConfig,
         metrics: type[
-            TranslationDatasetFilterBuilderMetrics
-        ] = TranslationDatasetFilterBuilderMetrics,
+            TranslationDatasetBuilderFilteredMetrics
+        ] = TranslationDatasetBuilderFilteredMetrics,
     ) -> None:
         self._data = dataset.data
         self._config = config
         self._metrics = metrics()
 
     @property
-    def metrics(self) -> TranslationDatasetFilterBuilderMetrics:
+    def metrics(self) -> TranslationDatasetBuilderFilteredMetrics:
         """Provides access to the metrics collector for this build process.
 
         Returns:
-            TranslationDatasetFilterBuilderMetrics: The metrics object
+            TranslationDatasetBuilderFilteredMetrics: The metrics object
             containing counters and timing data for the build.
         """
         return self._metrics

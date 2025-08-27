@@ -11,7 +11,7 @@
 # URL        : https://github.com/john-james-ai/mini-transformer                                   #
 # ------------------------------------------------------------------------------------------------ #
 # Created    : Friday August 22nd 2025 06:55:55 pm                                                 #
-# Modified   : Wednesday August 27th 2025 12:02:22 am                                              #
+# Modified   : Wednesday August 27th 2025 12:29:54 am                                              #
 # ------------------------------------------------------------------------------------------------ #
 # License    : MIT License                                                                         #
 # Copyright  : (c) 2025 John James                                                                 #
@@ -25,7 +25,7 @@ from datetime import datetime
 import pandas as pd
 import pytest
 
-from mini_transformer.data.builder.extractor import TranslationDatasetExtractorMetrics
+from mini_transformer.data.builder.extractor import TranslationDatasetBuilderRawMetrics
 from tests.conftest import RAW_DATASET_SIZE
 
 # ------------------------------------------------------------------------------------------------ #
@@ -97,7 +97,7 @@ class TestDataset:  # pragma: no cover
         )
         logger.info(double_line)
         # ---------------------------------------------------------------------------------------- #
-        assert isinstance(dataset.metrics, TranslationDatasetExtractorMetrics)
+        assert isinstance(dataset.metrics, TranslationDatasetBuilderRawMetrics)
         print(dataset.metrics)
 
         # ---------------------------------------------------------------------------------------- #
