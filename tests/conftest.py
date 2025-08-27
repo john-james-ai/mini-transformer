@@ -11,7 +11,7 @@
 # URL        : https://github.com/john-james-ai/mini-transformer                                   #
 # ------------------------------------------------------------------------------------------------ #
 # Created    : Friday August 22nd 2025 05:23:36 am                                                 #
-# Modified   : Monday August 25th 2025 06:29:04 pm                                                 #
+# Modified   : Wednesday August 27th 2025 12:02:21 am                                              #
 # ------------------------------------------------------------------------------------------------ #
 # License    : MIT License                                                                         #
 # Copyright  : (c) 2025 John James                                                                 #
@@ -22,14 +22,19 @@ import shutil
 import pytest
 
 from mini_transformer.container import MiniTransformerContainer
-from mini_transformer.data.extractor.config import TranslationDatasetExtractorConfig
-from mini_transformer.data.extractor.extract import TranslationDatasetExtractor
+from mini_transformer.data.builder.extractor import (
+    TranslationDatasetExtractorBuilder,
+    TranslationDatasetExtractorBuilderConfig,
+)
 from tests.test_data import TEST_DATA_ROOT
 
 os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")  # HF tokenizers threads
 os.environ.setdefault("OMP_NUM_THREADS", "1")
 os.environ.setdefault("MKL_NUM_THREADS", "1")
 os.environ.setdefault("OPENBLAS_NUM_THREADS", "1")
+
+# ------------------------------------------------------------------------------------------------ #
+RAW_DATASET_SIZE = 64
 
 
 # ------------------------------------------------------------------------------------------------ #
@@ -39,7 +44,7 @@ os.environ.setdefault("OPENBLAS_NUM_THREADS", "1")
 def container():
     container = MiniTransformerContainer()
     container.init_resources()
-    container.wire(modules=[__name__, "mini_transformer.data.extractor.extract"])
+    container.wire(modules=[__name__, "mini_transformer.data.builder.extractor"])
     return container
 
 
@@ -47,10 +52,10 @@ def container():
 #                                        DATASET                                                   #
 # ------------------------------------------------------------------------------------------------ #
 @pytest.fixture(scope="module", autouse=False)
-def raw_dataset():
-    config = TranslationDatasetExtractorConfig(n=8)
-    extractor = TranslationDatasetExtractor(extractor_config=config)
-    return extractor.extract()
+def dataset():
+    config = TranslationDatasetExtractorBuilderConfig(n=RAW_DATASET_SIZE, split="test")
+    builder = TranslationDatasetExtractorBuilder(config=config)
+    return builder.build()
 
 
 # ------------------------------------------------------------------------------------------------ #

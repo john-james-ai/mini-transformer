@@ -11,7 +11,7 @@
 # URL        : https://github.com/john-james-ai/mini-transformer                                   #
 # ------------------------------------------------------------------------------------------------ #
 # Created    : Monday August 25th 2025 04:44:11 pm                                                 #
-# Modified   : Monday August 25th 2025 06:42:38 pm                                                 #
+# Modified   : Wednesday August 27th 2025 12:11:50 am                                              #
 # ------------------------------------------------------------------------------------------------ #
 # License    : MIT License                                                                         #
 # Copyright  : (c) 2025 John James                                                                 #
@@ -35,10 +35,10 @@ double_line = f"\n{100 * '='}"
 single_line = f"\n{100 * '-'}"
 
 
-@pytest.mark.tokenization
+@pytest.mark.token
 class TestTokenization:  # pragma: no cover
     # ============================================================================================ #
-    def test_tokenization_training(self, container, raw_dataset, caplog) -> None:
+    def test_tokenization_training(self, container, dataset, caplog) -> None:
         start = datetime.now()
         logger.info(
             f"\n\nStarted {self.__class__.__name__} {inspect.stack()[0][3]} at {start.strftime('%I:%M:%S %p')} on {start.strftime('%m/%d/%Y')}"
@@ -46,17 +46,17 @@ class TestTokenization:  # pragma: no cover
         logger.info(double_line)
         # ---------------------------------------------------------------------------------------- #
         tokenization = container.data.tokenization()
-        tokenization.train(dataset=raw_dataset)
+        tokenization.train(dataset=dataset)
         tok1 = tokenization.tokenizer
         assert isinstance(tokenization.tokenizer, tokenizers.Tokenizer)
         assert isinstance(tokenization.filepath, str)
         assert isinstance(tokenization._vocab_size, int)
-        assert tokenization._vocab_size == 10000  # From config.yaml
+        assert tokenization._vocab_size == 30000  # From config.yaml
         tokenization.save()
         loaded_tokenization = container.data.tokenization()
         assert isinstance(loaded_tokenization.filepath, str)
         assert isinstance(loaded_tokenization._vocab_size, int)
-        assert loaded_tokenization._vocab_size == 10000  # From config.yaml
+        assert loaded_tokenization._vocab_size == 30000  # From config.yaml
         assert os.path.exists(loaded_tokenization.filepath)
         loaded_tokenization.load()
         tok2 = tokenization.tokenizer

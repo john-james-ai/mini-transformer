@@ -11,7 +11,7 @@
 # URL        : https://github.com/john-james-ai/mini-transformer                                   #
 # ------------------------------------------------------------------------------------------------ #
 # Created    : Friday August 22nd 2025 06:55:55 pm                                                 #
-# Modified   : Monday August 25th 2025 03:09:28 pm                                                 #
+# Modified   : Wednesday August 27th 2025 12:02:22 am                                              #
 # ------------------------------------------------------------------------------------------------ #
 # License    : MIT License                                                                         #
 # Copyright  : (c) 2025 John James                                                                 #
@@ -25,7 +25,8 @@ from datetime import datetime
 import pandas as pd
 import pytest
 
-from mini_transformer.data.builder.metrics import TranslationDatasetBuilderMetrics
+from mini_transformer.data.builder.extractor import TranslationDatasetExtractorMetrics
+from tests.conftest import RAW_DATASET_SIZE
 
 # ------------------------------------------------------------------------------------------------ #
 # pylint: disable=missing-class-docstring, line-too-long
@@ -52,7 +53,7 @@ class TestDataset:  # pragma: no cover
         # ---------------------------------------------------------------------------------------- #
         assert isinstance(dataset.id, str)
         assert "wmt14" in dataset.name
-        assert len(dataset) == 16
+        assert dataset.n == RAW_DATASET_SIZE
 
         # ---------------------------------------------------------------------------------------- #
         end = datetime.now()
@@ -71,25 +72,13 @@ class TestDataset:  # pragma: no cover
         )
         logger.info(double_line)
         # ---------------------------------------------------------------------------------------- #
-        assert dataset.builder_config.source_dataset_name == "wmt14"
-        assert dataset.builder_config.lang == "fr-en"
-        assert dataset.builder_config.lang_src == "en"
-        assert dataset.builder_config.lang_tgt == "fr"
-        assert dataset.builder_config.split == "test"
-        assert dataset.builder_config.n == 16
-        assert dataset.builder_config.oversample == 3
-        assert dataset.builder_config.tokens_min == 8
-        assert dataset.builder_config.tokens_max == 256
-        assert dataset.builder_config.ratio_min == 0.5
-        assert dataset.builder_config.ratio_max == 2.0
-        assert dataset.builder_config.src_bos is False
-        assert dataset.builder_config.src_eos is False
-        assert dataset.builder_config.tgt_bos is True
-        assert dataset.builder_config.tgt_eos is True
-        assert dataset.builder_config.seed == 42
-        assert dataset.builder_config.src_max_words < dataset.builder_config.tokens_max
-        assert dataset.builder_config.tgt_max_words < dataset.builder_config.tokens_max
-        logger.info(str(dataset.builder_config))
+        assert dataset.config.source_dataset_name == "wmt14"
+        assert dataset.config.lang == "fr-en"
+        assert dataset.config.lang_src == "en"
+        assert dataset.config.lang_tgt == "fr"
+        assert dataset.config.split == "test"
+        assert dataset.config.n == RAW_DATASET_SIZE
+        logger.info(str(dataset.config))
 
         # ---------------------------------------------------------------------------------------- #
         end = datetime.now()
@@ -101,15 +90,15 @@ class TestDataset:  # pragma: no cover
         logger.info(single_line)
 
     # ============================================================================================ #
-    def test_builder_metrics(self, dataset, caplog) -> None:
+    def test_metrics(self, dataset, caplog) -> None:
         start = datetime.now()
         logger.info(
             f"\n\nStarted {self.__class__.__name__} {inspect.stack()[0][3]} at {start.strftime('%I:%M:%S %p')} on {start.strftime('%m/%d/%Y')}"
         )
         logger.info(double_line)
         # ---------------------------------------------------------------------------------------- #
-        assert isinstance(dataset.builder_metrics, TranslationDatasetBuilderMetrics)
-        print(dataset.builder_metrics)
+        assert isinstance(dataset.metrics, TranslationDatasetExtractorMetrics)
+        print(dataset.metrics)
 
         # ---------------------------------------------------------------------------------------- #
         end = datetime.now()
@@ -131,10 +120,10 @@ class TestDataset:  # pragma: no cover
         assert isinstance(dataset.info, dict)
         assert "id" in dataset.info.keys()
         assert "name" in dataset.info.keys()
-        assert "size" in dataset.info.keys()
+        assert "n" in dataset.info.keys()
         assert "created" in dataset.info.keys()
 
-        assert dataset.info["size"] > 0
+        assert dataset.info["n"] > 0
         assert isinstance(dataset.info["created"], datetime)
 
         # ---------------------------------------------------------------------------------------- #
@@ -201,7 +190,7 @@ class TestDataset:  # pragma: no cover
             i += 1
             assert isinstance(row, dict)
 
-        assert i == 16
+        assert i == RAW_DATASET_SIZE
         # ---------------------------------------------------------------------------------------- #
         end = datetime.now()
         duration = round((end - start).total_seconds(), 1)
@@ -220,9 +209,8 @@ class TestDataset:  # pragma: no cover
         logger.info(double_line)
         # ---------------------------------------------------------------------------------------- #
         row = dataset[3]
-        assert row["idx"] == "e039b8a54135"
-        assert "state" in row["src"]
-        assert "installer" in row["tgt"]
+        assert "rebel" in row["en"]
+        assert "rebelle" in row["fr"]
 
         # ---------------------------------------------------------------------------------------- #
         end = datetime.now()

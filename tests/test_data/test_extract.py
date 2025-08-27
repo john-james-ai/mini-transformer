@@ -11,7 +11,7 @@
 # URL        : https://github.com/john-james-ai/mini-transformer                                   #
 # ------------------------------------------------------------------------------------------------ #
 # Created    : Monday August 25th 2025 03:22:54 pm                                                 #
-# Modified   : Monday August 25th 2025 04:06:27 pm                                                 #
+# Modified   : Tuesday August 26th 2025 11:59:22 pm                                                #
 # ------------------------------------------------------------------------------------------------ #
 # License    : MIT License                                                                         #
 # Copyright  : (c) 2025 John James                                                                 #
@@ -19,14 +19,16 @@
 import inspect
 import logging
 from datetime import datetime
+from typing import List
 
 import datasets
 import pytest
-from datasets import IterableDataset
 
+from mini_transformer.data.builder.extractor import (
+    TranslationDatasetExtractorBuilder,
+    TranslationDatasetExtractorBuilderConfig,
+)
 from mini_transformer.data.dataset import TranslationDataset
-from mini_transformer.data.extractor.config import TranslationDatasetExtractorConfig
-from mini_transformer.data.extractor.extract import TranslationDatasetExtractor
 
 # ------------------------------------------------------------------------------------------------ #
 # pylint: disable=missing-class-docstring, line-too-long
@@ -49,11 +51,11 @@ class TestExtract:  # pragma: no cover
         )
         logger.info(double_line)
         # ---------------------------------------------------------------------------------------- #
-        config = TranslationDatasetExtractorConfig(n=8)
-        extractor = TranslationDatasetExtractor(extractor_config=config)
-        dataset = extractor.extract()
+        config = TranslationDatasetExtractorBuilderConfig(n=8)
+        extractor = TranslationDatasetExtractorBuilder(config=config)
+        dataset = extractor.build()
         assert isinstance(dataset, TranslationDataset)
-        assert isinstance(dataset.data, IterableDataset)
+        assert isinstance(dataset.data, List)
         assert dataset.n == 8
         assert dataset.stage == "raw"
         print(dataset)
@@ -75,14 +77,14 @@ class TestExtract:  # pragma: no cover
         )
         logger.info(double_line)
         # ---------------------------------------------------------------------------------------- #
-        config = TranslationDatasetExtractorConfig(
+        config = TranslationDatasetExtractorBuilderConfig(
             n=8, source_dataset_name="non_existent_dataset"
         )
-        extractor = TranslationDatasetExtractor(extractor_config=config)
+        extractor = TranslationDatasetExtractorBuilder(config=config)
         with pytest.raises(
             datasets.exceptions.DatasetNotFoundError  # type: ignore[reportAttributeAccessIssue]
         ):
-            _ = extractor.extract()
+            _ = extractor.build()
         # ---------------------------------------------------------------------------------------- #
         end = datetime.now()
         duration = round((end - start).total_seconds(), 1)

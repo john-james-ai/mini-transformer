@@ -11,24 +11,12 @@
 # URL        : https://github.com/john-james-ai/mini-transformer                                   #
 # ------------------------------------------------------------------------------------------------ #
 # Created    : Friday August 22nd 2025 11:17:40 pm                                                 #
-# Modified   : Monday August 25th 2025 04:29:20 pm                                                 #
+# Modified   : Tuesday August 26th 2025 11:12:52 pm                                                #
 # ------------------------------------------------------------------------------------------------ #
 # License    : MIT License                                                                         #
 # Copyright  : (c) 2025 John James                                                                 #
 # ================================================================================================ #
 from __future__ import annotations
-
-from dataclasses import dataclass
-from datetime import datetime
-from typing import TYPE_CHECKING, Any, Dict, List, Union
-
-from mini_transformer.data.builder.metrics import TranslationDatasetBuilderMetrics
-from mini_transformer.data.extractor.config import TranslationDatasetExtractorConfig
-from mini_transformer.data.extractor.metrics import TranslationDatasetExtractorMetrics
-
-if TYPE_CHECKING:
-    from mini_transformer.data.base import MetricsCollector
-    from mini_transformer.data.base import Config
 
 import json
 from abc import ABC, abstractmethod
@@ -36,11 +24,22 @@ from collections.abc import Iterator
 from dataclasses import dataclass, replace
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import TYPE_CHECKING, Any, Dict, List, Union
 
 import pandas as pd
 
-from mini_transformer.data.builder.config import TranslationDatasetBuilderConfig
+if TYPE_CHECKING:
+    from mini_transformer.data.builder.base import MetricsCollector
+    from mini_transformer.data.builder.base import DatasetBuilderConfig
+    from mini_transformer.data.builder.data_filter import (
+        TranslationDatasetFilterBuilderConfig,
+        TranslationDatasetFilterBuilderMetrics,
+    )
+    from mini_transformer.data.builder.extractor import (
+        TranslationDatasetExtractorBuilderConfig,
+        TranslationDatasetExtractorMetrics,
+    )
+
 from mini_transformer.utils.mixins import ObjectRepresentationMixin
 
 
@@ -61,8 +60,8 @@ class Dataset(ABC, ObjectRepresentationMixin):
 
     # Provenance
     created: datetime
-    config: Union[TranslationDatasetBuilderConfig, TranslationDatasetExtractorConfig]
-    metrics: Union[TranslationDatasetBuilderMetrics, TranslationDatasetExtractorMetrics]
+    config: DatasetBuilderConfig
+    metrics: MetricsCollector
 
     def __len__(self) -> int:
         """Number of examples in the dataset.
@@ -144,6 +143,10 @@ class Dataset(ABC, ObjectRepresentationMixin):
 # ------------------------------------------------------------------------------------------------ #
 @dataclass(frozen=True)
 class TranslationDataset(Dataset):
+    config: (
+        TranslationDatasetFilterBuilderConfig | TranslationDatasetExtractorBuilderConfig
+    )
+    metrics: TranslationDatasetFilterBuilderMetrics | TranslationDatasetExtractorMetrics
     lang: str
     lang_src: str
     lang_tgt: str
@@ -167,14 +170,15 @@ class TranslationDataset(Dataset):
     def create(
         cls,
         config: Union[
-            TranslationDatasetBuilderConfig, TranslationDatasetExtractorConfig
+            TranslationDatasetFilterBuilderConfig,
+            TranslationDatasetExtractorBuilderConfig,
         ],
         metrics: Union[
-            TranslationDatasetBuilderMetrics, TranslationDatasetExtractorMetrics
+            TranslationDatasetFilterBuilderMetrics, TranslationDatasetExtractorMetrics
         ],
         data: List[Dict[str, Any]],
     ) -> TranslationDataset:
-        """Creates a TranslationDataset from a TranslationDatasetBuilderConfig.
+        """Creates a TranslationDataset from a TranslationDatasetFilterBuilderConfig.
 
         Args:
             config: The configuration to create the Dataset from.
@@ -186,7 +190,7 @@ class TranslationDataset(Dataset):
         """
         return cls(
             id=config.fingerprint,
-            name=config.name,
+            name=config.dataset_name,
             split=config.split,
             n=metrics.n,
             stage=config.stage,
