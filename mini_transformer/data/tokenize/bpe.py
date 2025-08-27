@@ -11,12 +11,13 @@
 # URL        : https://github.com/john-james-ai/mini-transformer                                   #
 # ------------------------------------------------------------------------------------------------ #
 # Created    : Monday August 25th 2025 10:59:59 am                                                 #
-# Modified   : Monday August 25th 2025 06:30:31 pm                                                 #
+# Modified   : Wednesday August 27th 2025 01:32:39 pm                                              #
 # ------------------------------------------------------------------------------------------------ #
 # License    : MIT License                                                                         #
 # Copyright  : (c) 2025 John James                                                                 #
 # ================================================================================================ #
-# %%
+"""BPE Tokenization Module"""
+import logging
 from pathlib import Path
 from typing import List, Optional
 
@@ -28,6 +29,8 @@ from tokenizers.trainers import BpeTrainer
 from mini_transformer.data.dataset import Dataset, TranslationDataset
 from mini_transformer.data.tokenize.base import Tokenization
 
+# ------------------------------------------------------------------------------------------------ #
+logger = logging.getLogger(__name__)
 # ------------------------------------------------------------------------------------------------ #
 
 
@@ -137,7 +140,6 @@ class BPETokenization(Tokenization):
         if not data:
             raise ValueError("No training text found in dataset.")
 
-        print(f"Second validation of parameters before training...")
         self._validate()
 
         # Instantiate a trainer
@@ -152,7 +154,9 @@ class BPETokenization(Tokenization):
         self._tokenizer.pre_tokenizer = Whitespace()  # type: ignore[assignment]
 
         try:
+            print(f"BPE tokenizer training on {dataset.name} started.")
             self._tokenizer.train_from_iterator(data, trainer=trainer)
+            print("BPE tokenizer training complete.")
         except Exception as e:
             raise RuntimeError("BPE training failed.") from e
 
@@ -202,9 +206,8 @@ class BPETokenization(Tokenization):
         texts = []
         # Prepare the data for training the tokenizer
         for row in dataset.data:
-            row = row.get("translation", row)
-            texts.append(row.get(dataset.config.lang_src, ""))
-            texts.append(row.get(dataset.config.lang_tgt, ""))
+            texts.append(row.get("src", ""))
+            texts.append(row.get("tgt", ""))
         return texts
 
     def _validate(self) -> None:
