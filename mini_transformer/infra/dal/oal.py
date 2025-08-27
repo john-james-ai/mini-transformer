@@ -11,7 +11,7 @@
 # URL        : https://github.com/john-james-ai/mini-transformer                                   #
 # ------------------------------------------------------------------------------------------------ #
 # Created    : Monday August 18th 2025 11:59:17 pm                                                 #
-# Modified   : Wednesday August 27th 2025 01:15:41 am                                              #
+# Modified   : Wednesday August 27th 2025 12:16:11 pm                                              #
 # ------------------------------------------------------------------------------------------------ #
 # License    : MIT License                                                                         #
 # Copyright  : (c) 2025 John James                                                                 #
@@ -29,12 +29,13 @@ from typing import Any, List
 class ObjectAccessLayer:
     def __init__(self, location: str) -> None:
         super().__init__()
+        self._location = location
         self._path = Path(os.path.join(location, "oal"))
         self._path.parent.mkdir(parents=True, exist_ok=True)
 
-    def _open(self, *, flag: str = "c"):
-        # writeback=False by default; protocol=None = highest available
-        return shelve.open(self._path, flag=flag, protocol=None)
+    @property
+    def location(self) -> str:
+        return self._location
 
     def create(self, key: str, data: Any) -> None:
         """Create a new entry. Raises if the key already exists."""
@@ -79,3 +80,7 @@ class ObjectAccessLayer:
                 return key in db
         except OSError:
             return False
+
+    def _open(self, *, flag: str = "c"):
+        # writeback=False by default; protocol=None = highest available
+        return shelve.open(self._path, flag=flag, protocol=None)

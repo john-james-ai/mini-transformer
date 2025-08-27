@@ -11,17 +11,21 @@
 # URL        : https://github.com/john-james-ai/mini-transformer                                   #
 # ------------------------------------------------------------------------------------------------ #
 # Created    : Saturday August 23rd 2025 12:02:51 am                                               #
-# Modified   : Wednesday August 27th 2025 12:40:50 am                                              #
+# Modified   : Wednesday August 27th 2025 12:57:47 pm                                              #
 # ------------------------------------------------------------------------------------------------ #
 # License    : MIT License                                                                         #
 # Copyright  : (c) 2025 John James                                                                 #
 # ================================================================================================ #
+from __future__ import annotations
+
 import logging
 import math
 import random
 from dataclasses import dataclass, field
 from hashlib import sha1
 from typing import Any, Dict, List
+
+from tqdm import tqdm
 
 from mini_transformer.data.builder.base import (
     Builder,
@@ -70,7 +74,7 @@ class TranslationDatasetBuilderFilteredConfig(DatasetBuilderConfig):
     lang: str = field(default="fr-en", metadata={"stable": True})
     lang_src: str = field(default="en", metadata={"stable": True})
     lang_tgt: str = field(default="fr", metadata={"stable": True})
-    tokens_min: int = field(default=8, metadata={"stable": True})
+    tokens_min: int = field(default=4, metadata={"stable": True})
     tokens_max: int = field(default=64, metadata={"stable": True})
     ratio_min: float = field(default=0.5, metadata={"stable": True})
     ratio_max: float = field(default=2.0, metadata={"stable": True})
@@ -105,6 +109,18 @@ class TranslationDatasetBuilderFilteredConfig(DatasetBuilderConfig):
             int: Word-count cap for target strings.
         """
         return self._compute_word_cap_from_tokens(bos=self.tgt_bos, eos=self.tgt_eos)
+
+    @classmethod
+    def from_config(
+        cls,
+        config: DatasetBuilderConfig,
+    ) -> TranslationDatasetBuilderFilteredConfig:
+        return cls(
+            source=config.source,
+            source_dataset_name=config.source_dataset_name,
+            source_dataset_url=config.source_dataset_url,
+            split=config.split,
+        )
 
     def _compute_word_cap_from_tokens(
         self, bos: bool, eos: bool, r: float = 1.3, margin: int = 8
@@ -247,6 +263,7 @@ class TranslationDatasetBuilderFiltered(Builder):
             TranslationDataset: A new, filtered dataset instance.
         """
         candidates: List[Dict[str, Any]] = []
+        pbar = tqdm(total=self._config.n)
 
         with self._metrics:
             random.seed(self._config.seed)
@@ -256,6 +273,7 @@ class TranslationDatasetBuilderFiltered(Builder):
                 self._metrics.seen += 1
                 candidate = row.get("translation", row)
                 if self._is_valid_row(candidate):
+                    pbar.update(1)
                     self._metrics.n += 1
                     candidates.append(self._parse_row(candidate))
                     if len(candidates) >= self._config.n:
@@ -268,6 +286,7 @@ class TranslationDatasetBuilderFiltered(Builder):
                 metrics=self._metrics,
                 data=candidates,
             )
+        pbar.close()
 
         return dataset
 

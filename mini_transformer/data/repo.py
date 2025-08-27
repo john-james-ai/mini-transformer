@@ -4,14 +4,14 @@
 # Project    : Mini-Transformer                                                                    #
 # Version    : 0.1.0                                                                               #
 # Python     : 3.11.13                                                                             #
-# Filename   : /mini_transformer/data/repo/dataset.py                                              #
+# Filename   : /mini_transformer/data/repo.py                                                      #
 # ------------------------------------------------------------------------------------------------ #
 # Author     : John James                                                                          #
 # Email      : john.james.ai.studio@gmail.com                                                      #
 # URL        : https://github.com/john-james-ai/mini-transformer                                   #
 # ------------------------------------------------------------------------------------------------ #
 # Created    : Tuesday August 19th 2025 06:28:04 pm                                                #
-# Modified   : Monday August 25th 2025 08:27:46 am                                                 #
+# Modified   : Wednesday August 27th 2025 12:26:33 pm                                              #
 # ------------------------------------------------------------------------------------------------ #
 # License    : MIT License                                                                         #
 # Copyright  : (c) 2025 John James                                                                 #
@@ -218,7 +218,7 @@ class DatasetRepo(ABC):
         else:
             return False
 
-    def show(self) -> pd.DataFrame:
+    def show(self, stage: str = None, split: str = None) -> pd.DataFrame:
         """Return a minimal registry of datasets as a pandas DataFrame.
 
         Columns come from each manifest's `.info` dict (kept intentionally small
@@ -252,7 +252,21 @@ class DatasetRepo(ABC):
                 continue
 
             try:
-                info = dict(meta.info)  # property returning a dict
+                meta_dict = meta.as_dict()
+                columns = [
+                    "id",
+                    "name",
+                    "stage",
+                    "split",
+                    "n",
+                    "lang",
+                    "lang_src",
+                    "lang_tgt",
+                    "source",
+                    "source_dataset_name",
+                    "created",
+                ]
+                info = {key: meta_dict[key] for key in columns if key in meta_dict}
             except Exception as e:
                 logger.debug(
                     "show(): manifest '%s' has invalid .info (%s)", dataset_id, e
@@ -266,15 +280,12 @@ class DatasetRepo(ABC):
             rows.append(info)
 
         df = pd.DataFrame(rows)
-        if not df.empty:
-            order = [
-                c for c in ("dataset_id", "name", "size", "created") if c in df.columns
-            ]
-            df = (
-                df.loc[:, order + [c for c in df.columns if c not in order]]
-                .sort_values(
-                    order[:2] or ["dataset_id"], kind="stable", na_position="last"
-                )
-                .reset_index(drop=True)
-            )
+
+        if stage is not None and split is not None:
+            df = df.loc[(df["stage"] == stage) & (df["split"] == split)]
+        elif stage is not None:
+            df = df.loc[(df["stage"] == stage)]
+        elif split is not None:
+            df = df.loc[(df["split"] == split)]
+
         return df
